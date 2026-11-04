@@ -24,7 +24,7 @@ namespace IE.Model
 
             if (remainingRadius > 0 && !hasExpanded)
             {
-                ExpandFire();
+                PropagateFire();
                 hasExpanded = true;
             }
             else
@@ -36,16 +36,32 @@ namespace IE.Model
             }
         }
 
-        private void ExpandFire()
+        private void PropagateFire()
+        {
+            GridDirection propagationDirection = GetDirection();
+
+            if (propagationDirection == GridDirection.None)
+            {
+                ExpandFireInDirection(GridDirection.Up);
+                ExpandFireInDirection(GridDirection.Down);
+                ExpandFireInDirection(GridDirection.Left);
+                ExpandFireInDirection(GridDirection.Right);
+            }
+            else
+            {
+                ExpandFireInDirection(propagationDirection);
+            }
+        }
+
+        private void ExpandFireInDirection(GridDirection propagationDirection)
         {
             Cell currentCell = GetCell();
             Arena arena = currentCell.GetArena();
-            GridDirection expansionDirection = GetDirection();
 
-            if (arena.DoesCellHaveNeighbor(currentCell, expansionDirection))
+            if (arena.DoesCellHaveNeighbor(currentCell, propagationDirection))
             {
-                Cell neighborCell = arena.GetCellNeighbor(currentCell, expansionDirection);
-                Fire newFire = new Fire(neighborCell, expansionDirection, damage, remainingRadius);
+                Cell neighborCell = arena.GetCellNeighbor(currentCell, propagationDirection);
+                Fire newFire = new Fire(neighborCell, propagationDirection, damage, remainingRadius);
                 neighborCell.AddEntity(newFire);
             }
         }

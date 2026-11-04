@@ -1,22 +1,29 @@
+using System;
+
 namespace IE.Model
 {
     public class LuckStat : Stat
-{
-    public LuckStat(StatManager statManager) : base(statManager) {}
-
-    public float RollCritMultiplier()
     {
-        return 1.0f + level * 0.05f;
-    }
+        private Random random = new Random();
 
-    public float GetCoinDropMultiplier()
-    {
-        return 1.0f + level * 0.5f;
-    }
+        public LuckStat(StatManager statManager) : base(statManager) {}
 
-    public override int GetUpgradeCost()
-    {
-        return level * 10;
+        public bool RollCrit()
+        {
+            double randomNumber = random.NextDouble();
+            double critThreshold = level * 0.05;
+
+            return randomNumber <= critThreshold;
+        }
+
+        public float GetCoinDropMultiplier()
+        {
+            return 1.0f + level * 0.5f;
+        }
+
+        public override int GetUpgradeCost()
+        {
+            return 10;
+        }
     }
-}
 }

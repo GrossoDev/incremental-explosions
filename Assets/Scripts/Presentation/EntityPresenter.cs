@@ -7,20 +7,14 @@ namespace IE.Presentation
 {
     public class EntityPresenter
     {
-        private Entity model;
-        private EntityView view;
+        protected Entity model;
+        protected EntityView view;
         private GridToPresenterConverter gridToPresenterConverter = new GridToPresenterConverter();
 
         public EntityPresenter(Entity model)
         {
             this.model = model;
-            string prefabPath = $"Prefabs/Entities/{model.GetType().Name}";
-            Debug.Log($"Loading prefab for {model.GetType().Name} from path: {prefabPath}");
-
-            GameObject prefab = Resources.Load<GameObject>(prefabPath);
-            GameObject viewObject = GameObject.Instantiate(prefab);
-            view = viewObject.GetComponent<EntityView>();
-            view.SetPresenter(this);
+            LoadView();
         }
 
         public void Tick()
@@ -46,6 +40,17 @@ namespace IE.Presentation
         public void EntityDestroyed()
         {
             view.EntityDestroyed();
+        }
+
+        private void LoadView()
+        {
+            string prefabName = model.GetType().Name;
+            string prefabPath = $"Prefabs/Entities/{prefabName}";
+
+            GameObject prefab = Resources.Load<GameObject>(prefabPath);
+            GameObject viewObject = GameObject.Instantiate(prefab);
+            view = viewObject.GetComponent<EntityView>();
+            view.SetPresenter(this);
         }
     }
 }

@@ -17,6 +17,13 @@ namespace IE.Model
         {
             return new GridPosition(X + deltaX, Y + deltaY);
         }
+        
+        public float DistanceTo(GridPosition other)
+        {
+            int deltaX = other.X - X;
+            int deltaY = other.Y - Y;
+            return (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+        }
 
         public bool Equals(GridPosition other)
         {

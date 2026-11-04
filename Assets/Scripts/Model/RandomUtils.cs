@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace IE.Model
 {
@@ -11,23 +12,11 @@ namespace IE.Model
             return random.Next(min, max);
         }
 
-        public static GridDirection GetRandomDirection()
+        public static T GetRandomItem<T>(IList<T> values)
         {
-            int directionIndex = GetRandomInt(0, 4);
+            int index = GetRandomInt(0, values.Count);
             
-            switch (directionIndex)
-            {
-                case 0:
-                    return GridDirection.Up;
-                case 1:
-                    return GridDirection.Down;
-                case 2:
-                    return GridDirection.Left;
-                case 3:
-                    return GridDirection.Right;
-                default:
-                    throw new InvalidOperationException("Invalid random direction index.");
-            }
+            return values[index];
         }
     }
 }

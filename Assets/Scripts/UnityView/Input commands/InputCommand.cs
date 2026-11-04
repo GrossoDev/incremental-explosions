@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Linq;
+using System.Collections;
 
 namespace IE.UnityView
 {
     public abstract class InputCommand : MonoBehaviour
     {
+        [SerializeField] protected float pollingIntervalInSeconds = 0.1f;
         [SerializeField] protected KeyCode[] keys;
+        private float timeSinceLastPoll = 0f;
 
-        protected void Update()
+        private void Update()
         {
             Check();
         }
@@ -18,10 +21,21 @@ namespace IE.UnityView
                 OnKeyUp();
 
             if (keys.Any(Input.GetKeyDown))
-                OnKeyDown();
+                OnKeyHeld();
 
             if (keys.Any(Input.GetKey))
-                OnKeyHeld();
+            {
+                if (timeSinceLastPoll >= pollingIntervalInSeconds)
+                {
+                    OnKeyDown();//OnKeyHeld();
+                    timeSinceLastPoll = 0f;
+                }
+                else
+                {
+                    timeSinceLastPoll += Time.deltaTime;
+                    return;
+                }
+            }
         }
 
         protected virtual void OnKeyUp() {}

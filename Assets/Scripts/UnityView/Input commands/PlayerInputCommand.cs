@@ -8,7 +8,7 @@ namespace IE.UnityView
     {
         protected PlayerPresenter playerPresenter;
 
-        protected void Awake()
+        protected void Start()
         {
             PlayerView playerView = GetComponent<PlayerView>();
             playerPresenter = playerView.GetPresenter();

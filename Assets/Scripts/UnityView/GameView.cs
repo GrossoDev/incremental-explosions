@@ -8,40 +8,54 @@ namespace IE.UnityView
 {
     public class GameView : MonoBehaviour
     {
-        public void Start()
+        StatManager stats;
+        Arena arena;
+
+        public void Awake()
         {
-            StatManager stats = StatManager.Instance;
-            Arena arena = new Arena();
+            stats = StatManager.Instance;
+            arena = new Arena();
             arena.Initialize(20, 20);
 
             stats.GetStat<RadiusStat>().Upgrade();
             stats.GetStat<RadiusStat>().Upgrade();
             stats.GetStat<RadiusStat>().Upgrade();
 
-            Cell playerCell = arena.GetCellAt(new(10,0));
+            Cell playerCell = arena.GetCellAt(new(10, 0));
             Player player = new Player(playerCell, GridDirection.Up);
             playerCell.AddEntity(player);
-            Debug.Log($"Player created at cell ({playerCell.GetPosition()})");
 
-            Cell coinCell = arena.GetCellAt(new(10,5));
-            Coin coin = new Coin(coinCell, GridDirection.Up, 10);
-            coinCell.AddEntity(coin);
-            Debug.Log($"Coin created at cell ({coinCell.GetPosition()})");
-
-            Cell zombieCell = arena.GetCellAt(new(12,7));
-            Zombie zombie = new Zombie(zombieCell, GridDirection.Up);
-            zombieCell.AddEntity(zombie);
-            Debug.Log($"Zombie created at cell ({zombieCell.GetPosition()})");
-
-            StartCoroutine(MovePlayer(player, GridDirection.Up, 10, 1.0f));
+            StartCoroutine(NewCoin());
+            StartCoroutine(NewZombie());
         }
 
-        IEnumerator MovePlayer(Player player, GridDirection direction, int steps, float delay)
+        private IEnumerator NewZombie()
         {
-            for (int i = 0; i < steps; i++)
+            while (true)
             {
-                player.MoveInDirection(direction);
-                yield return new WaitForSeconds(delay);
+                Cell zombieCell = arena.GetRandomFreeCell();
+                Zombie zombie = new Zombie(zombieCell, GridDirection.Up);
+                zombieCell.AddEntity(zombie);
+
+                yield return new WaitForSeconds(1);
+
+                Cell skeletonCell = arena.GetRandomFreeCell();
+                Skeleton skeleton = new Skeleton(skeletonCell, GridDirection.Up);
+                skeletonCell.AddEntity(skeleton);
+
+                yield return new WaitForSeconds(1);
+            }
+        }
+
+        private IEnumerator NewCoin()
+        {
+            while (true)
+            {
+                Cell coinCell = arena.GetRandomFreeCell();
+                Coin coin = new Coin(coinCell, GridDirection.Up, 10);
+                coinCell.AddEntity(coin);
+                
+                yield return new WaitForSeconds(3);
             }
         }
     }

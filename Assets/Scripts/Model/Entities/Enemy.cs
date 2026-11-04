@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace IE.Model
 {
@@ -22,40 +23,42 @@ namespace IE.Model
                 Die();
             }
         }
+
+        protected bool DoesCellHaveEnemies(Cell cell)
+        {
+            Enemy[] enemiesInNeighbourCell = cell.GetEntitiesOfType<Enemy>();
+                    
+            return enemiesInNeighbourCell.Length != 0;
+        }
+
+        protected List<GridDirection> DirectionsWithNoEnemies()
+        {
+            Arena arena = GetArena();
+            Cell currentCell = GetCell();
+            List<GridDirection> freeDirections = new List<GridDirection>();
+            List<GridDirection> searchDirections = new List<GridDirection>()
+            {
+                GridDirection.Up,
+                GridDirection.Down,
+                GridDirection.Left,
+                GridDirection.Right
+            };
+
+            foreach (var direction in searchDirections)
+            {
+                if (arena.DoesCellHaveNeighbor(currentCell, direction))
+                {
+                    Cell neighbourCell = arena.GetCellNeighbor(currentCell, direction);
+                    
+                    if (!DoesCellHaveEnemies(neighbourCell))
+                        freeDirections.Add(direction);
+                }
+            }
+
+            return freeDirections;
+        }
+
         public abstract void Tick();
         public abstract void Die();
-    }
-
-    public class Zombie : Enemy
-    {
-        private int ticksBetweenMoves = 50;
-        private int ticksSinceLastMove = 0;
-        
-        public Zombie(Cell cell, GridDirection direction) : base(cell, direction) {}
-
-        public override void Tick()
-        {
-            MoveRandomly();
-        }
-
-        public override void Die()
-        {
-            DestroyEntity();
-        }
-
-        private void MoveRandomly()
-        {
-            if (ticksSinceLastMove >= ticksBetweenMoves)
-            {
-                GridDirection randomDirection = RandomUtils.GetRandomDirection();
-                MoveInDirection(randomDirection);
-
-                ticksSinceLastMove = 0;
-            }
-            else
-            {
-                ticksSinceLastMove++;
-            }
-        }
     }
 }

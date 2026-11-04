@@ -12,9 +12,7 @@ namespace IE.Model
         {
             this.occupiedCell = cell;
             this.direction = direction;
-            this.presenter = new EntityPresenter(this);
-            presenter.UpdatePosition(cell.GetPosition());
-            presenter.UpdateDirection(direction);
+            CreatePresenter();
         }
 
         public Arena GetArena()
@@ -43,28 +41,36 @@ namespace IE.Model
             presenter.UpdateDirection(direction);
         }
 
+        public void MoveToCell(Cell targetCell)
+        {
+            Cell currentCell = GetCell();
+
+            currentCell.RemoveEntity(this);
+            targetCell.AddEntity(this);
+
+            ITouchable[] touchedEntities = targetCell.GetEntitiesOfType<ITouchable>();
+
+            foreach (ITouchable entitity in touchedEntities)
+            {
+                entitity.Touch(this);
+            }
+
+            occupiedCell = targetCell;
+            presenter.UpdatePosition(targetCell.GetPosition());
+        }
+
         public void MoveInDirection(GridDirection direction)
         {
             Arena arena = GetArena();
             Cell currentCell = GetCell();
 
+            SetDirection(direction);
+            
             if (arena.DoesCellHaveNeighbor(currentCell, direction))
             {
                 Cell targetCell = arena.GetCellNeighbor(currentCell, direction);
 
-                currentCell.RemoveEntity(this);
-                targetCell.AddEntity(this);
-
-                ITouchable[] touchedEntities = targetCell.GetEntitiesOfType<ITouchable>();
-
-                foreach (ITouchable entitity in touchedEntities)
-                {
-                    entitity.Touch(this);
-                }
-
-                occupiedCell = targetCell;
-                SetDirection(direction);
-                presenter.UpdatePosition(targetCell.GetPosition());
+                MoveToCell(targetCell);
             }
         }
 
@@ -72,6 +78,13 @@ namespace IE.Model
         {
             occupiedCell.RemoveEntity(this);
             presenter.EntityDestroyed();
+        }
+
+        protected virtual void CreatePresenter()
+        {
+            this.presenter = new EntityPresenter(this);
+            presenter.UpdatePosition(occupiedCell.GetPosition());
+            presenter.UpdateDirection(direction);
         }
     }
 }

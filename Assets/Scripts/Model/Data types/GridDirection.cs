@@ -44,6 +44,7 @@ namespace IE.Model
         public static bool operator ==(GridDirection left, GridDirection right) => left.Equals(right);
         public static bool operator !=(GridDirection left, GridDirection right) => !left.Equals(right);
 
+        public static GridDirection None => new GridDirection(0, 0);
         public static GridDirection Up => new GridDirection(0, 1);
         public static GridDirection Down => new GridDirection(0, -1);
         public static GridDirection Left => new GridDirection(-1, 0);
