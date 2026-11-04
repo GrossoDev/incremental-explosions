@@ -21,13 +21,13 @@ namespace IE.UnityView
                 OnKeyUp();
 
             if (keys.Any(Input.GetKeyDown))
-                OnKeyHeld();
+                OnKeyDown();
 
             if (keys.Any(Input.GetKey))
             {
                 if (timeSinceLastPoll >= pollingIntervalInSeconds)
                 {
-                    OnKeyDown();//OnKeyHeld();
+                    OnKeyHeld();
                     timeSinceLastPoll = 0f;
                 }
                 else
