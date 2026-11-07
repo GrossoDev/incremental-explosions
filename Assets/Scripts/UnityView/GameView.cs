@@ -3,60 +3,88 @@ using System.Collections;
 using IE.Model;
 using IE.Presentation;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace IE.UnityView
 {
     public class GameView : MonoBehaviour
     {
-        StatManager stats;
+        [SerializeField] private GameObject devPanel;
+        Game game;
         Arena arena;
+        RadiusStat radiusStat;
+        TimeStat timeStat;
+        SpeedStat speedStat;
+        DamageStat damageStat;
+        LuckStat luckStat;
 
         public void Awake()
         {
-            stats = StatManager.Instance;
-            arena = new Arena();
-            arena.Initialize(20, 20);
+            game = Game.Instance;
+            game.Initialize();
 
-            stats.GetStat<RadiusStat>().Upgrade();
-            stats.GetStat<RadiusStat>().Upgrade();
-            stats.GetStat<RadiusStat>().Upgrade();
+            arena = game.GetArena();
 
-            Cell playerCell = arena.GetCellAt(new(10, 0));
-            Player player = new Player(playerCell, GridDirection.Up);
-            playerCell.AddEntity(player);
-
-            StartCoroutine(NewCoin());
-            StartCoroutine(NewZombie());
+            radiusStat = game.GetStat<RadiusStat>();
+            timeStat = game.GetStat<TimeStat>();
+            speedStat = game.GetStat<SpeedStat>();
+            damageStat = game.GetStat<DamageStat>();
+            luckStat = game.GetStat<LuckStat>();
         }
 
-        private IEnumerator NewZombie()
+        [ShowNativeProperty]
+        private string RadiusStat => radiusStat is null ? "" : $"{radiusStat.GetRadius()}\t at level {radiusStat.GetLevel()}\t ${radiusStat.GetUpgradeCost()} to upgrade";
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        private void UpgradeRadius() => radiusStat.Upgrade();
+
+        [ShowNativeProperty]
+        private string TimeStat => timeStat is null ? "" : $"{timeStat.GetRoundTime()}\t at level {timeStat.GetLevel()}\t ${timeStat.GetUpgradeCost()} to upgrade";
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        private void UpgradeTime() => timeStat.Upgrade();
+
+        [ShowNativeProperty]
+        private string SpeedStat => speedStat is null ? "" : $"{speedStat.GetTicksBetweenAttacks()}\t at level {speedStat.GetLevel()}\t ${speedStat.GetUpgradeCost()} to upgrade";
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        private void UpgradeSpeed() => speedStat.Upgrade();
+
+        [ShowNativeProperty]
+        private string DamageStat => damageStat is null ? "" : $"{damageStat.GetDamage()}\t at level {damageStat.GetLevel()}\t ${damageStat.GetUpgradeCost()} to upgrade";
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        private void UpgradeDamage() => damageStat.Upgrade();
+
+        [ShowNativeProperty]
+        private string LuckStat => luckStat is null ? "" : $"{luckStat.GetCoinDropMultiplier()}\t at level {luckStat.GetLevel()}\t ${luckStat.GetUpgradeCost()} to upgrade";
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        private void UpgradeLuck() => luckStat.Upgrade();
+
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        private void SpawnZombie()
         {
-            while (true)
-            {
-                Cell zombieCell = arena.GetRandomFreeCell();
-                Zombie zombie = new Zombie(zombieCell, GridDirection.Up);
-                zombieCell.AddEntity(zombie);
-
-                yield return new WaitForSeconds(1);
-
-                Cell skeletonCell = arena.GetRandomFreeCell();
-                Skeleton skeleton = new Skeleton(skeletonCell, GridDirection.Up);
-                skeletonCell.AddEntity(skeleton);
-
-                yield return new WaitForSeconds(1);
-            }
+            Cell zombieCell = arena.GetRandomFreeCell();
+            Zombie zombie = new Zombie(zombieCell, GridDirection.Up);
+            zombieCell.AddEntity(zombie);
         }
 
-        private IEnumerator NewCoin()
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        private void SpawnSkeleton()
         {
-            while (true)
-            {
-                Cell coinCell = arena.GetRandomFreeCell();
-                Coin coin = new Coin(coinCell, GridDirection.Up, 10);
-                coinCell.AddEntity(coin);
-                
-                yield return new WaitForSeconds(3);
-            }
+            Cell skeletonCell = arena.GetRandomFreeCell();
+            Skeleton skeleton = new Skeleton(skeletonCell, GridDirection.Up);
+            skeletonCell.AddEntity(skeleton);
+        }
+
+        [Button(enabledMode: EButtonEnableMode.Playmode)]
+        private void SpawnCoin()
+        {
+            Cell skeletonCell = arena.GetRandomFreeCell();
+            Coin skeleton = new Coin(skeletonCell, GridDirection.Up, 10);
+            skeletonCell.AddEntity(skeleton);
+        }
+
+        public void ToggleDevPanel()
+        {
+            bool previousState = devPanel.activeSelf;
+            devPanel.SetActive(!previousState);
         }
     }
 }

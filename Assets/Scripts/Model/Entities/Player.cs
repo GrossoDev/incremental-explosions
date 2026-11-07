@@ -7,15 +7,18 @@ namespace IE.Model
 {
     public class Player : Entity, ITickable, ICoinCollector
     {
-        private int ticksBetweenAttacks = 50;
         private int ticksSinceLastAttack = 1;
-        private StatManager statManager;
-        public static Player Instance { get; private set; }
+        private SpeedStat speedStat;
+        private DamageStat damageStat;
+        private RadiusStat radiusStat;
+        private Game game;
 
         public Player(Cell cell, GridDirection direction) : base(cell, direction)
         {
-            statManager = StatManager.Instance;
-            Instance = this;
+            this.game = Game.Instance;
+            this.speedStat  = game.GetStat<SpeedStat>();
+            this.damageStat = game.GetStat<DamageStat>();
+            this.radiusStat = game.GetStat<RadiusStat>();
         }
 
         public void Tick()
@@ -25,11 +28,13 @@ namespace IE.Model
 
         public void CollectedCoin(int value)
         {
-            statManager.AddCoins(value);
+            game.AddCoins(value);
         }
 
         private void AttackTick()
         {
+            int ticksBetweenAttacks = speedStat.GetTicksBetweenAttacks();
+
             if (ticksSinceLastAttack >= ticksBetweenAttacks)
             {
                 CreateFireInCell();
@@ -45,8 +50,8 @@ namespace IE.Model
         {
             Cell cell = GetCell();
 
-            int fireDamage = statManager.GetStat<DamageStat>().GetDamage();
-            int fireRadius = statManager.GetStat<RadiusStat>().GetRadius();
+            int fireDamage = damageStat.GetDamage();
+            int fireRadius = radiusStat.GetRadius();
 
             Fire fire = new Fire(cell, GridDirection.None, fireDamage, fireRadius);
             cell.AddEntity(fire);

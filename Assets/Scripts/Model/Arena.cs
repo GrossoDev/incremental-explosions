@@ -62,7 +62,7 @@ namespace IE.Model
             return true;
         }
 
-        public Cell GetRandomCellWithFreeSurroundings(int radius = 1)
+        public Cell GetRandomFreeCell(int radius = 0)
         {
             for (int attempts = 0; attempts < MaxAttemptsToFindFreeCell; attempts++)
             {
@@ -72,24 +72,9 @@ namespace IE.Model
                 GridPosition position = new GridPosition(column, row);
                 Cell cell = GetCellAt(position);
 
-                if (AreSurroundingsFree(cell, radius))
+                if (radius == 0 && !cell.HasEntities())
                     return cell;
-            }
-
-            throw new TimeoutException($"Couldn't find a random cell with {radius} free cells around it after {MaxAttemptsToFindFreeCell} attempts.");
-        }
-
-        public Cell GetRandomFreeCell()
-        {
-            for (int attempts = 0; attempts < MaxAttemptsToFindFreeCell; attempts++)
-            {
-                int row = random.Next(0, height);
-                int column = random.Next(0, width);
-
-                GridPosition position = new GridPosition(column, row);
-                Cell cell = GetCellAt(position);
-
-                if (!cell.HasEntities())
+                else if (radius > 0 && AreSurroundingsFree(cell, radius))
                     return cell;
             }
 

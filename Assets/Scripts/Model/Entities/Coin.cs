@@ -9,6 +9,11 @@ namespace IE.Model
             this.value = value;
         }
 
+        public int GetValue()
+        {
+            return value;
+        }
+
         public void Touch(Entity toucher)
         {
             if (toucher is ICoinCollector collector)

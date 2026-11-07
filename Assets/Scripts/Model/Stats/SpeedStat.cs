@@ -1,17 +1,17 @@
+using System;
+
 namespace IE.Model
 {
     public class SpeedStat : Stat
-{
-    public SpeedStat(StatManager statManager) : base(statManager) {}
-
-    public float GetTicksBetweenExplosions()
     {
-        return 100 - level * 10;
-    }
+        public int GetTicksBetweenAttacks()
+        {
+            return Math.Max(100 - level * 10, 1);
+        }
 
-    public override int GetUpgradeCost()
-    {
-        return level * 10;
+        public override int GetUpgradeCost()
+        {
+            return level * 10;
+        }
     }
-}
 }

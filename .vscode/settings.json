@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "incremental-explosions.sln"
+    "dotnet.defaultSolution": "incremental-explosions.sln",
+    "dotnet.preferCSharpExtension": true
 }
