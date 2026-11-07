@@ -1,3 +1,5 @@
+using System;
+
 namespace IE.Model
 {
     public abstract class Stat
@@ -7,6 +9,11 @@ namespace IE.Model
         public void Upgrade()
         {
             level++;
+        }
+
+        public void Downgrade()
+        {
+            level = Math.Max(0, level - 1);
         }
 
         public int GetLevel()
