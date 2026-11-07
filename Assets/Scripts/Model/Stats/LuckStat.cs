@@ -9,9 +9,14 @@ namespace IE.Model
         public bool RollCrit()
         {
             double randomNumber = random.NextDouble();
-            double critThreshold = level * 0.05;
+            double critThreshold = GetCritChance();
 
             return randomNumber <= critThreshold;
+        }
+
+        public float GetCritChance()
+        {
+            return level * 0.05f;
         }
 
         public float GetCoinDropMultiplier()
@@ -21,7 +26,15 @@ namespace IE.Model
 
         public override int GetUpgradeCost()
         {
-            return 10;
+            return level * level * level;
+        }
+
+        public override string ToString()
+        {
+            decimal coinDropMultiplier = decimal.Round((decimal)GetCoinDropMultiplier(), 2);
+            int critChance = (int)(GetCritChance() * 100);
+
+            return $"Luck = coin drop mult: {coinDropMultiplier}, crit chance: {critChance}% at level {GetLevel()} (costs ${GetUpgradeCost()} to upgrade)";
         }
     }
 }

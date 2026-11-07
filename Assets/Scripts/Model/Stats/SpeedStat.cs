@@ -13,5 +13,10 @@ namespace IE.Model
         {
             return level * 10;
         }
+
+        public override string ToString()
+        {
+            return $"Speed = {GetTicksBetweenAttacks()} at level {GetLevel()} (costs ${GetUpgradeCost()} to upgrade)";
+        }
     }
 }

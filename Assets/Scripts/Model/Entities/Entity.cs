@@ -13,8 +13,9 @@ namespace IE.Model
 
         protected Entity(Cell cell, GridDirection direction)
         {
-            this.occupiedCell = cell;
             this.direction = direction;
+            this.occupiedCell = cell;
+            cell.AddEntity(this);
             CreatePresenter();
             InteractWithOtherEntitiesInSameCell();
         }

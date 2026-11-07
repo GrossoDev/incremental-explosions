@@ -51,7 +51,6 @@ namespace IE.Model
             int fireRadius = radiusStat.GetRadius();
 
             Fire fire = new Fire(cell, GridDirection.None, fireDamage, fireRadius);
-            cell.AddEntity(fire);
         }
 
         protected override void CreatePresenter()

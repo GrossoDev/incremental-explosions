@@ -1,6 +1,6 @@
 namespace IE.Model
 {
-    public class PlayerAndCoinInteraction : Interaction<Player, Coin>
+    public class PlayerTouchedCoin : Interaction<Player, Coin>
     {
         public override void Interacted(Player player, Coin coin)
         {

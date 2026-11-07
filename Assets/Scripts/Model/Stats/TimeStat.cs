@@ -11,5 +11,10 @@ namespace IE.Model
         {
             return level * 10;
         }
+
+        public override string ToString()
+        {
+            return $"Round time = {GetRoundTime()} at level {GetLevel()} (costs ${GetUpgradeCost()} to upgrade)";
+        }
     }
 }

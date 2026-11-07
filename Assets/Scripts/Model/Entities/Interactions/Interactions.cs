@@ -6,7 +6,6 @@ namespace IE.Model
 {
     public static class Interactions
     {
-        private static Dictionary<Type, List<Type>> registry = new Dictionary<Type, List<Type>>();
         private static Dictionary<Type, List<Type>> interactionsPerEntityType = new Dictionary<Type, List<Type>>();
 
         static Interactions()
@@ -76,7 +75,7 @@ namespace IE.Model
 
             if (interactionsPerEntityType.ContainsKey(entityType))
             {
-                typeList = registry[entityType];
+                typeList = interactionsPerEntityType[entityType];
             }
             else
             {

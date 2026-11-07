@@ -62,7 +62,6 @@ namespace IE.UnityView
         {
             Cell zombieCell = arena.GetRandomFreeCell();
             Zombie zombie = new Zombie(zombieCell, GridDirection.Up);
-            zombieCell.AddEntity(zombie);
         }
 
         [Button(enabledMode: EButtonEnableMode.Playmode)]
@@ -70,7 +69,6 @@ namespace IE.UnityView
         {
             Cell skeletonCell = arena.GetRandomFreeCell();
             Skeleton skeleton = new Skeleton(skeletonCell, GridDirection.Up);
-            skeletonCell.AddEntity(skeleton);
         }
 
         [Button(enabledMode: EButtonEnableMode.Playmode)]
@@ -78,7 +76,6 @@ namespace IE.UnityView
         {
             Cell skeletonCell = arena.GetRandomFreeCell();
             Coin skeleton = new Coin(skeletonCell, GridDirection.Up, 10);
-            skeletonCell.AddEntity(skeleton);
         }
 
         public void ToggleDevPanel()

@@ -60,7 +60,6 @@ namespace IE.Model
             {
                 Cell neighborCell = arena.GetCellNeighbor(currentCell, propagationDirection);
                 Fire newFire = new Fire(neighborCell, propagationDirection, damage, remainingRadius);
-                neighborCell.AddEntity(newFire);
             }
         }
     }

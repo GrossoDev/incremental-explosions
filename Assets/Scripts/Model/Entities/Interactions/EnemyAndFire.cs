@@ -1,6 +1,6 @@
 namespace IE.Model
 {
-    public class EnemyAndFireInteraction : Interaction<Enemy, Fire>
+    public class EnemyTouchedFire : Interaction<Enemy, Fire>
     {
         public override void Interacted(Enemy enemy, Fire fire)
         {
@@ -9,7 +9,7 @@ namespace IE.Model
         }
     }
 
-    public class FireAndEnemyInteraction : Interaction<Fire, Enemy>
+    public class FireTouchedEnemy : Interaction<Fire, Enemy>
     {
         public override void Interacted(Fire fire, Enemy enemy)
         {

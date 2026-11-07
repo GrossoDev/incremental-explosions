@@ -4,12 +4,17 @@ namespace IE.Model
     {
         public int GetRadius()
         {
-            return level;
+            return 2 + level;
         }
 
         public override int GetUpgradeCost()
         {
-            return level * 10;
+            return level * level * 10;
+        }
+
+        public override string ToString()
+        {
+            return $"Radius = {GetRadius()} at level {GetLevel()} (costs ${GetUpgradeCost()} to upgrade)";
         }
     }
 }

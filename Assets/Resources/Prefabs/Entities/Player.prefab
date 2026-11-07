@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbe89a2efe156b49b189dd4efbb58ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pollingIntervalInSeconds: 0.1
   keys: 7700000011010000
 --- !u!114 &5698661295798025903
 MonoBehaviour:
@@ -75,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d477049742c23642b6693f4f503c883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pollingIntervalInSeconds: 0.1
   keys: 7300000012010000
 --- !u!114 &5192757315777211800
 MonoBehaviour:
@@ -88,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5e9af3ea9562e478620a001d0f9952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pollingIntervalInSeconds: 0.1
   keys: 6100000014010000
 --- !u!114 &7886195533050041675
 MonoBehaviour:
@@ -101,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd37ab0c18d8b548ae98e98d3c3d836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pollingIntervalInSeconds: 0.1
   keys: 6400000013010000
 --- !u!1 &6611601488309513156
 GameObject:
@@ -196,7 +200,6 @@ GameObject:
   - component: {fileID: 8275598643759273783}
   - component: {fileID: 2550889842062432083}
   - component: {fileID: 7281432475318545336}
-  - component: {fileID: 7245722066348546073}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -269,26 +272,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7245722066348546073
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7873071564408070959}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
