@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "b11d62b28c5fcbe242988f9f8d451deb925cf23b"
     },
+    "com.unity.ide.visualstudio": {
+      "version": "2.0.29",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.ide.vscode": {
       "version": "1.2.5",
       "depth": 0,

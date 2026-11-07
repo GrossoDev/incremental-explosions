@@ -2,7 +2,7 @@ namespace IE.Model
 {
     public class Fire : Entity, ITickable
     {
-        private int damage = 1;
+        private int damage = 10;
         private int durationInTicks = 10;
         private int remainingRadius = 1;
         private bool hasExpanded = false;
@@ -20,8 +20,6 @@ namespace IE.Model
 
         public void Tick()
         {
-            BurnOtherEntitiesInCell();
-
             if (remainingRadius > 0 && !hasExpanded)
             {
                 PropagateFire();
@@ -63,17 +61,6 @@ namespace IE.Model
                 Cell neighborCell = arena.GetCellNeighbor(currentCell, propagationDirection);
                 Fire newFire = new Fire(neighborCell, propagationDirection, damage, remainingRadius);
                 neighborCell.AddEntity(newFire);
-            }
-        }
-
-        private void BurnOtherEntitiesInCell()
-        {
-            Cell cellOnFire = GetCell();
-            IHurtable[] burntEntities = cellOnFire.GetEntitiesOfType<IHurtable>();
-
-            foreach (var entity in burntEntities)
-            {
-                entity.Hurted(this, damage);
             }
         }
     }

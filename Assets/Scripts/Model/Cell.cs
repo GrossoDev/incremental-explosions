@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace IE.Model
 {
@@ -39,6 +40,11 @@ namespace IE.Model
         public EntityType[] GetEntitiesOfType<EntityType>()
         {
             return entities.OfType<EntityType>().ToArray();
+        }
+
+        public Entity[] GetEntitiesOfType(Type type)
+        {
+            return entities.Where(entity => entity.GetType() == type).ToArray();
         }
 
         public Arena GetArena()

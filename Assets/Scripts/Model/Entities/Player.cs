@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using IE.Presentation;
 
 namespace IE.Model
 {
-    public class Player : Entity, ITickable, ICoinCollector
+    public class Player : Entity, ITickable
     {
         private int ticksSinceLastAttack = 1;
         private SpeedStat speedStat;

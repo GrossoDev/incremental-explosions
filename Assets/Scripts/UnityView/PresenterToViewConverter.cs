@@ -19,6 +19,9 @@ namespace IE.Presentation
         {
             Vector3 forward = new Vector3(presenterDirection.DeltaX, 0, presenterDirection.DeltaY);
 
+            if (forward == Vector3.zero)
+                return Quaternion.identity;
+
             return Quaternion.LookRotation(forward);
         }
 

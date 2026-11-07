@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IE.Model
 {
-    public abstract class Enemy : Entity, ITickable, IHurtable
+    public abstract class Enemy : Entity, ITickable
     {
         private int maxHealth;
         private int remainingHealth;

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using IE.Presentation;
 
 namespace IE.Model
@@ -13,6 +16,7 @@ namespace IE.Model
             this.occupiedCell = cell;
             this.direction = direction;
             CreatePresenter();
+            InteractWithOtherEntitiesInSameCell();
         }
 
         public Arena GetArena()
@@ -47,16 +51,18 @@ namespace IE.Model
 
             currentCell.RemoveEntity(this);
             targetCell.AddEntity(this);
-
-            ITouchable[] touchedEntities = targetCell.GetEntitiesOfType<ITouchable>();
-
-            foreach (ITouchable entitity in touchedEntities)
-            {
-                entitity.Touch(this);
-            }
-
             occupiedCell = targetCell;
             presenter.UpdatePosition(targetCell.GetPosition());
+
+            InteractWithOtherEntitiesInSameCell();
+        }
+
+        private void InteractWithOtherEntitiesInSameCell()
+        {
+            var currentCell = GetCell();
+            var otherEntities = currentCell.GetAllEntities().Where(entity => entity != this);
+
+            Interactions.CreateBetween(this, otherEntities);
         }
 
         public void MoveInDirection(GridDirection direction)
