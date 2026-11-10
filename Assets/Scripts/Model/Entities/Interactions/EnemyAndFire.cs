@@ -5,7 +5,7 @@ namespace IE.Model
         public override void Interacted(Enemy enemy, Fire fire)
         {
             int damage = fire.GetDamage();
-            enemy.Hurted(fire, damage);
+            enemy.Hurt(damage);
         }
     }
 
@@ -14,7 +14,7 @@ namespace IE.Model
         public override void Interacted(Fire fire, Enemy enemy)
         {
             int damage = fire.GetDamage();
-            enemy.Hurted(fire, damage);
+            enemy.Hurt(damage);
         }
     }
 }

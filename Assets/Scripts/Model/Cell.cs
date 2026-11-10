@@ -42,11 +42,6 @@ namespace IE.Model
             return entities.OfType<EntityType>().ToArray();
         }
 
-        public Entity[] GetEntitiesOfType(Type type)
-        {
-            return entities.Where(entity => entity.GetType() == type).ToArray();
-        }
-
         public Arena GetArena()
         {
             return arena;

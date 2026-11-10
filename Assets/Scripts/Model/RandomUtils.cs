@@ -7,9 +7,9 @@ namespace IE.Model
     {
         private static Random random = new Random();
 
-        public static int GetRandomInt(int min, int max)
+        public static int GetRandomInt(int minInclusive, int maxExclusive)
         {
-            return random.Next(min, max);
+            return random.Next(minInclusive, maxExclusive);
         }
 
         public static T GetRandomItem<T>(IList<T> values)

@@ -19,10 +19,7 @@ namespace IE.Presentation
 
         public void Tick()
         {
-            if (model is ITickable tickable)
-            {
-                tickable.Tick();
-            }
+            model.Tick();
         }
 
         public void UpdatePosition(GridPosition newPosition)

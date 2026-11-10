@@ -2,7 +2,7 @@ using IE.Presentation;
 
 namespace IE.Model
 {
-    public class Player : Entity, ITickable
+    public class Player : Entity
     {
         private int ticksSinceLastAttack = 1;
         private SpeedStat speedStat;
@@ -18,7 +18,7 @@ namespace IE.Model
             this.radiusStat = game.GetStat<RadiusStat>();
         }
 
-        public void Tick()
+        public override void Tick()
         {
             AttackTick();
         }

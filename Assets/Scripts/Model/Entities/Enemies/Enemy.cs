@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace IE.Model
 {
-    public abstract class Enemy : Entity, ITickable
+    public abstract class Enemy : Entity
     {
-        private int maxHealth;
-        private int remainingHealth;
+        protected int maxHealth;
+        protected int remainingHealth;
 
         protected Enemy(Cell cell, GridDirection direction) : base(cell, direction)
         {
@@ -14,7 +14,7 @@ namespace IE.Model
             this.remainingHealth = maxHealth;
         }
 
-        public virtual void Hurted(Entity attacker, int damage)
+        public virtual void Hurt(int damage)
         {
             remainingHealth = Math.Max(0, remainingHealth - damage);
 
@@ -46,9 +46,9 @@ namespace IE.Model
 
             foreach (var direction in searchDirections)
             {
-                if (arena.DoesCellHaveNeighbor(currentCell, direction))
+                if (arena.HasNeighbourCell(currentCell, direction))
                 {
-                    Cell neighbourCell = arena.GetCellNeighbor(currentCell, direction);
+                    Cell neighbourCell = arena.GetCellNeighbour(currentCell, direction);
                     
                     if (!DoesCellHaveEnemies(neighbourCell))
                         freeDirections.Add(direction);
@@ -58,7 +58,6 @@ namespace IE.Model
             return freeDirections;
         }
 
-        public abstract void Tick();
         public abstract void Die();
     }
 }

@@ -1,6 +1,6 @@
 namespace IE.Model
 {
-    public class Fire : Entity, ITickable
+    public class Fire : Entity
     {
         private int damage = 10;
         private int durationInTicks = 10;
@@ -18,7 +18,7 @@ namespace IE.Model
             return damage;
         }
 
-        public void Tick()
+        public override void Tick()
         {
             if (remainingRadius > 0 && !hasExpanded)
             {
@@ -56,9 +56,9 @@ namespace IE.Model
             Cell currentCell = GetCell();
             Arena arena = currentCell.GetArena();
 
-            if (arena.DoesCellHaveNeighbor(currentCell, propagationDirection))
+            if (arena.HasNeighbourCell(currentCell, propagationDirection))
             {
-                Cell neighborCell = arena.GetCellNeighbor(currentCell, propagationDirection);
+                Cell neighborCell = arena.GetCellNeighbour(currentCell, propagationDirection);
                 Fire newFire = new Fire(neighborCell, propagationDirection, damage, remainingRadius);
             }
         }

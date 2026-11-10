@@ -27,7 +27,12 @@ namespace IE.Presentation
 
         public PresenterDirection ToPresenterDirection(Quaternion viewDirection)
         {
-            throw new NotImplementedException();
+            Vector3 direction = viewDirection * Vector3.forward;
+
+            int deltaX = (int)Math.Round(direction.x);
+            int deltaY = (int)Math.Round(direction.z);
+
+            return new PresenterDirection(deltaX, deltaY);
         }
     }
 }

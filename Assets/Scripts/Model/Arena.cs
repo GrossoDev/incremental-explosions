@@ -81,7 +81,7 @@ namespace IE.Model
             throw new TimeoutException($"Couldn't find a random free cell after {MaxAttemptsToFindFreeCell} attempts.");
         }
 
-        public bool DoesCellHaveNeighbor(Cell center, GridDirection direction)
+        public bool HasNeighbourCell(Cell center, GridDirection direction)
         {
             GridPosition centerPosition = center.GetPosition();
             GridPosition neighborPosition = centerPosition.Add(direction.DeltaX, direction.DeltaY);
@@ -89,7 +89,7 @@ namespace IE.Model
             return IsInsideArena(neighborPosition);
         }
 
-        public Cell GetCellNeighbor(Cell center, GridDirection direction)
+        public Cell GetCellNeighbour(Cell center, GridDirection direction)
         {
             GridPosition centerPosition = center.GetPosition();
             GridPosition neighborPosition = centerPosition.Add(direction.DeltaX, direction.DeltaY);

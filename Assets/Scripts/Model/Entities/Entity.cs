@@ -58,27 +58,27 @@ namespace IE.Model
             InteractWithOtherEntitiesInSameCell();
         }
 
+        public void MoveInDirection(GridDirection direction)
+        {
+            var arena = GetArena();
+            var currentCell = GetCell();
+
+            SetDirection(direction);
+            
+            if (arena.HasNeighbourCell(currentCell, direction))
+            {
+                var targetCell = arena.GetCellNeighbour(currentCell, direction);
+
+                MoveToCell(targetCell);
+            }
+        }
+
         private void InteractWithOtherEntitiesInSameCell()
         {
             var currentCell = GetCell();
             var otherEntities = currentCell.GetAllEntities().Where(entity => entity != this);
 
-            Interactions.CreateBetween(this, otherEntities);
-        }
-
-        public void MoveInDirection(GridDirection direction)
-        {
-            Arena arena = GetArena();
-            Cell currentCell = GetCell();
-
-            SetDirection(direction);
-            
-            if (arena.DoesCellHaveNeighbor(currentCell, direction))
-            {
-                Cell targetCell = arena.GetCellNeighbor(currentCell, direction);
-
-                MoveToCell(targetCell);
-            }
+            InteractionSystem.CreateBetween(this, otherEntities);
         }
 
         public void DestroyEntity()
@@ -93,5 +93,7 @@ namespace IE.Model
             presenter.UpdatePosition(occupiedCell.GetPosition());
             presenter.UpdateDirection(direction);
         }
+
+        public virtual void Tick() {}
     }
 }
