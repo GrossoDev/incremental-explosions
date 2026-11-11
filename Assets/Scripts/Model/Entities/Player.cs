@@ -54,6 +54,21 @@ namespace IE.Model
             Fire fire = new Fire(cell, GridDirection.None, fireDamage, fireRadius);
         }
 
+        public void MoveInDirection(GridDirection direction)
+        {
+            var arena = GetArena();
+            var currentCell = GetCell();
+
+            SetDirection(direction);
+            
+            if (arena.HasNeighbourCell(currentCell, direction))
+            {
+                var targetCell = arena.GetCellNeighbour(currentCell, direction);
+
+                MoveToCell(targetCell);
+            }
+        }
+
         protected override void CreatePresenter()
         {
             presenter = new PlayerPresenter(this);

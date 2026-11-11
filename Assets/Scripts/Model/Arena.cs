@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IE.Model
 {
@@ -8,6 +9,7 @@ namespace IE.Model
         private int width = 40;
         private int height = 40;
         private const int MaxAttemptsToFindFreeCell = 100;
+        private Dictionary<Type, List<Entity>> entitiesByType;
         private Random random;
         private Cell[,] grid;
 
@@ -17,6 +19,7 @@ namespace IE.Model
             this.height = height;
             this.grid = new Cell[height, width];
             this.random = new Random();
+            this.entitiesByType = new Dictionary<Type, List<Entity>>();
 
             InitializeCellGrid();
         }
@@ -96,6 +99,46 @@ namespace IE.Model
 
             return GetCellAt(neighborPosition);
         }
+
+        public bool AreThereAnyEntitiesOfType<EntityType>() where EntityType : Entity
+        {
+            var type = typeof(EntityType);
+
+            if (!entitiesByType.ContainsKey(type))
+                return false;
+
+            var list = entitiesByType[type];
+
+            return list.Count > 0;
+        }
+
+        public EntityType FindNearestEntity<EntityType>(Cell center) where EntityType : Entity
+        {
+            var type = typeof(EntityType);
+
+            if (!AreThereAnyEntitiesOfType<EntityType>())
+                throw new Exception($"Tried to find a {type.Name} but none existed (first ask if any exist with {nameof(AreThereAnyEntitiesOfType)})");
+
+            var position = center.GetPosition();
+            var matchingEntities = entitiesByType[type];
+
+            Entity nearestEntity = default;
+            float nearestDistance = width * height;
+
+            foreach (var entity in matchingEntities)
+            {
+                var entityPosition = entity.GetPosition();
+                var distance = position.DistanceTo(entityPosition);
+
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestEntity = entity;
+                }
+            }
+
+            return (EntityType)nearestEntity;
+        }
         
         public bool IsInsideArena(GridPosition position)
         {
@@ -118,6 +161,24 @@ namespace IE.Model
                     grid[row, column] = new Cell(this, position);
                 }
             }
+        }
+
+        public void EntityCreated(Entity entity)
+        {
+            Type type = entity.GetType();
+
+            if (!entitiesByType.ContainsKey(type))
+            {
+                entitiesByType[type] = new List<Entity>();
+            }
+
+            entitiesByType[type].Add(entity);
+        }
+
+        public void EntityDestroyed(Entity entity)
+        {
+            Type type = entity.GetType();
+            entitiesByType[type].Remove(entity);
         }
     }
 }

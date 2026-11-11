@@ -30,16 +30,5 @@ namespace IE.Model
         {
             DestroyEntity();
         }
-
-        private void MoveRandomly()
-        {
-            List<GridDirection> availableDirections = DirectionsWithNoEnemies();
-            
-            if (availableDirections.Count > 0)
-            {
-                GridDirection randomDirection = RandomUtils.GetRandomItem(availableDirections);
-                MoveInDirection(randomDirection);
-            }
-        }
     }
 }

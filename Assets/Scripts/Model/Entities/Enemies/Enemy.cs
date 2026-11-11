@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IE.Model
 {
@@ -24,11 +25,57 @@ namespace IE.Model
             }
         }
 
+        public void MoveInDirection(GridDirection direction)
+        {
+            var arena = GetArena();
+            var currentCell = GetCell();
+
+            SetDirection(direction);
+            
+            if (arena.HasNeighbourCell(currentCell, direction))
+            {   
+                var targetCell = arena.GetCellNeighbour(currentCell, direction);
+
+                if (DoesCellHaveEnemies(targetCell))
+                    return;
+
+                MoveToCell(targetCell);
+            }
+        }
+
+        public void MoveTowards(GridPosition targetPosition)
+        {
+            GridPosition currentPosition = GetPosition();
+
+            int dx = targetPosition.X - currentPosition.X;
+            int dy = targetPosition.Y - currentPosition.Y;
+
+            if (Math.Abs(dx) > Math.Abs(dy))
+            {
+                MoveInDirection(dx > 0 ? GridDirection.Right : GridDirection.Left);
+            }
+            else if (dy != 0)
+            {
+                MoveInDirection(dy > 0 ? GridDirection.Up : GridDirection.Down);
+            }
+        }
+
+        public void MoveRandomly()
+        {
+            List<GridDirection> availableDirections = DirectionsWithNoEnemies();
+            
+            if (availableDirections.Count > 0)
+            {
+                GridDirection randomDirection = RandomUtils.GetRandomItem(availableDirections);
+                MoveInDirection(randomDirection);
+            }
+        }
+
         protected bool DoesCellHaveEnemies(Cell cell)
         {
-            Enemy[] enemiesInNeighbourCell = cell.GetEntitiesOfType<Enemy>();
+            var enemiesInNeighbourCell = cell.GetEntitiesOfType<Enemy>();
                     
-            return enemiesInNeighbourCell.Length != 0;
+            return enemiesInNeighbourCell.Any();
         }
 
         protected List<GridDirection> DirectionsWithNoEnemies()

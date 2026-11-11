@@ -19,6 +19,7 @@ namespace IE.Model
             this.collisionHandler = collisionHandler;
 
             cell.AddEntity(this);
+            GetArena().EntityCreated(this);
             CreatePresenter();
             InteractWithOtherEntitiesInSameCell();
         }
@@ -61,21 +62,6 @@ namespace IE.Model
             InteractWithOtherEntitiesInSameCell();
         }
 
-        public void MoveInDirection(GridDirection direction)
-        {
-            var arena = GetArena();
-            var currentCell = GetCell();
-
-            SetDirection(direction);
-            
-            if (arena.HasNeighbourCell(currentCell, direction))
-            {
-                var targetCell = arena.GetCellNeighbour(currentCell, direction);
-
-                MoveToCell(targetCell);
-            }
-        }
-
         private void InteractWithOtherEntitiesInSameCell()
         {
             var currentCell = GetCell();
@@ -87,6 +73,7 @@ namespace IE.Model
         public void DestroyEntity()
         {
             occupiedCell.RemoveEntity(this);
+            GetArena().EntityDestroyed(this);
             presenter.EntityDestroyed();
         }
 

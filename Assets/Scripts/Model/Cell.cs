@@ -37,9 +37,9 @@ namespace IE.Model
             return entities.ToArray();
         }
 
-        public EntityType[] GetEntitiesOfType<EntityType>()
+        public IEnumerable<EntityType> GetEntitiesOfType<EntityType>()
         {
-            return entities.OfType<EntityType>().ToArray();
+            return entities.OfType<EntityType>();
         }
 
         public Arena GetArena()
