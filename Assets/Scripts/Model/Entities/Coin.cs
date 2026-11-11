@@ -4,7 +4,7 @@ namespace IE.Model
     {
         private int value;
 
-        public Coin(Cell cell, GridDirection direction, int value) : base(cell, direction)
+        public Coin(Cell cell, GridDirection direction, int value) : base(cell, direction, new DefaultCollisionHandler())
         {
             this.value = value;
         }

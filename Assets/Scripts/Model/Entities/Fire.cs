@@ -7,7 +7,7 @@ namespace IE.Model
         private int remainingRadius = 1;
         private bool hasExpanded = false;
 
-        public Fire(Cell cell, GridDirection direction, int damage, int remainingRadius) : base(cell, direction)
+        public Fire(Cell cell, GridDirection direction, int damage, int remainingRadius) : base(cell, direction, new FireCollisionHandler())
         {
             this.damage = damage;
             this.remainingRadius = remainingRadius - 1;

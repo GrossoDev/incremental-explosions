@@ -8,7 +8,7 @@ namespace IE.Model
         protected int maxHealth;
         protected int remainingHealth;
 
-        protected Enemy(Cell cell, GridDirection direction) : base(cell, direction)
+        protected Enemy(Cell cell, GridDirection direction, CollisionHandlerBase collisionHandler) : base(cell, direction, collisionHandler)
         {
             this.maxHealth = 10;
             this.remainingHealth = maxHealth;

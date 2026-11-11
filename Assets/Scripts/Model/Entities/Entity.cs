@@ -10,11 +10,14 @@ namespace IE.Model
         protected Cell occupiedCell;
         protected GridDirection direction;
         protected EntityPresenter presenter;
+        protected CollisionHandlerBase collisionHandler;
 
-        protected Entity(Cell cell, GridDirection direction)
+        protected Entity(Cell cell, GridDirection direction, CollisionHandlerBase collisionHandler)
         {
-            this.direction = direction;
             this.occupiedCell = cell;
+            this.direction = direction;
+            this.collisionHandler = collisionHandler;
+
             cell.AddEntity(this);
             CreatePresenter();
             InteractWithOtherEntitiesInSameCell();
@@ -78,7 +81,7 @@ namespace IE.Model
             var currentCell = GetCell();
             var otherEntities = currentCell.GetAllEntities().Where(entity => entity != this);
 
-            InteractionSystem.CreateBetween(this, otherEntities);
+            collisionHandler.DoCollisionsBetween(this, otherEntities);
         }
 
         public void DestroyEntity()

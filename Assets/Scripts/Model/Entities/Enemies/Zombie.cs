@@ -8,7 +8,7 @@ namespace IE.Model
         private int ticksBetweenMoves = 50;
         private int ticksSinceLastMove = 0;
         
-        public Zombie(Cell cell, GridDirection direction) : base(cell, direction)
+        public Zombie(Cell cell, GridDirection direction) : base(cell, direction, new DefaultCollisionHandler())
         {
             this.maxHealth = 10;
         }

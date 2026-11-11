@@ -8,7 +8,7 @@ namespace IE.Model
         private int ticksBetweenMoves = 20;
         private int ticksSinceLastMove = 0;
         
-        public Skeleton(Cell cell, GridDirection direction) : base(cell, direction)
+        public Skeleton(Cell cell, GridDirection direction) : base(cell, direction, new DefaultCollisionHandler())
         {
             this.maxHealth = 5;
         }

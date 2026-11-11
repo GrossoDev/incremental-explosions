@@ -1,3 +1,4 @@
+using System.Linq;
 using IE.Presentation;
 
 namespace IE.Model
@@ -10,7 +11,7 @@ namespace IE.Model
         private RadiusStat radiusStat;
         private Game game;
 
-        public Player(Cell cell, GridDirection direction) : base(cell, direction)
+        public Player(Cell cell, GridDirection direction) : base(cell, direction, new PlayerCollisionHandler())
         {
             this.game = Game.Instance;
             this.speedStat  = game.GetStat<SpeedStat>();
