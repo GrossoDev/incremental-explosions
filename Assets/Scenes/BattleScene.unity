@@ -6490,7 +6490,7 @@ GameObject:
   m_Layer: 0
   m_Name: Battle manager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -6937,7 +6937,7 @@ GameObject:
   m_Layer: 0
   m_Name: Mock game
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -6953,6 +6953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927d8b4bd3c832145ac2de3234d84add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
 --- !u!4 &1793826424
 Transform:
   m_ObjectHideFlags: 0

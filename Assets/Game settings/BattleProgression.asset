@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BattleProgression
   m_EditorClassIdentifier: 
   battleConfigurations:
-  - fromLevel: 0
+  - startingLevel: 0
     enemiesToSpawn:
     - displayName: 'Zombie: between 5 and 10'
       enemyType:
@@ -21,21 +21,29 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 10
-  - fromLevel: 5
+  - startingLevel: 2
     enemiesToSpawn:
-    - displayName: 'Zombie: between 5 and 10'
+    - displayName: 'Zombie: between 10 and 20'
       enemyType:
         assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      minimumAmount: 5
-      maximumAmount: 10
+      minimumAmount: 10
+      maximumAmount: 20
+  - startingLevel: 5
+    enemiesToSpawn:
+    - displayName: 'Zombie: between 10 and 20'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 10
+      maximumAmount: 20
     - displayName: 'Skeleton: between 5 and 10'
       enemyType:
         assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 10
-  - fromLevel: 10
+  - startingLevel: 10
     enemiesToSpawn:
     - displayName: 'Zombie: between 5 and 10'
       enemyType:
@@ -43,19 +51,19 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 10
-    - displayName: 'Skeleton: between 5 and 10'
+    - displayName: 'Skeleton: between 10 and 20'
       enemyType:
         assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      minimumAmount: 5
-      maximumAmount: 10
-    - displayName: 'Gnome: between 5 and 15'
+      minimumAmount: 10
+      maximumAmount: 20
+    - displayName: 'Gnome: between 1 and 5'
       enemyType:
         assemblyQualifiedName: IE.Model.Gnome, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      minimumAmount: 5
-      maximumAmount: 15
-  - fromLevel: 15
+      minimumAmount: 1
+      maximumAmount: 5
+  - startingLevel: 15
     enemiesToSpawn:
     - displayName: 'Skeleton: between 5 and 10'
       enemyType:

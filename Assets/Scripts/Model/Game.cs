@@ -39,6 +39,11 @@ namespace IE.Model
             return currentLevel;
         }
 
+        public void SetCurrentLevel(int level)
+        {
+            currentLevel = level;
+        }
+
         public void NewGame()
         {
             totalCoins = 0;

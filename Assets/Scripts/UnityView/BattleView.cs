@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using IE.Model;
 using IE.Presentation;
 using UnityEngine;
@@ -9,13 +10,32 @@ namespace IE.UnityView
     {
         [SerializeField] private BattleProgression battleProgression;
 
-        private BattlePresenter battlePresenter;
         private GameView gameView;
+        private BattlePresenter battlePresenter;
 
         public void Start()
         {
             gameView = GameView.Instance;
             battlePresenter = new BattlePresenter();
+            
+            var battleConfig = GetBattleConfigForCurrentLevel();
+            battlePresenter.CreateBattle(battleConfig);
+        }
+
+        public BattleConfig GetBattleConfigForCurrentLevel()
+        {
+            var configs = battleProgression.battleConfigurations;
+            var currentLevel = gameView.GetPresenter().GetCurrentLevel();
+
+            foreach (var battleConfig in configs.Reverse<BattleConfig>())
+            {
+                if (currentLevel >= battleConfig.startingLevel)
+                {
+                    return battleConfig;
+                }
+            }
+
+            return configs.First();
         }
 
         public Arena GetArena()

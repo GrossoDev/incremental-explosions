@@ -9,7 +9,7 @@ namespace IE.UnityView
     public class GameView : MonoBehaviour
     {
         private const string PlayerPrefsSaveKey = "savefile";
-        private GamePresenter gamePresenter;
+        protected GamePresenter gamePresenter;
 
         public static GameView Instance;
 

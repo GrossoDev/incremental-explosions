@@ -2,19 +2,14 @@ using UnityEngine;
 
 namespace IE.UnityView
 {
-    public class MockGameView : MonoBehaviour
+    public class MockGameView : GameView
     {
+        [SerializeField] [Range(1,50)] private int level = 1;
+
         private void OnEnable()
         {
-            if (GameView.Instance is null)
-            {
-                this.gameObject.AddComponent<GameView>();
-                GameView.Instance.StartNewGame();
-            }
-            else
-            {
-                Destroy(this.gameObject);
-            }
+            StartNewGame();
+            gamePresenter.SetCurrentLevel(level);
         }
     }
 }

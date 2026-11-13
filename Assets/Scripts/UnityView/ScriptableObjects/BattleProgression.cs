@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using IE.Model;
+using IE.Presentation;
 using UnityEngine;
 
 namespace IE.UnityView
@@ -32,22 +31,6 @@ namespace IE.UnityView
                     }
                 }
             }
-        }
-    }
-
-    [Serializable]
-    public class BattleConfig
-    {
-        public int fromLevel = 0;
-        public List<EnemySpawnConfig> enemiesToSpawn = new List<EnemySpawnConfig>();
-
-        [Serializable]
-        public class EnemySpawnConfig
-        {
-            [HideInInspector] public string displayName;
-            [SubclassOf(typeof(Enemy))] public SerializableType enemyType;
-            public int minimumAmount;
-            public int maximumAmount;
         }
     }
 }
