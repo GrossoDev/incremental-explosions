@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be2626471246b44a4bce0990069591, type: 3}
+  m_Name: BattleProgression
+  m_EditorClassIdentifier: 
+  battleConfigurations:
+  - fromLevel: 0
+    enemiesToSpawn:
+    - displayName: 'Zombie: between 5 and 10'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 5
+      maximumAmount: 10
+  - fromLevel: 5
+    enemiesToSpawn:
+    - displayName: 'Zombie: between 5 and 10'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 5
+      maximumAmount: 10
+    - displayName: 'Skeleton: between 5 and 10'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 5
+      maximumAmount: 10
+  - fromLevel: 10
+    enemiesToSpawn:
+    - displayName: 'Zombie: between 5 and 10'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 5
+      maximumAmount: 10
+    - displayName: 'Skeleton: between 5 and 10'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 5
+      maximumAmount: 10
+    - displayName: 'Gnome: between 5 and 15'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Gnome, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 5
+      maximumAmount: 15
+  - fromLevel: 15
+    enemiesToSpawn:
+    - displayName: 'Skeleton: between 5 and 10'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 5
+      maximumAmount: 10
+    - displayName: 'Gnome: between 5 and 15'
+      enemyType:
+        assemblyQualifiedName: IE.Model.Gnome, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      minimumAmount: 5
+      maximumAmount: 15

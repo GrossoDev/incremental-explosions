@@ -54,10 +54,10 @@ namespace IE.Model
         {
             Arena arena = GetArena();
             Cell currentCell = GetCell();
+            Player player = arena.FindNearestEntity<Player>(currentCell);
             List<GridDirection> directionsAway = new List<GridDirection>();
 
-            Cell playerCell = Game.Instance.GetPlayer().GetCell();
-            GridPosition playerPosition = playerCell.GetPosition();
+            GridPosition playerPosition = player.GetPosition();
             GridPosition skeletonPosition = currentCell.GetPosition();
 
             int deltaX = skeletonPosition.X - playerPosition.X;

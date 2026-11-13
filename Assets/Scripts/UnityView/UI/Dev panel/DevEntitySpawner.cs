@@ -7,6 +7,7 @@ namespace IE.UnityView
     public abstract class DevEntitySpawner<EntityType> : MonoBehaviour where EntityType : Entity
     {
         [SerializeField] private TMPro.TMP_InputField spawnAmountField;
+        [SerializeField] private BattleView battleView;
 
         public void Spawn()
         {
@@ -23,7 +24,7 @@ namespace IE.UnityView
 
         private Cell GetRandomCell()
         {
-            return Game.Instance.GetArena().GetRandomFreeCell();
+            return battleView.GetArena().GetRandomFreeCell();
         }
 
         protected abstract void SpawnEntity(Cell cell);
