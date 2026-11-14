@@ -28,17 +28,17 @@ namespace IE.Presentation
                 Type enemyType = spawnConfig.enemyType.GetSerializedType();
                 int amount = RandomUtils.GetRandomInt(spawnConfig.minimumAmount, spawnConfig.maximumAmount);
 
-                SpawnEnemies(enemyType, amount);
+                SpawnEntities(enemyType, amount);
             }
         }
 
-        private void SpawnEnemies(Type enemyType, int amount)
+        public void SpawnEntities(Type entityType, int amount)
         {
             for (int i = 0; i < amount; i++)
             {
                 Cell cell = GetArena().GetRandomFreeCell();
 
-                Activator.CreateInstance(enemyType, cell, GridDirection.Down);
+                Activator.CreateInstance(entityType, cell, GridDirection.Down);
             }
         }
     }

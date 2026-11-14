@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BattleProgression
   m_EditorClassIdentifier: 
   battleConfigurations:
-  - startingLevel: 0
+  - startingLevel: 1
     enemiesToSpawn:
     - displayName: 'Zombie: between 5 and 10'
       enemyType:
@@ -21,7 +21,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 10
-  - startingLevel: 2
+  - startingLevel: 3
     enemiesToSpawn:
     - displayName: 'Zombie: between 10 and 20'
       enemyType:

@@ -18,25 +18,13 @@ namespace IE.UnityView
             gameView = GameView.Instance;
             battlePresenter = new BattlePresenter();
             
-            var battleConfig = GetBattleConfigForCurrentLevel();
+            var currentLevel = gameView.GetPresenter().GetCurrentLevel();
+            var battleConfig = battleProgression.GetBattleConfigForLevel(currentLevel);
+
             battlePresenter.CreateBattle(battleConfig);
         }
 
-        public BattleConfig GetBattleConfigForCurrentLevel()
-        {
-            var configs = battleProgression.battleConfigurations;
-            var currentLevel = gameView.GetPresenter().GetCurrentLevel();
-
-            foreach (var battleConfig in configs.Reverse<BattleConfig>())
-            {
-                if (currentLevel >= battleConfig.startingLevel)
-                {
-                    return battleConfig;
-                }
-            }
-
-            return configs.First();
-        }
+        
 
         public Arena GetArena()
         {
@@ -44,6 +32,11 @@ namespace IE.UnityView
             // Por ahí convendría agregar un DevPanelPresenter para arreglar esto
             Debug.LogWarning("che hay que borrar esto, la vista no deberia tocar el modelo");
             return battlePresenter.GetArena();
+        }
+
+        public BattlePresenter GetPresenter()
+        {
+            return battlePresenter;
         }
     }
 }

@@ -1,32 +1,25 @@
+using TMPro;
 using IE.Model;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace IE.UnityView
 {
-    public abstract class DevEntitySpawner<EntityType> : MonoBehaviour where EntityType : Entity
+    public class DevEntitySpawner : MonoBehaviour
     {
-        [SerializeField] private TMPro.TMP_InputField spawnAmountField;
+        [SerializeField] [SubclassOf(typeof(Entity))] private SerializableType entity;
+        [SerializeField] private TMP_InputField spawnAmountField;
         [SerializeField] private BattleView battleView;
 
         public void Spawn()
         {
             var text = spawnAmountField.text;
+            var entityType = entity.GetSerializedType();
+            var battlePresenter = battleView.GetPresenter();
 
             if (!int.TryParse(text, out int amount))
                 return;
             
-            for (int i = 0; i < amount; i++)
-            {
-                SpawnEntity(GetRandomCell());
-            }
+            battlePresenter.SpawnEntities(entityType, amount);
         }
-
-        private Cell GetRandomCell()
-        {
-            return battleView.GetArena().GetRandomFreeCell();
-        }
-
-        protected abstract void SpawnEntity(Cell cell);
     }
 }
