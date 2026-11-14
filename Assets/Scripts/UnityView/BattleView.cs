@@ -1,42 +1,62 @@
-using System;
+using System.Collections;
 using System.Linq;
 using IE.Model;
 using IE.Presentation;
+using UnityEditor;
 using UnityEngine;
 
 namespace IE.UnityView
 {
+    [RequireComponent(typeof(SceneSwitcher))]
     public class BattleView : MonoBehaviour
     {
         [SerializeField] private BattleProgression battleProgression;
 
         private GameView gameView;
+        private SceneSwitcher sceneSwitcher;
         private BattlePresenter battlePresenter;
 
         public void Start()
         {
             gameView = GameView.Instance;
-            battlePresenter = new BattlePresenter();
-            
+            sceneSwitcher = GetComponent<SceneSwitcher>();
+            battlePresenter = new BattlePresenter(this);
+
+            CreateBattle();
+            StartCoroutine(CountdownSeconds());
+        }
+
+        public IEnumerator CountdownSeconds()
+        {
+            while (!battlePresenter.IsRoundOver())
+            {
+                yield return new WaitForSeconds(1);
+                battlePresenter.SecondElapsed();
+                UpdateTimeCounter();
+            }
+        }
+
+        public BattlePresenter GetPresenter()
+        {
+            return battlePresenter;
+        }
+
+        public void BattleEnded()
+        {
+            sceneSwitcher.SwitchToNext();
+        }
+
+        private void CreateBattle()
+        {
             var currentLevel = gameView.GetPresenter().GetCurrentLevel();
             var battleConfig = battleProgression.GetBattleConfigForLevel(currentLevel);
 
             battlePresenter.CreateBattle(battleConfig);
         }
 
-        
-
-        public Arena GetArena()
+        private void UpdateTimeCounter()
         {
-            // Está acá porque lo necesita el DevPanel
-            // Por ahí convendría agregar un DevPanelPresenter para arreglar esto
-            Debug.LogWarning("che hay que borrar esto, la vista no deberia tocar el modelo");
-            return battlePresenter.GetArena();
-        }
-
-        public BattlePresenter GetPresenter()
-        {
-            return battlePresenter;
+            Debug.Log($"{battlePresenter.GetRemainingTime()} of {battlePresenter.GetRoundTime()}");
         }
     }
 }

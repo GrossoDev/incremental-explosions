@@ -9,16 +9,38 @@ namespace IE.Presentation
     public class BattlePresenter
     {
         private Battle model;
+        private BattleView view;
 
-        public BattlePresenter()
+        public BattlePresenter(BattleView battleView)
         {
+            view = battleView;
             model = new Battle();
             model.Initialize();
         }
 
-        public Arena GetArena()
+        public void SecondElapsed()
         {
-            return model.GetArena();
+            model.SecondElapsed();
+
+            if (model.IsRoundOver())
+            {
+                view.BattleEnded();
+            }
+        }
+
+        public int GetRoundTime()
+        {
+            return model.GetRoundTime();
+        }
+
+        public int GetRemainingTime()
+        {
+            return model.GetRemainingTime();
+        }
+
+        public bool IsRoundOver()
+        {
+           return model.IsRoundOver();
         }
 
         public void CreateBattle(BattleConfig battleConfig)
@@ -34,9 +56,14 @@ namespace IE.Presentation
 
         public void SpawnEntities(Type entityType, int amount)
         {
+            Arena arena = model.GetArena();
+
+            if (!entityType.IsSubclassOf(typeof(Entity)))
+                throw new ArgumentException($"Tried to spawn {entityType.Name}, which is not an entity.");
+
             for (int i = 0; i < amount; i++)
             {
-                Cell cell = GetArena().GetRandomFreeCell();
+                Cell cell = arena.GetRandomFreeCell();
 
                 Activator.CreateInstance(entityType, cell, GridDirection.Down);
             }

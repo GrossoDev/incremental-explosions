@@ -28,7 +28,8 @@ namespace IE.UnityView
 
         private void OnDestroy()
         {
-            Instance = null;
+            if (Instance == this)
+                Instance = null;
         }
 
         public void StartNewGame()
