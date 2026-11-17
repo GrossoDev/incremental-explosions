@@ -11,6 +11,7 @@ namespace IE.Model
         public Gnome(Cell cell, GridDirection direction) : base(cell, direction, new GnomeCollisionHandler())
         {
             this.maxHealth = 10;
+            this.valueOnDeath = 100;
         }
 
         public override void Tick()
@@ -24,11 +25,6 @@ namespace IE.Model
             {
                 ticksSinceLastMove++;
             }
-        }
-
-        public override void Die()
-        {
-            DestroyEntity();
         }
 
         public void CollectedCoin(int value)

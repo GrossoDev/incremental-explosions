@@ -11,6 +11,7 @@ namespace IE.Model
         public Zombie(Cell cell, GridDirection direction) : base(cell, direction, new DefaultCollisionHandler())
         {
             this.maxHealth = 10;
+            this.valueOnDeath = 50;
         }
 
         public override void Tick()
@@ -24,11 +25,6 @@ namespace IE.Model
             {
                 ticksSinceLastMove++;
             }
-        }
-
-        public override void Die()
-        {
-            DestroyEntity();
         }
     }
 }

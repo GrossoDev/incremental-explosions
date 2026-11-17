@@ -151,6 +151,47 @@ namespace IE.Model
             return rowIsInBounds && columnIsInBounds;
         }
 
+        public IEnumerator<Cell> SpiralAroundCell(Cell centerCell)
+        {
+            GridPosition centerPosition = centerCell.GetPosition();
+
+            int x = centerPosition.X;
+            int y = centerPosition.Y;
+            int cellsReturned = 0;
+            int direction = 0;
+            int stepLength = 1;
+            int totalCellsInArena = width * height;
+            int[] deltaX = { 1, 0, -1, 0 };
+            int[] deltaY = { 0, 1, 0, -1 };
+
+            while (cellsReturned < totalCellsInArena)
+            {
+                for (int leg = 0; leg < 2; leg++)
+                {
+                    for (int step = 0; step < stepLength; step++)
+                    {
+                        GridPosition position = new GridPosition(x, y);
+
+                        if (IsInsideArena(position))
+                        {
+                            yield return GetCellAt(position);
+                            cellsReturned++;
+
+                            if (cellsReturned >= totalCellsInArena)
+                                yield break;
+                        }
+
+                        x += deltaX[direction];
+                        y += deltaY[direction];
+                    }
+
+                    direction = (direction + 1) % 4;
+                }
+
+                stepLength++;
+            }
+        }
+
         private void InitializeCellGrid()
         {
             for (int row = 0; row < height; row++)

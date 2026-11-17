@@ -11,6 +11,7 @@ namespace IE.Model
         public Skeleton(Cell cell, GridDirection direction) : base(cell, direction, new DefaultCollisionHandler())
         {
             this.maxHealth = 5;
+            this.valueOnDeath = 80;
         }
 
         public override void Tick()
@@ -24,11 +25,6 @@ namespace IE.Model
             {
                 ticksSinceLastMove++;
             }
-        }
-
-        public override void Die()
-        {
-            DestroyEntity();
         }
 
         private void MoveAwayFromPlayer()

@@ -8,6 +8,7 @@ namespace IE.Model
     {
         protected int maxHealth;
         protected int remainingHealth;
+        protected int valueOnDeath = 50;
 
         protected Enemy(Cell cell, GridDirection direction, CollisionHandlerBase collisionHandler) : base(cell, direction, collisionHandler)
         {
@@ -23,6 +24,12 @@ namespace IE.Model
             {
                 Die();
             }
+        }
+
+        public void Die()
+        {
+            DestroyEntity();
+            SpawnCoinsAroundCorpse();
         }
 
         public void MoveInDirection(GridDirection direction)
@@ -105,6 +112,30 @@ namespace IE.Model
             return freeDirections;
         }
 
-        public abstract void Die();
+        protected void SpawnCoinsAroundCorpse()
+        {
+            Arena arena = GetArena();
+            Cell centerCell = GetCell();
+            IEnumerator<Cell> cellSpiral = arena.SpiralAroundCell(centerCell);
+
+            int spawnedCoins = 0;
+            int amountOfCoinsToSpawn = valueOnDeath / 10;
+
+            while (spawnedCoins < amountOfCoinsToSpawn)
+            {
+                bool spiralHasMoreCells = cellSpiral.MoveNext();
+                Cell cell = cellSpiral.Current;
+                bool cellHasCoin = cell.GetEntitiesOfType<Coin>().Any();
+                
+                if (!cellHasCoin)
+                {
+                    new Coin(cell, GridDirection.Up);
+                    spawnedCoins++;
+                }
+
+                if (!spiralHasMoreCells)
+                    break;
+            }
+        }
     }
 }
