@@ -61,7 +61,7 @@ namespace IE.Model
             {
                 MoveInDirection(dx > 0 ? GridDirection.Right : GridDirection.Left);
             }
-            else if (dy != 0)
+            else
             {
                 MoveInDirection(dy > 0 ? GridDirection.Up : GridDirection.Down);
             }
