@@ -1,3 +1,4 @@
+using System;
 using IE.Model;
 using IE.UnityView;
 using UnityEngine;
@@ -15,10 +16,25 @@ namespace IE.Presentation
             LoadView();
         }
 
+        public void Initialize()
+        {
+            view.Initialize();
+        }
+
+        public int GetWidth()
+        {
+            return model.GetWidth();
+        }
+
+        public int GetHeight()
+        {
+            return model.GetHeight();
+        }
+
         private void LoadView()
         {
-            string prefabName = "Arena";
-            string prefabPath = $"Prefabs/{prefabName}";
+            string prefabName = "Arena View";
+            string prefabPath = $"Prefabs/Arena/{prefabName}";
 
             GameObject prefab = Resources.Load<GameObject>(prefabPath);
             GameObject viewObject = GameObject.Instantiate(prefab);

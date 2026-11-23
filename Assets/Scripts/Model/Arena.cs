@@ -25,6 +25,7 @@ namespace IE.Model
             this.arenaPresenter = new ArenaPresenter(this);
 
             InitializeCellGrid();
+            arenaPresenter.Initialize();
         }
 
         public int GetWidth()
