@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Linq;
-using IE.Model;
 using IE.Presentation;
-using UnityEditor;
+using TMPro;
 using UnityEngine;
 
 namespace IE.UnityView
@@ -10,6 +9,12 @@ namespace IE.UnityView
     [RequireComponent(typeof(SceneSwitcher))]
     public class BattleView : MonoBehaviour
     {
+        [Header("UI elements")]
+        [SerializeField] private TextMeshProUGUI coinsText;
+        [SerializeField] private TextMeshProUGUI levelCounterText;
+        [SerializeField] private TextMeshProUGUI timeRemainingText;
+
+        [Header("Battle configuration")]
         [SerializeField] private BattleProgression battleProgression;
 
         private GameView gameView;
@@ -26,13 +31,19 @@ namespace IE.UnityView
             StartCoroutine(CountdownSeconds());
         }
 
+        public void FixedUpdate()
+        {
+            int coinsCollected = battlePresenter.GetCollectedCoins();
+            coinsText.text = $"Coins: {coinsCollected}";
+        }
+
         public IEnumerator CountdownSeconds()
         {
             while (!battlePresenter.IsRoundOver())
             {
+                UpdateTimeCounter();
                 yield return new WaitForSeconds(1);
                 battlePresenter.SecondElapsed();
-                UpdateTimeCounter();
             }
         }
 
@@ -52,11 +63,13 @@ namespace IE.UnityView
             var battleConfig = battleProgression.GetBattleConfigForLevel(currentLevel);
 
             battlePresenter.CreateBattle(battleConfig);
+            levelCounterText.text = $"Level {currentLevel}";
         }
 
         private void UpdateTimeCounter()
         {
-            Debug.Log($"{battlePresenter.GetRemainingTime()} of {battlePresenter.GetRoundTime()}");
+            string timeleftString = $"{battlePresenter.GetRemainingTime()} / {battlePresenter.GetRoundTime()}";
+            timeRemainingText.text = timeleftString;
         }
     }
 }

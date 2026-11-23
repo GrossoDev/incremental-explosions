@@ -26,7 +26,8 @@ namespace IE.Model
 
         public void CollectedCoin(int value)
         {
-            game.AddCoins(value);
+            int currentCollectedCoins = game.GetBattleCoins();
+            game.SetBattleCoins(currentCollectedCoins + value);
         }
 
         private void AttackTick()

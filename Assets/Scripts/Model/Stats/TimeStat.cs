@@ -2,6 +2,8 @@ namespace IE.Model
 {
     public class TimeStat : Stat
     {
+        public TimeStat(int level = 1) : base(level) { }
+
         public int GetRoundTime()
         {
             return 15 + level * 5;

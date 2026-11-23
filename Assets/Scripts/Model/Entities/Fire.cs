@@ -3,14 +3,17 @@ namespace IE.Model
     public class Fire : Entity
     {
         private int damage = 10;
-        private int durationInTicks = 10;
+        private int lifetimeInTicks = 10;
         private int remainingRadius = 1;
-        private bool hasExpanded = false;
+        private int propagationDelayInTicks;
 
         public Fire(Cell cell, GridDirection direction, int damage, int remainingRadius) : base(cell, direction, new FireCollisionHandler())
         {
             this.damage = damage;
             this.remainingRadius = remainingRadius - 1;
+
+            RegisterOneshotAction(propagationDelayInTicks, PropagateFire);
+            RegisterOneshotAction(lifetimeInTicks, DestroyEntity);
         }
 
         public int GetDamage()
@@ -18,24 +21,10 @@ namespace IE.Model
             return damage;
         }
 
-        public override void Tick()
-        {
-            if (remainingRadius > 0 && !hasExpanded)
-            {
-                PropagateFire();
-                hasExpanded = true;
-            }
-            else
-            {
-                if (durationInTicks <= 0)
-                    DestroyEntity();
-
-                durationInTicks--;
-            }
-        }
-
         private void PropagateFire()
         {
+            if (remainingRadius <= 0) return;
+
             GridDirection propagationDirection = GetDirection();
 
             if (propagationDirection == GridDirection.None)

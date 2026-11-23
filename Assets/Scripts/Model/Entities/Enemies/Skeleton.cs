@@ -6,25 +6,13 @@ namespace IE.Model
     public class Skeleton : Enemy
     {
         private int ticksBetweenMoves = 20;
-        private int ticksSinceLastMove = 0;
         
         public Skeleton(Cell cell, GridDirection direction) : base(cell, direction, new DefaultCollisionHandler())
         {
             this.maxHealth = 5;
             this.valueOnDeath = 80;
-        }
 
-        public override void Tick()
-        {
-            if (ticksSinceLastMove >= ticksBetweenMoves)
-            {
-                MoveAwayFromPlayer();
-                ticksSinceLastMove = 0;
-            }
-            else
-            {
-                ticksSinceLastMove++;
-            }
+            RegisterRecurringAction(ticksBetweenMoves, MoveAwayFromPlayer);
         }
 
         private void MoveAwayFromPlayer()

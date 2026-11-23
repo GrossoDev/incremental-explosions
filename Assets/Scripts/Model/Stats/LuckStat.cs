@@ -6,6 +6,8 @@ namespace IE.Model
     {
         private Random random = new Random();
 
+        public LuckStat(int level = 1) : base(level) { }
+
         public bool RollCrit()
         {
             double randomNumber = random.NextDouble();

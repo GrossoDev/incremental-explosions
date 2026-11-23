@@ -2,6 +2,8 @@ namespace IE.Model
 {
     public class DamageStat : Stat
     {
+        public DamageStat(int level = 1) : base(level) { }
+
         public int GetDamage()
         {
             return 10 + level;

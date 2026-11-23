@@ -5,31 +5,18 @@ namespace IE.Model
     public class Gnome : Enemy
     {
         private int ticksBetweenMoves = 20;
-        private int ticksSinceLastMove = 0;
-        private int stolenCoins = 0;
         
         public Gnome(Cell cell, GridDirection direction) : base(cell, direction, new GnomeCollisionHandler())
         {
             this.maxHealth = 10;
             this.valueOnDeath = 100;
-        }
 
-        public override void Tick()
-        {
-            if (ticksSinceLastMove >= ticksBetweenMoves)
-            {
-                MoveTowardsCoin();
-                ticksSinceLastMove = 0;
-            }
-            else
-            {
-                ticksSinceLastMove++;
-            }
+            RegisterRecurringAction(ticksBetweenMoves, MoveTowardsCoin);
         }
 
         public void CollectedCoin(int value)
         {
-            stolenCoins += value;
+            this.valueOnDeath += value / 2;
         }
 
         private void MoveTowardsCoin()

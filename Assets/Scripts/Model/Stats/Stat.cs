@@ -6,6 +6,11 @@ namespace IE.Model
     {
         protected int level = 1;
 
+        public Stat(int level = 1)
+        {
+            this.level = level;
+        }
+
         public void Upgrade()
         {
             level++;
@@ -25,10 +30,6 @@ namespace IE.Model
         {
             level = 1;
         }
-
-        public string Serialize() { return ""; }
-        
-        public Stat Deserialize(string serialized) { return null; }
 
         public abstract int GetUpgradeCost();
     }

@@ -4,6 +4,8 @@ namespace IE.Model
 {
     public class SpeedStat : Stat
     {
+        public SpeedStat(int level = 1) : base(level) { }
+
         public int GetTicksBetweenAttacks()
         {
             return Math.Max(100 - level * 10, 1);

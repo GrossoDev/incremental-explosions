@@ -2,6 +2,8 @@ namespace IE.Model
 {
     public class RadiusStat : Stat
     {
+        public RadiusStat(int level = 1) : base(level) { }
+
         public int GetRadius()
         {
             return 2 + level;

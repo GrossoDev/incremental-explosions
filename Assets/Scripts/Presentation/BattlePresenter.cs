@@ -28,6 +28,11 @@ namespace IE.Presentation
             }
         }
 
+        public int GetCollectedCoins()
+        {
+            return Game.Instance.GetBattleCoins();
+        }
+
         public int GetRoundTime()
         {
             return model.GetRoundTime();

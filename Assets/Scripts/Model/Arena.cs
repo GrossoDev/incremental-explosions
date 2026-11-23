@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IE.Presentation;
 
 namespace IE.Model
 {
@@ -12,6 +13,7 @@ namespace IE.Model
         private Dictionary<Type, List<Entity>> entitiesByType;
         private Random random;
         private Cell[,] grid;
+        private ArenaPresenter arenaPresenter;
 
         public void Initialize(int width, int height)
         {
@@ -20,6 +22,7 @@ namespace IE.Model
             this.grid = new Cell[height, width];
             this.random = new Random();
             this.entitiesByType = new Dictionary<Type, List<Entity>>();
+            this.arenaPresenter = new ArenaPresenter(this);
 
             InitializeCellGrid();
         }
