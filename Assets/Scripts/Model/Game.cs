@@ -14,6 +14,13 @@ namespace IE.Model
 
         private Game() { }
 
+        public StatType GetStat<StatType>() where StatType : Stat
+        {
+            Stat stat = stats.Find(stat => stat is StatType);
+            
+            return stat as StatType;
+        }
+
         public int GetBattleCoins()
         {
             return battleCoins;
@@ -24,21 +31,14 @@ namespace IE.Model
             battleCoins = amount;
         }
 
-        public void SubtractFromTotalCoins(int amount)
-        {
-            totalCoins -= amount;
-        }
-
-        public StatType GetStat<StatType>() where StatType : Stat
-        {
-            Stat stat = stats.Find(stat => stat is StatType);
-            
-            return stat as StatType;
-        }
-
         public int GetTotalCoins()
         {
             return totalCoins;
+        }
+
+        public void SetTotalCoins(int amount)
+        {
+            totalCoins = amount;
         }
 
         public int GetCurrentLevel()

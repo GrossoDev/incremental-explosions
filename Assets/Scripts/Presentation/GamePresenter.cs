@@ -14,9 +14,24 @@ namespace IE.Presentation
             model = Game.Instance;
         }
 
+        public int GetBattleCoins()
+        {
+            return model.GetTotalCoins();
+        }
+
+        public void SetBattleCoins(int amount)
+        {
+            model.SetBattleCoins(amount);
+        }
+
         public int GetTotalCoins()
         {
             return model.GetTotalCoins();
+        }
+
+        public void SetTotalCoins(int amount)
+        {
+            model.SetTotalCoins(amount);
         }
 
         public int GetCurrentLevel()
