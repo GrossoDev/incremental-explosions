@@ -13,6 +13,7 @@ namespace Battle.View
         [SerializeField] private TextMeshProUGUI coinsText;
         [SerializeField] private TextMeshProUGUI levelCounterText;
         [SerializeField] private TextMeshProUGUI timeRemainingText;
+        [SerializeField] private GameObject panelPausa;
 
         [Header("Battle configuration")]
         [SerializeField] private BattleProgression battleProgression;
@@ -70,6 +71,12 @@ namespace Battle.View
         {
             string timeleftString = $"{battlePresenter.GetRemainingTime()} / {battlePresenter.GetRoundTime()}";
             timeRemainingText.text = timeleftString;
+        }
+
+        public void SaveAndExitToMenu()
+        {
+            gameView.SaveGame();
+            sceneSwitcher.SwitchToNext();
         }
     }
 }
