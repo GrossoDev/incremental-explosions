@@ -17,7 +17,7 @@ MonoBehaviour:
     enemiesToSpawn:
     - displayName: 'Zombie: between 5 and 10'
       enemyType:
-        assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 10
@@ -25,7 +25,7 @@ MonoBehaviour:
     enemiesToSpawn:
     - displayName: 'Zombie: between 10 and 20'
       enemyType:
-        assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 10
       maximumAmount: 20
@@ -33,13 +33,13 @@ MonoBehaviour:
     enemiesToSpawn:
     - displayName: 'Zombie: between 10 and 20'
       enemyType:
-        assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 10
       maximumAmount: 20
     - displayName: 'Skeleton: between 5 and 10'
       enemyType:
-        assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 10
@@ -47,19 +47,19 @@ MonoBehaviour:
     enemiesToSpawn:
     - displayName: 'Zombie: between 5 and 10'
       enemyType:
-        assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Zombie, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 10
     - displayName: 'Skeleton: between 10 and 20'
       enemyType:
-        assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 10
       maximumAmount: 20
     - displayName: 'Gnome: between 1 and 5'
       enemyType:
-        assemblyQualifiedName: IE.Model.Gnome, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Gnome, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 1
       maximumAmount: 5
@@ -67,13 +67,13 @@ MonoBehaviour:
     enemiesToSpawn:
     - displayName: 'Skeleton: between 5 and 10'
       enemyType:
-        assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 10
     - displayName: 'Gnome: between 5 and 15'
       enemyType:
-        assemblyQualifiedName: IE.Model.Gnome, Assembly-CSharp, Version=0.0.0.0,
+        assemblyQualifiedName: Battle.Model.Gnome, Assembly-CSharp, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       minimumAmount: 5
       maximumAmount: 15

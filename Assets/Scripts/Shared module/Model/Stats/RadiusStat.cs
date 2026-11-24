@@ -11,7 +11,7 @@ namespace Shared.Model
 
         public override int GetUpgradeCost()
         {
-            return level * level * 10;
+            return level * 50;
         }
 
         public override string ToString()

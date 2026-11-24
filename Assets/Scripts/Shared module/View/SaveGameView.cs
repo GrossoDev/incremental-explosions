@@ -1,9 +1,8 @@
-using Shared.View;
 using UnityEngine;
 
-namespace Battle.View
+namespace Shared.View
 {
-    public class DevPanelSaveGame : MonoBehaviour
+    public class SaveGameView : MonoBehaviour
     {
         public void OnSaveGame()
         {

@@ -6,12 +6,12 @@ namespace Shared.Model
 
         public int GetRoundTime()
         {
-            return 15 + level * 5;
+            return 30 + level * 5;
         }
 
         public override int GetUpgradeCost()
         {
-            return level * 10;
+            return level * 100;
         }
 
         public override string ToString()
