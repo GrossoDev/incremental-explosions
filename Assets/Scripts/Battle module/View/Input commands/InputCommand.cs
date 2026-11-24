@@ -8,10 +8,14 @@ namespace Battle.View
     {
         [SerializeField] protected float pollingIntervalInSeconds = 0.1f;
         [SerializeField] protected KeyCode[] keys;
+        [SerializeField] private bool allowWhenPaused = false;
         private float timeSinceLastPoll = 0f;
 
         private void Update()
         {
+            if (!allowWhenPaused && Time.timeScale <= 0f)
+                return;
+
             Check();
         }
 

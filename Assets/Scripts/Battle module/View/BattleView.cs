@@ -13,7 +13,6 @@ namespace Battle.View
         [SerializeField] private TextMeshProUGUI coinsText;
         [SerializeField] private TextMeshProUGUI levelCounterText;
         [SerializeField] private TextMeshProUGUI timeRemainingText;
-        [SerializeField] private GameObject panelPausa;
 
         [Header("Battle configuration")]
         [SerializeField] private BattleProgression battleProgression;
@@ -55,6 +54,7 @@ namespace Battle.View
 
         public void BattleEnded()
         {
+            Time.timeScale = 1f;
             sceneSwitcher.SwitchToNext();
         }
 
@@ -75,6 +75,7 @@ namespace Battle.View
 
         public void SaveAndExitToMenu()
         {
+            Time.timeScale = 1f;
             gameView.SaveGame();
             sceneSwitcher.SwitchToNext();
         }

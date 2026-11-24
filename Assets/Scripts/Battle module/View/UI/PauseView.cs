@@ -1,45 +1,65 @@
-using Battle.View;
+using Battle.Presentation;
 using UnityEngine;
 
-public class PauseView : MonoBehaviour
+namespace Battle.View
 {
-    [Header("Referencias")]
-    [SerializeField] private GameObject pausePanel;
-    [SerializeField] private BattleView battleView;
-
-    private bool _isPaused;
-
-    private void Start()
+    public class PauseView : MonoBehaviour
     {
-        Resume();
-    }
+        [Header("References")]
+        [SerializeField] private GameObject pausePanel;
+        [SerializeField] private BattleView battleView;
 
-    public void TogglePause()
-    {
-        if (_isPaused)
-            Resume();
-        else
-            Pause();
-    }
+        private PausePresenter presenter;
 
-    public void Pause()
-    {
-        _isPaused = true;
-        pausePanel.SetActive(true);
-        Time.timeScale = 0f;
-    }
+        private void Awake()
+        {
+            presenter = new PausePresenter(this);
+        }
 
-    public void Resume()
-    {
-        _isPaused = false;
-        pausePanel.SetActive(false);
-        Time.timeScale = 1f;
-    }
+        private void Start()
+        {
+            presenter.Resume();
+        }
 
-    public void OnSaveAndExit()
-    {
-        Time.timeScale = 1f; // si no restauras el tiempo, el juego se quedará pausado al volver al menú
+        private void OnDestroy()
+        {
+            Time.timeScale = 1f;
+        }
 
-        battleView.SaveAndExitToMenu();
+        public PausePresenter GetPresenter()
+        {
+            return presenter;
+        }
+
+        public void TogglePause()
+        {
+            presenter.TogglePause();
+        }
+
+        public void Pause()
+        {
+            presenter.Pause();
+        }
+
+        public void Resume()
+        {
+            presenter.Resume();
+        }
+
+        public void OnSaveAndExit()
+        {
+            presenter.SaveAndExit();
+        }
+
+        public void SetPaused(bool isPaused)
+        {
+            pausePanel.SetActive(isPaused);
+            Time.timeScale = isPaused ? 0f : 1f;
+        }
+
+        public void SaveAndExitToMenu()
+        {
+            battleView.SaveAndExitToMenu();
+        }
     }
 }

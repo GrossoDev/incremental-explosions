@@ -1971,7 +1971,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 557997057}
-        m_TargetAssemblyTypeName: PauseView, Assembly-CSharp
+        m_TargetAssemblyTypeName: Battle.View.PauseView, Assembly-CSharp
         m_MethodName: OnSaveAndExit
         m_Mode: 1
         m_Arguments:
@@ -2456,6 +2456,7 @@ GameObject:
   - component: {fileID: 557997053}
   - component: {fileID: 557997052}
   - component: {fileID: 557997057}
+  - component: {fileID: 557997058}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2597,6 +2598,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 690995216}
   battleView: {fileID: 1676717167}
+--- !u!114 &557997058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557997050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b437d828008b41dab4ceaeee85298674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pollingIntervalInSeconds: 0.1
+  keys: 1b000000
+  allowWhenPaused: 1
+  pauseView: {fileID: 557997057}
 --- !u!1 &575566182
 GameObject:
   m_ObjectHideFlags: 0
@@ -7529,7 +7546,6 @@ MonoBehaviour:
   coinsText: {fileID: 19432134}
   levelCounterText: {fileID: 1168292320}
   timeRemainingText: {fileID: 1192889975}
-  panelPausa: {fileID: 0}
   battleProgression: {fileID: 11400000, guid: 5a75dcad7fdc5f240a9aea2243e9d73a, type: 2}
 --- !u!114 &1676717168
 MonoBehaviour:
@@ -9334,7 +9350,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 557997057}
-        m_TargetAssemblyTypeName: PauseView, Assembly-CSharp
+        m_TargetAssemblyTypeName: Battle.View.PauseView, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
