@@ -58,7 +58,7 @@ namespace Battle.Model
             ticksElapsedSinceSpawn++;
         }
 
-        public void MoveToCell(Cell targetCell)
+        public virtual void MoveToCell(Cell targetCell)
         {
             Cell currentCell = GetCell();
 

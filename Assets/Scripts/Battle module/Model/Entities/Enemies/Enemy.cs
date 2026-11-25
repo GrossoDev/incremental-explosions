@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.Presentation;
 
 namespace Battle.Model
 {
@@ -19,11 +20,30 @@ namespace Battle.Model
         public virtual void Hurt(int damage)
         {
             remainingHealth = Math.Max(0, remainingHealth - damage);
+            GetPresenter().NotifyDamaged(damage);
 
             if (remainingHealth <= 0)
             {
                 Die();
             }
+        }
+
+        public override void MoveToCell(Cell targetCell)
+        {
+            GetPresenter().NotifyBeforeMove();
+            base.MoveToCell(targetCell);
+        }
+
+        protected override void CreatePresenter()
+        {
+            this.presenter = new EnemyPresenter(this);
+            presenter.UpdatePosition(occupiedCell.GetPosition());
+            presenter.UpdateDirection(direction);
+        }
+
+        protected EnemyPresenter GetPresenter()
+        {
+            return (EnemyPresenter)presenter;
         }
 
         public void Die()

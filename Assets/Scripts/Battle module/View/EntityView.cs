@@ -14,7 +14,7 @@ namespace Battle.View
         protected Quaternion targetRotation;
         protected PresenterToViewConverter presenterToView = new PresenterToViewConverter();
 
-        private void Update()
+        protected virtual void Update()
         {
             this.transform.position = Vector3.Lerp(this.transform.position, targetPosition, Time.deltaTime * 10f);
             this.transform.rotation = Quaternion.Lerp(this.transform.rotation, targetRotation, Time.deltaTime * 10f);
@@ -25,7 +25,7 @@ namespace Battle.View
             presenter.Tick();
         }
 
-        public void UpdatePosition(PresenterPosition newPosition)
+        public virtual void UpdatePosition(PresenterPosition newPosition)
         {
             Vector3 position = presenterToView.ToVector3(newPosition);
             targetPosition = position;
