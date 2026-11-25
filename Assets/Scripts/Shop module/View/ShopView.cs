@@ -35,7 +35,6 @@ namespace Shop.View
 
         public void OnContinue()
         {
-            presenter.AdvanceLevel();
             sceneSwitcher.SwitchToNext();
         }
 
@@ -49,11 +48,6 @@ namespace Shop.View
                 coinsText.text = "You have 1 coin";
             else
                 coinsText.text = "You are broke";
-        }
-
-        public void OnContinue()
-        {
-            sceneSwitcher.SwitchToNext();
         }
 
         public void OnSave()
