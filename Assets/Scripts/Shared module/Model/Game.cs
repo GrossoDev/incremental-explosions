@@ -1,14 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Shared.Model
 {
     public class Game
     {
+        private const int DefaultInitialTax = 100;
+        private static readonly Regex JsonIntFieldRegex = new Regex(
+            "\"(?<key>[A-Za-z0-9_]+)\"\\s*:\\s*(?<value>-?\\d+)",
+            RegexOptions.Compiled
+        );
+
         private int currentLevel;
         private int battleCoins;
         private int totalCoins;
+        private int nextTax = DefaultInitialTax;
         private List<Stat> stats = new List<Stat>();
         public static Game Instance { get; private set; } = new Game();
 
@@ -51,11 +59,22 @@ namespace Shared.Model
             currentLevel = level;
         }
 
+        public int GetNextTax()
+        {
+            return nextTax;
+        }
+
+        public void SetNextTax(int amount)
+        {
+            nextTax = amount;
+        }
+
         public void NewGame()
         {
             totalCoins = 0;
             battleCoins = 0;
             currentLevel = 1;
+            nextTax = DefaultInitialTax;
             stats = new List<Stat>()
             {
                 new TimeStat(),
@@ -68,36 +87,42 @@ namespace Shared.Model
 
         public string Serialize()
         {
-            var radiusStatLevel = GetStat<RadiusStat>().GetLevel();
-            var speedStatLevel = GetStat<SpeedStat>().GetLevel();
-            var damageStatLevel = GetStat<DamageStat>().GetLevel();
-            var luckStatLevel = GetStat<LuckStat>().GetLevel();
-            var timeStatLevel = GetStat<TimeStat>().GetLevel();
-
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(currentLevel.ToString());
-            sb.AppendLine(totalCoins.ToString());
-            sb.AppendLine(radiusStatLevel.ToString());
-            sb.AppendLine(speedStatLevel.ToString());
-            sb.AppendLine(damageStatLevel.ToString());
-            sb.AppendLine(luckStatLevel.ToString());
-            sb.AppendLine(timeStatLevel.ToString());
+            sb.AppendLine("{");
+            sb.AppendLine($"  \"currentLevel\": {currentLevel},");
+            sb.AppendLine($"  \"totalCoins\": {totalCoins},");
+            sb.AppendLine($"  \"nextTax\": {nextTax},");
+            sb.AppendLine($"  \"radiusStatLevel\": {GetStatLevel<RadiusStat>()},");
+            sb.AppendLine($"  \"speedStatLevel\": {GetStatLevel<SpeedStat>()},");
+            sb.AppendLine($"  \"damageStatLevel\": {GetStatLevel<DamageStat>()},");
+            sb.AppendLine($"  \"luckStatLevel\": {GetStatLevel<LuckStat>()},");
+            sb.AppendLine($"  \"timeStatLevel\": {GetStatLevel<TimeStat>()}");
+            sb.Append("}");
 
             return sb.ToString();
         }
 
         public void Deserialize(string serialized)
         {
-            string[] lines = serialized.Split("\n");
+            if (string.IsNullOrWhiteSpace(serialized))
+                throw new ArgumentException("Saved game data is empty.", nameof(serialized));
 
-            currentLevel = int.Parse(lines[0]);
-            totalCoins = int.Parse(lines[1]);
+            string trimmed = serialized.Trim();
+            if (!trimmed.StartsWith("{") || !trimmed.EndsWith("}"))
+                throw new FormatException("Saved game data is not a valid JSON object.");
 
-            var radiusStatLevel = int.Parse(lines[2]);
-            var speedStatLevel = int.Parse(lines[3]);
-            var damageStatLevel = int.Parse(lines[4]);
-            var luckStatLevel = int.Parse(lines[5]);
-            var timeStatLevel = int.Parse(lines[6]);
+            Dictionary<string, int> fields = ParseJsonIntFields(trimmed);
+
+            currentLevel = Math.Max(1, ReadRequiredInt(fields, "currentLevel"));
+            totalCoins = Math.Max(0, ReadRequiredInt(fields, "totalCoins"));
+            nextTax = Math.Max(0, ReadOptionalInt(fields, "nextTax", DefaultInitialTax));
+            battleCoins = 0;
+
+            int radiusStatLevel = Math.Max(1, ReadRequiredInt(fields, "radiusStatLevel"));
+            int speedStatLevel = Math.Max(1, ReadRequiredInt(fields, "speedStatLevel"));
+            int damageStatLevel = Math.Max(1, ReadRequiredInt(fields, "damageStatLevel"));
+            int luckStatLevel = Math.Max(1, ReadRequiredInt(fields, "luckStatLevel"));
+            int timeStatLevel = Math.Max(1, ReadRequiredInt(fields, "timeStatLevel"));
 
             stats = new List<Stat>()
             {
@@ -107,6 +132,38 @@ namespace Shared.Model
                 new LuckStat(luckStatLevel),
                 new TimeStat(timeStatLevel),
             };
+        }
+
+        private int GetStatLevel<StatType>() where StatType : Stat
+        {
+            return GetStat<StatType>()?.GetLevel() ?? 1;
+        }
+
+        private static Dictionary<string, int> ParseJsonIntFields(string json)
+        {
+            var fields = new Dictionary<string, int>();
+
+            foreach (Match match in JsonIntFieldRegex.Matches(json))
+            {
+                string key = match.Groups["key"].Value;
+                if (int.TryParse(match.Groups["value"].Value, out int value))
+                    fields[key] = value;
+            }
+
+            return fields;
+        }
+
+        private static int ReadRequiredInt(Dictionary<string, int> fields, string key)
+        {
+            if (!fields.TryGetValue(key, out int value))
+                throw new FormatException($"Missing required save field '{key}'.");
+
+            return value;
+        }
+
+        private static int ReadOptionalInt(Dictionary<string, int> fields, string key, int defaultValue)
+        {
+            return fields.TryGetValue(key, out int value) ? value : defaultValue;
         }
     }
 }
