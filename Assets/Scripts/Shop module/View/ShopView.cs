@@ -1,16 +1,21 @@
+using Shared.View;
 using Shop.Presentation;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Shop.View
 {
+    [RequireComponent(typeof(SceneSwitcher))]
     public class ShopView : MonoBehaviour
     {
-        [SerializeField] private Text coinsText;
+        [SerializeField] private TextMeshProUGUI coinsText;
+
+        private SceneSwitcher sceneSwitcher;
         private ShopPresenter presenter;
 
         private void Start()
         {
+            sceneSwitcher = GetComponent<SceneSwitcher>();
             presenter = new ShopPresenter();
             UpdateTexts();
         }
@@ -18,6 +23,17 @@ namespace Shop.View
         private void LateUpdate()
         {
             UpdateTexts();
+        }
+
+        public ShopPresenter GetPresenter()
+        {
+            return presenter;
+        }
+
+        public void OnContinue()
+        {
+            presenter.AdvanceLevel();
+            sceneSwitcher.SwitchToNext();
         }
 
         private void UpdateTexts()
