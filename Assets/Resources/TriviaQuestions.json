@@ -1,0 +1,124 @@
+{
+  "questions": [
+    {
+      "statement": "¿Cuál es la capital de la República Argentina?",
+      "options": ["Córdoba", "Rosario", "Buenos Aires", "Mendoza"],
+      "correctOptionIndex": 2,
+      "difficulty": 1
+    },
+    {
+      "statement": "¿De qué colores es la bandera nacional argentina?",
+      "options": ["Celeste y blanco", "Azul y rojo", "Verde y amarillo", "Blanco y rojo"],
+      "correctOptionIndex": 0,
+      "difficulty": 1
+    },
+    {
+      "statement": "¿Qué infusión tradicional argentina se toma con bombilla?",
+      "options": ["Té verde", "Mate", "Café turco", "Tereré de café"],
+      "correctOptionIndex": 1,
+      "difficulty": 5
+    },
+    {
+      "statement": "¿En qué fecha se celebra el Día de la Independencia en Argentina?",
+      "options": ["25 de Mayo", "20 de Junio", "9 de Julio", "17 de Agosto"],
+      "correctOptionIndex": 2,
+      "difficulty": 5
+    },
+    {
+      "statement": "¿Qué monumento porteño se encuentra en la Plaza de la República sobre la Avenida 9 de Julio?",
+      "options": ["El Cabildo", "El Obelisco", "La Casa Rosada", "El Planetario"],
+      "correctOptionIndex": 1,
+      "difficulty": 10
+    },
+    {
+      "statement": "¿En qué provincia argentina se encuentran las Cataratas del Iguazú?",
+      "options": ["Salta", "Corrientes", "Misiones", "Entre Ríos"],
+      "correctOptionIndex": 2,
+      "difficulty": 10
+    },
+    {
+      "statement": "¿Quién compuso la música del Himno Nacional Argentino?",
+      "options": ["Vicente López y Planes", "Blas Parera", "Esteban Echeverría", "Juan Bautista Alberdi"],
+      "correctOptionIndex": 1,
+      "difficulty": 15
+    },
+    {
+      "statement": "¿Cuál es el pico más alto de América, ubicado en la provincia de Mendoza?",
+      "options": ["Cerro Tronador", "Cerro Fitz Roy", "Cerro Aconcagua", "Volcán Lanín"],
+      "correctOptionIndex": 2,
+      "difficulty": 15
+    },
+    {
+      "statement": "¿En qué año obtuvo Argentina su tercera Copa Mundial de Fútbol en Qatar?",
+      "options": ["2018", "2020", "2022", "2024"],
+      "correctOptionIndex": 2,
+      "difficulty": 20
+    },
+    {
+      "statement": "¿Qué escritor argentino es el autor de 'Ficciones' y 'El Aleph'?",
+      "options": ["Julio Cortázar", "Jorge Luis Borges", "Adolfo Bioy Casares", "Ernesto Sabato"],
+      "correctOptionIndex": 1,
+      "difficulty": 20
+    },
+    {
+      "statement": "¿Qué glaciar famoso se encuentra en el Parque Nacional Los Glaciares, en Santa Cruz?",
+      "options": ["Glaciar Perito Moreno", "Glaciar Martial", "Glaciar Vinciguerra", "Glaciar Huemul"],
+      "correctOptionIndex": 0,
+      "difficulty": 25
+    },
+    {
+      "statement": "¿Qué prócer argentino creó la Bandera Nacional a orillas del río Paraná en 1812?",
+      "options": ["José de San Martín", "Manuel Belgrano", "Mariano Moreno", "Martín Miguel de Güemes"],
+      "correctOptionIndex": 1,
+      "difficulty": 25
+    },
+    {
+      "statement": "¿Qué médico argentino recibió el Premio Nobel de Fisiología o Medicina en 1947?",
+      "options": ["René Favaloro", "Bernardo Houssay", "César Milstein", "Luis Federico Leloir"],
+      "correctOptionIndex": 1,
+      "difficulty": 30
+    },
+    {
+      "statement": "¿En qué ciudad nació el legendario cantante de tango Carlos Gardel según la versión más aceptada de su partida francesa?",
+      "options": ["Toulouse", "Montevideo", "Buenos Aires", "Tacuarembó"],
+      "correctOptionIndex": 0,
+      "difficulty": 30
+    },
+    {
+      "statement": "¿Cuál es la ciudad más austral del mundo ubicada en Tierra del Fuego, Argentina?",
+      "options": ["Río Grande", "Tolhuin", "Ushuaia", "El Calafate"],
+      "correctOptionIndex": 2,
+      "difficulty": 35
+    },
+    {
+      "statement": "¿Qué músico argentino lideró las bandas Almendra, Pescado Rabioso e Invisible?",
+      "options": ["Charly García", "Luis Alberto Spinetta", "Gustavo Cerati", "Fito Páez"],
+      "correctOptionIndex": 1,
+      "difficulty": 35
+    },
+    {
+      "statement": "¿Qué científico argentino recibió el Premio Nobel de Química en 1970 por sus estudios sobre nucleótidos azúcar?",
+      "options": ["Luis Federico Leloir", "Bernardo Houssay", "César Milstein", "Salvador Mazza"],
+      "correctOptionIndex": 0,
+      "difficulty": 40
+    },
+    {
+      "statement": "¿Cuál fue la primera provincia argentina en sancionarse una constitución provincial en 1819?",
+      "options": ["Buenos Aires", "Santa Fe", "Córdoba", "Tucumán"],
+      "correctOptionIndex": 1,
+      "difficulty": 45
+    },
+    {
+      "statement": "¿En qué año se estrenó el primer largometraje animado del mundo, 'El apóstol', realizado en Argentina por Quirino Cristiani?",
+      "options": ["1912", "1917", "1923", "1929"],
+      "correctOptionIndex": 1,
+      "difficulty": 50
+    },
+    {
+      "statement": "¿Cuál es el nombre del estrecho marítimo que separa la Isla Grande de Tierra del Fuego del continente sudamericano?",
+      "options": ["Canal Beagle", "Pasaje de Drake", "Estrecho de Magallanes", "Estrecho de Le Maire"],
+      "correctOptionIndex": 2,
+      "difficulty": 50
+    }
+  ]
+}

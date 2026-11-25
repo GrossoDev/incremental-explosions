@@ -13,7 +13,7 @@ namespace Shared.Presentation
 
         public int GetBattleCoins()
         {
-            return model.GetTotalCoins();
+            return model.GetBattleCoins();
         }
 
         public void SetBattleCoins(int amount)
@@ -39,6 +39,16 @@ namespace Shared.Presentation
         public void SetCurrentLevel(int level)
         {
             model.SetCurrentLevel(level);
+        }
+
+        public int GetNextTax()
+        {
+            return model.GetNextTax();
+        }
+
+        public void SetNextTax(int amount)
+        {
+            model.SetNextTax(amount);
         }
 
         public void StartNewGame()

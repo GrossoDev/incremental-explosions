@@ -44,6 +44,13 @@ namespace Shared.View
         {
             string serializedGame = gamePresenter.Serialize();
             PlayerPrefs.SetString(PlayerPrefsSaveKey, serializedGame);
+            PlayerPrefs.Save();
+        }
+
+        public void DeleteSavedGame()
+        {
+            PlayerPrefs.DeleteKey(PlayerPrefsSaveKey);
+            PlayerPrefs.Save();
         }
 
         public bool DoesSavedGameExist()
