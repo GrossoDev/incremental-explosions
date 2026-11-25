@@ -3,58 +3,53 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VistaTrivia : MonoBehaviour, ITriviaView
+public class TriviaView : MonoBehaviour
 {
-    [Header("Textos Principales")]
+    [Header("Main Texts")]
     [SerializeField] private TextMeshProUGUI mainText;
     [SerializeField] private TextMeshProUGUI coinsText;
 
-    [Header("Opciones de Respuesta")]
+    [Header("Answer Options")]
     [SerializeField] private GameObject optionsContainer;
     [SerializeField] private List<Button> optionButtons;
     [SerializeField] private List<TextMeshProUGUI> optionTexts;
 
-    [Header("Botones del Footer")]
+    [Header("Footer Buttons")]
     [SerializeField] private Button answerButton;
     [SerializeField] private Button refrainButton;
-    [SerializeField] private Button continueButton;
 
     private TriviaPresenter presenter;
 
     public void Initialize(TriviaPresenter presenter)
     {
         this.presenter = presenter;
-        BindButtons();
     }
 
-    private void BindButtons()
+    // --- Métodos públicos para asignar en On Click () desde el Inspector ---
+
+    public void OnAcceptButtonClicked()
     {
-        answerButton.onClick.RemoveAllListeners();
-        answerButton.onClick.AddListener(() =>
-        {
-            answerButton.interactable = false;
-            refrainButton.interactable = false;
-            presenter.OnAcceptTrivia();
-        });
-
-        refrainButton.onClick.RemoveAllListeners();
-        refrainButton.onClick.AddListener(() => presenter.OnRejectTrivia());
-
-        continueButton.onClick.RemoveAllListeners();
-        continueButton.onClick.AddListener(() => presenter.OnContinueAfterResult());
-
-        for (int i = 0; i < optionButtons.Count; i++)
-        {
-            int index = i;
-            optionButtons[i].onClick.RemoveAllListeners();
-            optionButtons[i].onClick.AddListener(() => presenter.OnSelectedOption(index));
-        }
+        answerButton.interactable = false;
+        refrainButton.interactable = false;
+        presenter.OnAcceptTrivia();
     }
+
+    public void OnRefrainButtonClicked()
+    {
+        presenter.OnRejectTrivia();
+    }
+
+    public void OnOptionButtonClicked(int optionIndex)
+    {
+        presenter.OnSelectedOption(optionIndex);
+    }
+
+    // --- Métodos llamados por TriviaPresenter ---
 
     public void ShowProposal(int collectedCoins)
     {
-        coinsText.text = $"Ganancias de ronda: ${collectedCoins}";
-        mainText.text = "¿Querés arriesgar tus ganancias de la ronda en una trivia?\n(Correcta: x2 | Incorrecta: /2)";
+        coinsText.text = $"Round earnings: ${collectedCoins}";
+        mainText.text = "Do you want to risk your round earnings on a trivia question?\n(Correct: x2 | Incorrect: /2)";
 
         optionsContainer.SetActive(false);
 
@@ -64,10 +59,9 @@ public class VistaTrivia : MonoBehaviour, ITriviaView
         refrainButton.gameObject.SetActive(true);
         refrainButton.interactable = true;
 
-        continueButton.gameObject.SetActive(false);
     }
 
-    public void ShowQuestion(string question, List<string> options)
+    public void ShowQuestion(string question, IReadOnlyList<string> options)
     {
         mainText.text = question;
         optionsContainer.SetActive(true);
@@ -84,18 +78,16 @@ public class VistaTrivia : MonoBehaviour, ITriviaView
 
         answerButton.gameObject.SetActive(false);
         refrainButton.gameObject.SetActive(false);
-        continueButton.gameObject.SetActive(false);
     }
 
     public void ShowResult(bool correctAnswer, int finalCoins)
     {
         optionsContainer.SetActive(false);
 
-        mainText.text = correctAnswer ? "¡Respuesta correcta!" : "Respuesta incorrecta";
-        coinsText.text = $"Ganancias finales: ${finalCoins}";
+        mainText.text = correctAnswer ? "Correct answer!" : "Wrong answer!";
+        coinsText.text = $"Final earnings: ${finalCoins}";
 
         answerButton.gameObject.SetActive(false);
         refrainButton.gameObject.SetActive(false);
-        continueButton.gameObject.SetActive(true);
     }
 }
