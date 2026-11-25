@@ -41,6 +41,16 @@ namespace Shared.Presentation
             model.SetCurrentLevel(level);
         }
 
+        public int GetNextTax()
+        {
+            return model.GetNextTax();
+        }
+
+        public void SetNextTax(int amount)
+        {
+            model.SetNextTax(amount);
+        }
+
         public void StartNewGame()
         {
             model.NewGame();
