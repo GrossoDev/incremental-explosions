@@ -13,7 +13,7 @@ namespace Shared.Presentation
 
         public int GetBattleCoins()
         {
-            return model.GetTotalCoins();
+            return model.GetBattleCoins();
         }
 
         public void SetBattleCoins(int amount)

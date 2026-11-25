@@ -1,52 +1,77 @@
-﻿
-using System;
-using System.Threading.Tasks;
+﻿using System;
+using Trivia.Model;
+using Trivia.View;
 
-public class TriviaPresenter
+namespace Trivia.Presentation
 {
-    private readonly ITriviaView view;
-    private readonly TriviaSession triviaSession;
-    private readonly Action onTriviaCompleted;
-
-    public TriviaPresenter(ITriviaView view, TriviaSession triviaSession, Action onTriviaCompleted = null)
+    public class TriviaPresenter
     {
-        this.view = view;
-        this.triviaSession = triviaSession;
-        this.onTriviaCompleted = onTriviaCompleted;
-    }
+        private readonly TriviaView view;
+        private readonly TriviaSession triviaSession;
+        private bool isLoadingQuestion;
 
-    public void StartTrivia()
-    {
-        view.ShowProposal(triviaSession.GetRoundEarnings());
-    }
-
-    public async void OnAcceptTrivia()
-    {
-        try
+        public TriviaPresenter(TriviaView view, TriviaSession triviaSession)
         {
-            TriviaQuestion question = await triviaSession.GetQuestionAsync();
-            view.ShowQuestion(question.GetStatement(), question.GetOptions());
+            this.view = view ?? throw new ArgumentNullException(nameof(view));
+            this.triviaSession = triviaSession ?? throw new ArgumentNullException(nameof(triviaSession));
         }
-        catch (Exception)
+
+        public void StartTrivia()
         {
-            OnRejectTrivia();
+            view.ShowProposal(triviaSession.GetRoundEarnings());
         }
-    }
 
-    public void OnRejectTrivia()
-    {
-        triviaSession.Refrain();
-        onTriviaCompleted?.Invoke();
-    }
+        public async void OnAcceptTrivia()
+        {
+            if (isLoadingQuestion || triviaSession.IsResolved())
+                return;
 
-    public void OnSelectedOption(int option)
-    {
-        triviaSession.Answer(option);
-        view.ShowResult(triviaSession.WasCorrect(), triviaSession.GetRoundEarnings());
-    }
+            isLoadingQuestion = true;
+            view.ShowLoading();
 
-    public void OnContinueAfterResult()
-    {
-        onTriviaCompleted?.Invoke();
+            try
+            {
+                TriviaQuestion question = await triviaSession.GetQuestionAsync();
+
+                if (triviaSession.IsResolved())
+                    return;
+
+                view.ShowQuestion(question.GetStatement(), question.GetOptions());
+            }
+            catch (Exception)
+            {
+                OnRejectTrivia();
+            }
+            finally
+            {
+                isLoadingQuestion = false;
+            }
+        }
+
+        public void OnRejectTrivia()
+        {
+            if (triviaSession.IsResolved())
+                return;
+
+            triviaSession.Refrain();
+            view.NavigateToNextScene();
+        }
+
+        public void OnSelectedOption(int optionIndex)
+        {
+            if (isLoadingQuestion || triviaSession.IsResolved())
+                return;
+
+            triviaSession.Answer(optionIndex);
+            view.ShowResult(triviaSession.WasCorrect(), triviaSession.GetRoundEarnings());
+        }
+
+        public void OnContinueAfterResult()
+        {
+            if (!triviaSession.IsResolved())
+                return;
+
+            view.NavigateToNextScene();
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace Battle.Model
 
         public void Initialize()
         {
+            Game.Instance.SetBattleCoins(0);
+
             var timeStat = Game.Instance.GetStat<TimeStat>();
             roundTime = timeStat.GetRoundTime();
             remainingTime = roundTime;

@@ -2,63 +2,77 @@
 using System.Threading.Tasks;
 using Shared.Model;
 
-public class TriviaSession
+namespace Trivia.Model
 {
-    private int roundEarnings;
-    private readonly int difficulty;
-    private TriviaQuestion currentQuestion;
-    private readonly IQuestionProvider primaryProvider;
-    private readonly IQuestionProvider fallbackProvider;
-    private bool wasCorrect;
-    private bool isResolved;
-
-    public TriviaSession(int roundEarnings, int difficulty, IQuestionProvider primaryProvider, IQuestionProvider fallbackProvider)
+    public class TriviaSession
     {
-        this.roundEarnings = roundEarnings;
-        this.difficulty = difficulty;
-        this.primaryProvider = primaryProvider;
-        this.fallbackProvider = fallbackProvider;
-        this.isResolved = false;
-    }
+        private int roundEarnings;
+        private readonly int difficulty;
+        private TriviaQuestion currentQuestion;
+        private readonly IQuestionProvider primaryProvider;
+        private readonly IQuestionProvider fallbackProvider;
+        private bool wasCorrect;
+        private bool isResolved;
 
-    public int GetRoundEarnings() => roundEarnings;
-
-    public bool WasCorrect() => wasCorrect;
-
-    public async Task<TriviaQuestion> GetQuestionAsync()
-    {
-        try
+        public TriviaSession(IQuestionProvider primaryProvider, IQuestionProvider fallbackProvider)
+            : this(Game.Instance.GetBattleCoins(), Game.Instance.GetCurrentLevel(), primaryProvider, fallbackProvider)
         {
-            currentQuestion = await primaryProvider.GetQuestionAsync(difficulty);
         }
-        catch (Exception)
+
+        public TriviaSession(int roundEarnings, int difficulty, IQuestionProvider primaryProvider, IQuestionProvider fallbackProvider)
         {
-            currentQuestion = await fallbackProvider.GetQuestionAsync(difficulty);
+            this.roundEarnings = roundEarnings;
+            this.difficulty = difficulty;
+            this.primaryProvider = primaryProvider ?? throw new ArgumentNullException(nameof(primaryProvider));
+            this.fallbackProvider = fallbackProvider ?? throw new ArgumentNullException(nameof(fallbackProvider));
+            this.isResolved = false;
         }
-        return currentQuestion;
-    }
 
-    public void Answer(int option)
-    {
-        if (isResolved || currentQuestion == null) return;
+        public int GetRoundEarnings() => roundEarnings;
 
-        wasCorrect = currentQuestion.IsCorrectAnswer(option);
-        roundEarnings = wasCorrect ? roundEarnings * 2 : roundEarnings / 2;
+        public bool WasCorrect() => wasCorrect;
 
-        isResolved = true;
-        UpdateCoins();
-    }
+        public bool IsResolved() => isResolved;
 
-    public void Refrain()
-    {
-        if (isResolved) return;
+        public async Task<TriviaQuestion> GetQuestionAsync()
+        {
+            try
+            {
+                currentQuestion = await primaryProvider.GetQuestionAsync(difficulty);
+            }
+            catch (Exception)
+            {
+                currentQuestion = await fallbackProvider.GetQuestionAsync(difficulty);
+            }
 
-        isResolved = true;
-        UpdateCoins();
-    }
+            return currentQuestion;
+        }
 
-    private void UpdateCoins()
-    {
-        Game.Instance.SetTotalCoins(Game.Instance.GetTotalCoins() + roundEarnings);
+        public void Answer(int optionIndex)
+        {
+            if (isResolved || currentQuestion == null)
+                return;
+
+            wasCorrect = currentQuestion.IsCorrectAnswer(optionIndex);
+            roundEarnings = wasCorrect ? roundEarnings * 2 : roundEarnings / 2;
+
+            isResolved = true;
+            UpdateCoins();
+        }
+
+        public void Refrain()
+        {
+            if (isResolved)
+                return;
+
+            isResolved = true;
+            UpdateCoins();
+        }
+
+        private void UpdateCoins()
+        {
+            Game.Instance.SetTotalCoins(Game.Instance.GetTotalCoins() + roundEarnings);
+            Game.Instance.SetBattleCoins(0);
+        }
     }
 }

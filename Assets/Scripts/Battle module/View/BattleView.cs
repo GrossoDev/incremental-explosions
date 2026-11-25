@@ -17,6 +17,9 @@ namespace Battle.View
         [Header("Battle configuration")]
         [SerializeField] private BattleProgression battleProgression;
 
+        [Header("Navigation")]
+        [SerializeField] private SceneField mainMenuScene;
+
         private GameView gameView;
         private SceneSwitcher sceneSwitcher;
         private BattlePresenter battlePresenter;
@@ -77,7 +80,7 @@ namespace Battle.View
         {
             Time.timeScale = 1f;
             gameView.SaveGame();
-            sceneSwitcher.SwitchToNext();
+            sceneSwitcher.SwitchTo(mainMenuScene);
         }
     }
 }
