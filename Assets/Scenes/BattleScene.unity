@@ -4259,7 +4259,7 @@ GameObject:
   - component: {fileID: 925380310}
   - component: {fileID: 925380312}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: SkellWarrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4300,8 +4300,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity:
-    assemblyQualifiedName: IE.Model.Zombie, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    assemblyQualifiedName: Battle.Model.SkellWarrior, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   spawnAmountField: {fileID: 1467967035}
   battleView: {fileID: 1676717167}
 --- !u!1 &963194225
@@ -6911,7 +6911,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Spawn Zombies
+  m_Text: Spawn SkellWarriors
 --- !u!222 &1597351750
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7490,7 +7490,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Spawn Gnomes
+  m_Text: Spawn AlienUndercovers
 --- !u!222 &1675459337
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7997,7 +7997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927d8b4bd3c832145ac2de3234d84add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fakeLevel: 14
+  fakeLevel: 4
   fakeRoundCoins: 0
   fakeTotalCoins: 0
 --- !u!4 &1793826424
@@ -8026,7 +8026,7 @@ GameObject:
   - component: {fileID: 1802125506}
   - component: {fileID: 1802125508}
   m_Layer: 0
-  m_Name: Gnome
+  m_Name: AlienUndercover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8067,8 +8067,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity:
-    assemblyQualifiedName: IE.Model.Gnome, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    assemblyQualifiedName: Battle.Model.AlienUndercover, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   spawnAmountField: {fileID: 839741354}
   battleView: {fileID: 1676717167}
 --- !u!1 &1803151142
@@ -9455,8 +9455,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity:
-    assemblyQualifiedName: IE.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    assemblyQualifiedName: Battle.Model.Skeleton, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   spawnAmountField: {fileID: 1678237067}
   battleView: {fileID: 1676717167}
 --- !u!1 &2065529051
