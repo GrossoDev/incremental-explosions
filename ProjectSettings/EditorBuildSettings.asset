@@ -6,15 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BattleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 6c06dd88be6a42d4793fd61229838501
+  - enabled: 1
+    path: Assets/Scenes/BattleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/Shop.unity
     guid: 690dc25cf9604ba4fa7ef46bee17aca6
   - enabled: 1
     path: Assets/Scenes/Trivia.unity
     guid: 3468389d4531fa543b1a4699b9eca86a
+  - enabled: 1
+    path: Assets/Scenes/Tax.unity
+    guid: 8af223450b860844c899a3ed30122cb6
   m_configObjects: {}

@@ -51,11 +51,6 @@ namespace Shop.View
                 coinsText.text = "You are broke";
         }
 
-        public void OnContinue()
-        {
-            sceneSwitcher.SwitchToNext();
-        }
-
         public void OnSave()
         {
             GameView.Instance.SaveGame();
