@@ -1,4 +1,5 @@
 using Shop.Presentation;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ namespace Shop.View
     public abstract class ShopStatView : MonoBehaviour
     {
         [SerializeField] private Text priceText;
-        [SerializeField] private Text levelText;
+        [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private Button purchaseButton;
 
         public abstract ShopStatPresenter GetPresenter();

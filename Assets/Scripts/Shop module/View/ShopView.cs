@@ -35,7 +35,6 @@ namespace Shop.View
 
         public void OnContinue()
         {
-            presenter.AdvanceLevel();
             sceneSwitcher.SwitchToNext();
         }
 
