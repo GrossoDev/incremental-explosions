@@ -1,3 +1,4 @@
+using System;
 using Shared.Model;
 
 namespace Shop.Presentation
@@ -12,6 +13,7 @@ namespace Shop.Presentation
         public void AdvanceLevel()
         {
             int currentLevel = Game.Instance.GetCurrentLevel();
+
             Game.Instance.SetCurrentLevel(currentLevel + 1);
         }
     }

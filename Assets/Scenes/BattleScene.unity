@@ -7548,6 +7548,9 @@ MonoBehaviour:
   levelCounterText: {fileID: 1168292320}
   timeRemainingText: {fileID: 1192889975}
   battleProgression: {fileID: 11400000, guid: 5a75dcad7fdc5f240a9aea2243e9d73a, type: 2}
+  mainMenuScene:
+    m_SceneAsset: {fileID: 102900000, guid: 6c06dd88be6a42d4793fd61229838501, type: 3}
+    m_SceneName: MainMenu
 --- !u!114 &1676717168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7561,8 +7564,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene:
-    m_SceneAsset: {fileID: 102900000, guid: 6c06dd88be6a42d4793fd61229838501, type: 3}
-    m_SceneName: MainMenu
+    m_SceneAsset: {fileID: 102900000, guid: 3468389d4531fa543b1a4699b9eca86a, type: 3}
+    m_SceneName: Trivia
 --- !u!1 &1678237066
 GameObject:
   m_ObjectHideFlags: 0
