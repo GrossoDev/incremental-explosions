@@ -18,11 +18,15 @@ namespace Shop.View
             DisableButtonIfNotEnoughCoins();
         }
 
+        private void Update()
+        {
+            UpdateTexts();
+            DisableButtonIfNotEnoughCoins();
+        }
+
         public void OnPurchase()
         {
             GetPresenter().Purchase();
-            UpdateTexts();
-            DisableButtonIfNotEnoughCoins();
         }
 
         private void UpdateTexts()

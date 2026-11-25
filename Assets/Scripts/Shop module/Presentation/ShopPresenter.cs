@@ -9,5 +9,12 @@ namespace Shop.Presentation
         {
             return Game.Instance.GetTotalCoins();
         }
+
+        public void AdvanceLevel()
+        {
+            int currentLevel = Game.Instance.GetCurrentLevel();
+
+            Game.Instance.SetCurrentLevel(currentLevel + 1);
+        }
     }
 }
