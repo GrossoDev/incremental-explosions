@@ -9,14 +9,16 @@ namespace Trivia.Model
 {
     public class LLMProvider : IQuestionProvider
     {
-        // gemini-2.5-flash-lite responde mucho más rápido para este caso de uso
-        private readonly string apiURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
+        private const string DefaultModelName = "gemini-3.5-flash-lite";
+        private readonly string apiURL;
         private readonly string apiKey;
         private readonly int timeoutSeconds;
         private static readonly List<string> recentQuestions = new List<string>();
 
-        public LLMProvider(string apiKey, int timeoutSeconds)
+        public LLMProvider(string apiKey, int timeoutSeconds, string modelName = DefaultModelName)
         {
+            string resolvedModel = string.IsNullOrWhiteSpace(modelName) ? DefaultModelName : modelName.Trim();
+            this.apiURL = $"https://generativelanguage.googleapis.com/v1beta/models/{resolvedModel}:generateContent";
             this.apiKey = apiKey;
             this.timeoutSeconds = timeoutSeconds;
         }
