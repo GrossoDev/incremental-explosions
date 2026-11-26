@@ -9,6 +9,7 @@ namespace Battle.Model
         private SpeedStat speedStat;
         private DamageStat damageStat;
         private RadiusStat radiusStat;
+        private TorchStat torchStat;
         private Game game;
 
         public Player(Cell cell, GridDirection direction) : base(cell, direction, new PlayerCollisionHandler())
@@ -17,6 +18,17 @@ namespace Battle.Model
             this.speedStat  = game.GetStat<SpeedStat>();
             this.damageStat = game.GetStat<DamageStat>();
             this.radiusStat = game.GetStat<RadiusStat>();
+            this.torchStat  = game.GetStat<TorchStat>();
+        }
+
+        public float GetTorchRange()
+        {
+            return torchStat.GetLightRange();
+        }
+
+        public float GetTorchIntensity()
+        {
+            return torchStat.GetLightIntensity();
         }
 
         public override void Tick()

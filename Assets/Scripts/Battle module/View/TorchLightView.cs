@@ -29,6 +29,12 @@ namespace Battle.View
             noiseOffset = Random.Range(0f, 100f);
         }
 
+        public void SetLightProfile(float range, float intensity)
+        {
+            baseRange = Mathf.Max(0.1f, range);
+            baseIntensity = Mathf.Max(0f, intensity);
+        }
+
         private void Update()
         {
             float time = Time.time * flickerSpeed;

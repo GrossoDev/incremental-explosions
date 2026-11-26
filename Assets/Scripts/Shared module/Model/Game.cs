@@ -82,6 +82,7 @@ namespace Shared.Model
                 new RadiusStat(),
                 new LuckStat(),
                 new DamageStat(),
+                new TorchStat(),
             };
         }
 
@@ -96,7 +97,8 @@ namespace Shared.Model
             sb.AppendLine($"  \"speedStatLevel\": {GetStatLevel<SpeedStat>()},");
             sb.AppendLine($"  \"damageStatLevel\": {GetStatLevel<DamageStat>()},");
             sb.AppendLine($"  \"luckStatLevel\": {GetStatLevel<LuckStat>()},");
-            sb.AppendLine($"  \"timeStatLevel\": {GetStatLevel<TimeStat>()}");
+            sb.AppendLine($"  \"timeStatLevel\": {GetStatLevel<TimeStat>()},");
+            sb.AppendLine($"  \"torchStatLevel\": {GetStatLevel<TorchStat>()}");
             sb.Append("}");
 
             return sb.ToString();
@@ -123,6 +125,7 @@ namespace Shared.Model
             int damageStatLevel = Math.Max(1, ReadRequiredInt(fields, "damageStatLevel"));
             int luckStatLevel = Math.Max(1, ReadRequiredInt(fields, "luckStatLevel"));
             int timeStatLevel = Math.Max(1, ReadRequiredInt(fields, "timeStatLevel"));
+            int torchStatLevel = Math.Max(1, ReadOptionalInt(fields, "torchStatLevel", 1));
 
             stats = new List<Stat>()
             {
@@ -131,6 +134,7 @@ namespace Shared.Model
                 new DamageStat(damageStatLevel),
                 new LuckStat(luckStatLevel),
                 new TimeStat(timeStatLevel),
+                new TorchStat(torchStatLevel),
             };
         }
 

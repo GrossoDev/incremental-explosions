@@ -33,5 +33,15 @@ namespace Battle.Presentation
         {
             return (Player)model;
         }
+
+        public float GetTorchRange()
+        {
+            return GetModel().GetTorchRange();
+        }
+
+        public float GetTorchIntensity()
+        {
+            return GetModel().GetTorchIntensity();
+        }
     }
 }

@@ -84,4 +84,12 @@ namespace Shop.Presentation
             stat = Game.Instance.GetStat<SpeedStat>();
         }
     }
+
+    public class TorchShopStatPresenter : ShopStatPresenter
+    {
+        public override void Initialize()
+        {
+            stat = Game.Instance.GetStat<TorchStat>();
+        }
+    }
 }
