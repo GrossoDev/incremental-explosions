@@ -29,7 +29,7 @@ namespace Tax.View
 
         private void UpdateTexts()
         {
-            TaxConfig tax = taxView.GetTax();
+            TaxConfig tax = taxView.GetPresenter().GetTax();
             int amount = tax.tax;
 
             amountText.text = $"You don't have enough coins to pay ${amount}";

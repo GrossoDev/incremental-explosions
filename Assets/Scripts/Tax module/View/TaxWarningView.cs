@@ -30,9 +30,9 @@ namespace Tax.View
 
         private void UpdateTexts()
         {
-            TaxConfig nextTax = taxView.GetNextTax();
+            TaxConfig nextTax = taxView.GetPresenter().GetNextTax();
 
-            int currentLevel = taxView.GetCurrentLevel();
+            int currentLevel = taxView.GetPresenter().GetCurrentLevel();
             int levels = nextTax.level - currentLevel;
             int amount = nextTax.tax;
 

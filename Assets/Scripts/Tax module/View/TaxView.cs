@@ -21,56 +21,33 @@ namespace Tax.View
 
         private void Start()
         {
-            presenter = new TaxPresenter();
-            SelectBehaviour();
+            presenter = new TaxPresenter(this);
+            warningPanel.gameObject.SetActive(false);
+            canPayPanel.gameObject.SetActive(false);
+            cannotPayPanel.gameObject.SetActive(false);
+
+            presenter.SetTaxProgression(taxProgression.taxConfigurations);
+            presenter.SelectBehaviour();
         }
 
-        private void SelectBehaviour()
+        public void ShowCanPay()
         {
-            if (DoesCurrentLevelHaveTax())
-            {
-                bool hasEnoughCoinsToPay = GetTax().tax > GetCurrentCoins();
+            cannotPayPanel.gameObject.SetActive(true);
+        }
 
-                canPayPanel.gameObject.SetActive(hasEnoughCoinsToPay);
-                cannotPayPanel.gameObject.SetActive(!hasEnoughCoinsToPay);
-            }
-            else
-            {
-                warningPanel.gameObject.SetActive(true);
-            }
+        public void ShowCannotPay()
+        {
+            canPayPanel.gameObject.SetActive(true);
+        }
+
+        public void ShowWarning()
+        {
+            warningPanel.gameObject.SetActive(true);
         }
 
         public TaxPresenter GetPresenter()
         {
             return presenter;
-        }
-
-        public bool DoesCurrentLevelHaveTax()
-        {
-            int currentLevel = GetCurrentLevel();
-            return taxProgression.DoesLevelHaveTax(currentLevel);
-        }
-
-        public TaxConfig GetTax()
-        {
-            int currentLevel = GetCurrentLevel();
-            return taxProgression.GetTaxConfigForLevel(currentLevel);
-        }
-
-        public TaxConfig GetNextTax()
-        {
-            int currentLevel = GetCurrentLevel();
-            return taxProgression.GetNextTax(currentLevel);
-        }
-
-        public int GetCurrentLevel()
-        {
-            return GameView.Instance.GetPresenter().GetCurrentLevel();
-        }
-
-        public int GetCurrentCoins()
-        {
-            return GameView.Instance.GetPresenter().GetTotalCoins();
         }
     }
 }

@@ -2,7 +2,7 @@ namespace Battle.Model
 {
     public class Latina : Enemy
     {
-        private int ticksBetweenMoves = 30;
+        private int ticksBetweenMoves = 100;
 
         public Latina(Cell cell, GridDirection direction) : base(cell, direction, new EnemyCollisionHandler())
         {

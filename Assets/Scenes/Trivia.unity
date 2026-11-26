@@ -1644,8 +1644,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene:
-    m_SceneAsset: {fileID: 102900000, guid: 690dc25cf9604ba4fa7ef46bee17aca6, type: 3}
-    m_SceneName: Shop
+    m_SceneAsset: {fileID: 102900000, guid: 8af223450b860844c899a3ed30122cb6, type: 3}
+    m_SceneName: Tax
 --- !u!4 &923349122
 Transform:
   m_ObjectHideFlags: 0
