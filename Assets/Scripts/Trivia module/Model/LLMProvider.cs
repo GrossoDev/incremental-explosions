@@ -9,11 +9,13 @@ namespace Trivia.Model
 {
     public class LLMProvider : IQuestionProvider
     {
-        private readonly string apiURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+        // gemini-2.5-flash-lite responde mucho más rápido para este caso de uso
+        private readonly string apiURL = "https://googleapis.com";
         private readonly string apiKey;
         private readonly int timeoutSeconds;
+        private readonly List<string> recentQuestions = new List<string>();
 
-        public LLMProvider(string apiKey, int timeoutSeconds = 5)
+        public LLMProvider(string apiKey, int timeoutSeconds)
         {
             this.apiKey = apiKey;
             this.timeoutSeconds = timeoutSeconds;
@@ -45,31 +47,62 @@ namespace Trivia.Model
 
                 if (request.result != UnityWebRequest.Result.Success)
                 {
-                    throw new Exception($"Error de red o timeout en API: {request.error}");
+                    // Incluir downloadHandler.text ayuda muchísimo a debuggear errores 400/403/429
+                    throw new Exception($"Error API ({request.responseCode}): {request.error} - {request.downloadHandler.text}");
                 }
 
-                return ParseGeminiResponse(request.downloadHandler.text);
+                TriviaQuestion question = ParseGeminiResponse(request.downloadHandler.text);
+                RegistrarPreguntaReciente(question.GetStatement()); // Ajusta al nombre de tu propiedad
+                return question;
             }
         }
 
         private string BuildQuestionPrompt(int difficulty)
         {
-            return $"Genera una pregunta de trivia de opción múltiple de cultura general Argentina con dificultad {difficulty} en una escala de 1 (muy fácil) a 50 (muy difícil). " +
-                   "Devuelve exclusivamente un objeto JSON con esta estructura exacta: " +
-                   "{\"statement\": \"texto de la pregunta\", \"options\": [\"opcion 0\", \"opcion 1\", \"opcion 2\", \"opcion 3\"], \"correctOptionIndex\": 0}";
+            string historial = recentQuestions.Count > 0
+                ? $" Evita repetir estos temas o preguntas ya hechas: {string.Join(" | ", recentQuestions)}."
+                : "";
+
+            return $"Genera una pregunta de trivia original de cultura general Argentina (historia, geografía, música, deportes, costumbres, cine o literatura) " +
+                   $"con dificultad {difficulty} en una escala de 1 (muy fácil) a 50 (muy difícil).{historial}";
         }
 
         private string BuildRequestPayload(string prompt)
         {
-            string escapedPrompt = prompt.Replace("\\", "\\\\").Replace("\"", "\\\"");
+            string escapedPrompt = prompt
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"")
+                .Replace("\n", "\\n")
+                .Replace("\r", "");
+
             return $@"{{
-            ""contents"": [{{
-                ""parts"": [{{ ""text"": ""{escapedPrompt}"" }}]
-            }}],
-            ""generationConfig"": {{
-                ""responseMimeType"": ""application/json""
-            }}
-        }}";
+                ""contents"": [{{
+                    ""parts"": [{{ ""text"": ""{escapedPrompt}"" }}]
+                }}],
+                ""generationConfig"": {{
+                    ""temperature"": 0.9,
+                    ""responseMimeType"": ""application/json"",
+                    ""responseSchema"": {{
+                        ""type"": ""OBJECT"",
+                        ""properties"": {{
+                            ""statement"": {{ ""type"": ""STRING"" }},
+                            ""options"": {{
+                                ""type"": ""ARRAY"",
+                                ""items"": {{ ""type"": ""STRING"" }}
+                            }},
+                            ""correctOptionIndex"": {{ ""type"": ""INTEGER"" }}
+                        }},
+                        ""required"": [""statement"", ""options"", ""correctOptionIndex""]
+                    }}
+                }}
+            }}";
+        }
+
+        private void RegistrarPreguntaReciente(string statement)
+        {
+            recentQuestions.Add(statement);
+            if (recentQuestions.Count > 15) // Mantiene memoria de las últimas 15 preguntas
+                recentQuestions.RemoveAt(0);
         }
 
         private TriviaQuestion ParseGeminiResponse(string rawJson)
@@ -78,11 +111,7 @@ namespace Trivia.Model
             if (envelope?.candidates == null || envelope.candidates.Length == 0)
                 throw new Exception("Respuesta vacía de Gemini.");
 
-            string questionJson = envelope.candidates[0].content.parts[0].text
-                .Replace("```json", "")
-                .Replace("```", "")
-                .Trim();
-
+            string questionJson = envelope.candidates[0].content.parts[0].text.Trim();
             TriviaQuestionDTO dto = JsonUtility.FromJson<TriviaQuestionDTO>(questionJson);
 
             if (dto == null
@@ -98,17 +127,10 @@ namespace Trivia.Model
             return new TriviaQuestion(dto.statement, dto.options, dto.correctOptionIndex);
         }
 
-        [Serializable]
-        private class GeminiResponse { public Candidate[] candidates; }
-
-        [Serializable]
-        private class Candidate { public Content content; }
-
-        [Serializable]
-        private class Content { public Part[] parts; }
-
-        [Serializable]
-        private class Part { public string text; }
+        [Serializable] private class GeminiResponse { public Candidate[] candidates; }
+        [Serializable] private class Candidate { public Content content; }
+        [Serializable] private class Content { public Part[] parts; }
+        [Serializable] private class Part { public string text; }
 
         [Serializable]
         private class TriviaQuestionDTO

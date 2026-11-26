@@ -45,8 +45,6 @@ namespace Trivia.View
             presenter.StartTrivia();
         }
 
-        // --- Public methods for Inspector Button.onClick () ---
-
         public void OnAcceptButtonClicked()
         {
             presenter.OnAcceptTrivia();
@@ -66,8 +64,6 @@ namespace Trivia.View
         {
             presenter.OnContinueAfterResult();
         }
-
-        // --- Public methods called by TriviaPresenter ---
 
         public void ShowProposal(int collectedCoins)
         {
