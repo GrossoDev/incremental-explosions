@@ -10,10 +10,10 @@ namespace Trivia.Model
     public class LLMProvider : IQuestionProvider
     {
         // gemini-2.5-flash-lite responde mucho más rápido para este caso de uso
-        private readonly string apiURL = "https://googleapis.com";
+        private readonly string apiURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
         private readonly string apiKey;
         private readonly int timeoutSeconds;
-        private readonly List<string> recentQuestions = new List<string>();
+        private static readonly List<string> recentQuestions = new List<string>();
 
         public LLMProvider(string apiKey, int timeoutSeconds)
         {
@@ -23,48 +23,56 @@ namespace Trivia.Model
 
         public async Task<TriviaQuestion> GetQuestionAsync(int difficulty)
         {
-            if (string.IsNullOrEmpty(apiKey))
-                throw new InvalidOperationException("API Key no configurada.");
-
-            string prompt = BuildQuestionPrompt(difficulty);
-            string requestJson = BuildRequestPayload(prompt);
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(requestJson);
-
-            using (UnityWebRequest request = new UnityWebRequest(apiURL, "POST"))
+            try
             {
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerBuffer();
-                request.SetRequestHeader("Content-Type", "application/json");
-                request.SetRequestHeader("x-goog-api-key", apiKey);
-                request.timeout = timeoutSeconds;
+                if (string.IsNullOrEmpty(apiKey))
+                    throw new InvalidOperationException("API Key no configurada.");
 
-                var operation = request.SendWebRequest();
+                string prompt = BuildQuestionPrompt(difficulty);
+                string requestJson = BuildRequestPayload(prompt);
+                byte[] bodyRaw = Encoding.UTF8.GetBytes(requestJson);
 
-                while (!operation.isDone)
+                using (UnityWebRequest request = new UnityWebRequest(apiURL, "POST"))
                 {
-                    await Task.Yield();
-                }
+                    request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                    request.downloadHandler = new DownloadHandlerBuffer();
+                    request.SetRequestHeader("Content-Type", "application/json");
+                    request.SetRequestHeader("x-goog-api-key", apiKey);
+                    request.timeout = timeoutSeconds;
 
-                if (request.result != UnityWebRequest.Result.Success)
-                {
-                    // Incluir downloadHandler.text ayuda muchísimo a debuggear errores 400/403/429
-                    throw new Exception($"Error API ({request.responseCode}): {request.error} - {request.downloadHandler.text}");
-                }
+                    var operation = request.SendWebRequest();
 
-                TriviaQuestion question = ParseGeminiResponse(request.downloadHandler.text);
-                RegistrarPreguntaReciente(question.GetStatement()); // Ajusta al nombre de tu propiedad
-                return question;
+                    while (!operation.isDone)
+                    {
+                        await Task.Yield();
+                    }
+
+                    if (request.result != UnityWebRequest.Result.Success)
+                    {
+                        // Incluir downloadHandler.text ayuda muchísimo a debuggear errores 400/403/429
+                        throw new Exception($"Error API ({request.responseCode}): {request.error} - {request.downloadHandler.text}");
+                    }
+
+                    TriviaQuestion question = ParseGeminiResponse(request.downloadHandler.text);
+                    RegisterRecentQuestion(question.GetStatement());
+                    return question;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"[LLMProvider] Gemini request failed, falling back to local trivia: {ex.Message}");
+                throw;
             }
         }
 
         private string BuildQuestionPrompt(int difficulty)
         {
-            string historial = recentQuestions.Count > 0
+            string history = recentQuestions.Count > 0
                 ? $" Evita repetir estos temas o preguntas ya hechas: {string.Join(" | ", recentQuestions)}."
                 : "";
 
             return $"Genera una pregunta de trivia original de cultura general Argentina (historia, geografía, música, deportes, costumbres, cine o literatura) " +
-                   $"con dificultad {difficulty} en una escala de 1 (muy fácil) a 50 (muy difícil).{historial}";
+                   $"con dificultad {difficulty} en una escala de 1 (muy fácil) a 50 (muy difícil), con exactamente 4 opciones y correctOptionIndex entre 0 y 3.{history}";
         }
 
         private string BuildRequestPayload(string prompt)
@@ -88,6 +96,8 @@ namespace Trivia.Model
                             ""statement"": {{ ""type"": ""STRING"" }},
                             ""options"": {{
                                 ""type"": ""ARRAY"",
+                                ""minItems"": 4,
+                                ""maxItems"": 4,
                                 ""items"": {{ ""type"": ""STRING"" }}
                             }},
                             ""correctOptionIndex"": {{ ""type"": ""INTEGER"" }}
@@ -98,7 +108,7 @@ namespace Trivia.Model
             }}";
         }
 
-        private void RegistrarPreguntaReciente(string statement)
+        private void RegisterRecentQuestion(string statement)
         {
             recentQuestions.Add(statement);
             if (recentQuestions.Count > 15) // Mantiene memoria de las últimas 15 preguntas
