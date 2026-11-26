@@ -109,7 +109,10 @@ namespace Battle.Model
             var type = typeof(EntityType);
 
             if (!entitiesByType.ContainsKey(type))
-                return false;
+            {
+                bool anyInheritsFrom = entitiesByType.Any(pair => pair.Key.IsSubclassOf(type) && pair.Value.Count > 0);
+                return anyInheritsFrom;
+            }
 
             var list = entitiesByType[type];
 

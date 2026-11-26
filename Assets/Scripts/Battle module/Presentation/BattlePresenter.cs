@@ -77,30 +77,7 @@ namespace Battle.Presentation
             int currentLevel = GetCurrentLevel();
             BattleConfig battleConfig = GetBattleConfigForLevel(currentLevel);
 
-            model.Initialize(battleConfig.width, battleConfig.height);
-
-            foreach (var spawnConfig in battleConfig.enemiesToSpawn)
-            {
-                Type enemyType = spawnConfig.enemyType.GetSerializedType();
-                int amount = RandomUtils.GetRandomInt(spawnConfig.minimumAmount, spawnConfig.maximumAmount);
-
-                SpawnEntities(enemyType, amount);
-            }
-        }
-
-        public void SpawnEntities(Type entityType, int amount)
-        {
-            Arena arena = model.GetArena();
-
-            if (!entityType.IsSubclassOf(typeof(Entity)))
-                throw new ArgumentException($"Tried to spawn {entityType.Name}, which is not an entity.");
-
-            for (int i = 0; i < amount; i++)
-            {
-                Cell cell = arena.GetRandomFreeCell();
-
-                Activator.CreateInstance(entityType, cell, GridDirection.Down);
-            }
+            model.Initialize(battleConfig);
         }
     }
 }
