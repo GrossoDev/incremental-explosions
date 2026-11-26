@@ -29,8 +29,10 @@ namespace Battle.View
             gameView = GameView.Instance;
             sceneSwitcher = GetComponent<SceneSwitcher>();
             battlePresenter = new BattlePresenter(this);
+            battlePresenter.SetBattleProgression(battleProgression.battleConfigurations);
 
-            CreateBattle();
+            UpdateLevelText();
+            battlePresenter.CreateBattle();
             StartCoroutine(CountdownSeconds());
         }
 
@@ -61,12 +63,9 @@ namespace Battle.View
             sceneSwitcher.SwitchToNext();
         }
 
-        private void CreateBattle()
+        private void UpdateLevelText()
         {
-            var currentLevel = gameView.GetPresenter().GetCurrentLevel();
-            var battleConfig = battleProgression.GetBattleConfigForLevel(currentLevel);
-
-            battlePresenter.CreateBattle(battleConfig);
+            int currentLevel = battlePresenter.GetCurrentLevel();
             levelCounterText.text = $"Level {currentLevel}";
         }
 

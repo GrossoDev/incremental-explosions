@@ -9,6 +9,8 @@ namespace Battle.Presentation
     public class BattleConfig
     {
         public int startingLevel = 0;
+        public int width = 40;
+        public int height = 40;
         public List<EnemySpawnConfig> enemiesToSpawn = new List<EnemySpawnConfig>();
 
         [Serializable]

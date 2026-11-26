@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tax.unity
     guid: 8af223450b860844c899a3ed30122cb6
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 6dcff206af5adb24aa827c0917448f5f
   m_configObjects: {}

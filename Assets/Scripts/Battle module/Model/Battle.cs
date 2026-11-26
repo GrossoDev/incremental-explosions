@@ -5,17 +5,20 @@ namespace Battle.Model
 {
     public class Battle
     {
-        private const int Width = 40;
-        private const int Height = 40;
+        private int width = 40;
+        private int height = 40;
         private int roundTime = 40;
         private int remainingTime = 40;
         private Arena arena;
         private Player player;
 
-        public void Initialize()
+        public void Initialize(int width = 40, int height = 40)
         {
             Game.Instance.SetBattleCoins(0);
 
+            this.width = width;
+            this.height = height;
+            
             var timeStat = Game.Instance.GetStat<TimeStat>();
             roundTime = timeStat.GetRoundTime();
             remainingTime = roundTime;
@@ -63,7 +66,7 @@ namespace Battle.Model
         private void CreateArena()
         {
             arena = new Arena();
-            arena.Initialize(Width, Height);
+            arena.Initialize(width, height);
         }
     }
 }

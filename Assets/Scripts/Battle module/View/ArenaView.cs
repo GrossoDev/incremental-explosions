@@ -42,8 +42,8 @@ namespace Battle.View
             GameObject cameraGO = GameObject.FindGameObjectWithTag("MainCamera");
             Camera camera = cameraGO.GetComponent<Camera>();
 
-            camera.transform.position = new Vector3(width / 2, 0, height / 2) + cameraOffset;
-            camera.orthographicSize = Mathf.Max(width / 2, height / 2);
+            camera.transform.position = new Vector3(width / 2f, 0, height / 2f) + cameraOffset;
+            camera.orthographicSize = Mathf.Max(width / 2f, height / 2f);
         }
     }
 }

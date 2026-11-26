@@ -10,19 +10,6 @@ namespace Battle.View
     {
         public List<BattleConfig> battleConfigurations = new List<BattleConfig>();
 
-        public BattleConfig GetBattleConfigForLevel(int level)
-        {
-            foreach (var battleConfig in battleConfigurations.Reverse<BattleConfig>())
-            {
-                if (level >= battleConfig.startingLevel)
-                {
-                    return battleConfig;
-                }
-            }
-
-            return battleConfigurations.First();
-        }
-
         private void OnValidate()
         {
             if (battleConfigurations == null) return;

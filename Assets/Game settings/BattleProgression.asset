@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleConfigurations:
   - startingLevel: 1
+    width: 15
+    height: 15
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 5 and 10'
       enemyType:
@@ -22,6 +24,8 @@ MonoBehaviour:
       minimumAmount: 5
       maximumAmount: 10
   - startingLevel: 6
+    width: 20
+    height: 20
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 6 and 12'
       enemyType:
@@ -36,6 +40,8 @@ MonoBehaviour:
       minimumAmount: 4
       maximumAmount: 8
   - startingLevel: 11
+    width: 20
+    height: 20
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 6 and 10'
       enemyType:
@@ -56,6 +62,8 @@ MonoBehaviour:
       minimumAmount: 2
       maximumAmount: 5
   - startingLevel: 16
+    width: 25
+    height: 25
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 5 and 8'
       enemyType:
@@ -82,6 +90,8 @@ MonoBehaviour:
       minimumAmount: 2
       maximumAmount: 5
   - startingLevel: 21
+    width: 30
+    height: 30
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 4 and 8'
       enemyType:
@@ -114,6 +124,8 @@ MonoBehaviour:
       minimumAmount: 2
       maximumAmount: 5
   - startingLevel: 26
+    width: 35
+    height: 35
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 4 and 7'
       enemyType:
@@ -152,6 +164,8 @@ MonoBehaviour:
       minimumAmount: 2
       maximumAmount: 5
   - startingLevel: 31
+    width: 40
+    height: 40
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 3 and 6'
       enemyType:
@@ -196,6 +210,8 @@ MonoBehaviour:
       minimumAmount: 2
       maximumAmount: 4
   - startingLevel: 36
+    width: 40
+    height: 40
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 3 and 5'
       enemyType:
@@ -246,6 +262,8 @@ MonoBehaviour:
       minimumAmount: 3
       maximumAmount: 6
   - startingLevel: 41
+    width: 40
+    height: 40
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 3 and 5'
       enemyType:
@@ -302,6 +320,8 @@ MonoBehaviour:
       minimumAmount: 2
       maximumAmount: 4
   - startingLevel: 46
+    width: 40
+    height: 40
     enemiesToSpawn:
     - displayName: 'SkellWarrior: between 4 and 6'
       enemyType:
@@ -358,6 +378,8 @@ MonoBehaviour:
       minimumAmount: 3
       maximumAmount: 5
   - startingLevel: 50
+    width: 40
+    height: 40
     enemiesToSpawn:
     - displayName: 'Latina: between 1 and 1'
       enemyType:
