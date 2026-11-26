@@ -9,67 +9,112 @@ namespace Trivia.Model
 {
     public class LLMProvider : IQuestionProvider
     {
-        private readonly string apiURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+        private const string DefaultModelName = "gemini-3.5-flash-lite";
+        private readonly string apiURL;
         private readonly string apiKey;
         private readonly int timeoutSeconds;
+        private static readonly List<string> recentQuestions = new List<string>();
 
-        public LLMProvider(string apiKey, int timeoutSeconds = 5)
+        public LLMProvider(string apiKey, int timeoutSeconds, string modelName = DefaultModelName)
         {
+            string resolvedModel = string.IsNullOrWhiteSpace(modelName) ? DefaultModelName : modelName.Trim();
+            this.apiURL = $"https://generativelanguage.googleapis.com/v1beta/models/{resolvedModel}:generateContent";
             this.apiKey = apiKey;
             this.timeoutSeconds = timeoutSeconds;
         }
 
         public async Task<TriviaQuestion> GetQuestionAsync(int difficulty)
         {
-            if (string.IsNullOrEmpty(apiKey))
-                throw new InvalidOperationException("API Key no configurada.");
-
-            string prompt = BuildQuestionPrompt(difficulty);
-            string requestJson = BuildRequestPayload(prompt);
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(requestJson);
-
-            using (UnityWebRequest request = new UnityWebRequest(apiURL, "POST"))
+            try
             {
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerBuffer();
-                request.SetRequestHeader("Content-Type", "application/json");
-                request.SetRequestHeader("x-goog-api-key", apiKey);
-                request.timeout = timeoutSeconds;
+                if (string.IsNullOrEmpty(apiKey))
+                    throw new InvalidOperationException("API Key no configurada.");
 
-                var operation = request.SendWebRequest();
+                string prompt = BuildQuestionPrompt(difficulty);
+                string requestJson = BuildRequestPayload(prompt);
+                byte[] bodyRaw = Encoding.UTF8.GetBytes(requestJson);
 
-                while (!operation.isDone)
+                using (UnityWebRequest request = new UnityWebRequest(apiURL, "POST"))
                 {
-                    await Task.Yield();
-                }
+                    request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                    request.downloadHandler = new DownloadHandlerBuffer();
+                    request.SetRequestHeader("Content-Type", "application/json");
+                    request.SetRequestHeader("x-goog-api-key", apiKey);
+                    request.timeout = timeoutSeconds;
 
-                if (request.result != UnityWebRequest.Result.Success)
-                {
-                    throw new Exception($"Error de red o timeout en API: {request.error}");
-                }
+                    var operation = request.SendWebRequest();
 
-                return ParseGeminiResponse(request.downloadHandler.text);
+                    while (!operation.isDone)
+                    {
+                        await Task.Yield();
+                    }
+
+                    if (request.result != UnityWebRequest.Result.Success)
+                    {
+                        // Incluir downloadHandler.text ayuda muchísimo a debuggear errores 400/403/429
+                        throw new Exception($"Error API ({request.responseCode}): {request.error} - {request.downloadHandler.text}");
+                    }
+
+                    TriviaQuestion question = ParseGeminiResponse(request.downloadHandler.text);
+                    RegisterRecentQuestion(question.GetStatement());
+                    return question;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"[LLMProvider] Gemini request failed, falling back to local trivia: {ex.Message}");
+                throw;
             }
         }
 
         private string BuildQuestionPrompt(int difficulty)
         {
-            return $"Genera una pregunta de trivia de opción múltiple de cultura general Argentina con dificultad {difficulty} en una escala de 1 (muy fácil) a 50 (muy difícil). " +
-                   "Devuelve exclusivamente un objeto JSON con esta estructura exacta: " +
-                   "{\"statement\": \"texto de la pregunta\", \"options\": [\"opcion 0\", \"opcion 1\", \"opcion 2\", \"opcion 3\"], \"correctOptionIndex\": 0}";
+            string history = recentQuestions.Count > 0
+                ? $" Evita repetir estos temas o preguntas ya hechas: {string.Join(" | ", recentQuestions)}."
+                : "";
+
+            return $"Genera una pregunta de trivia original de cultura general Argentina (historia, geografía, música, deportes, costumbres, cine o literatura) " +
+                   $"con dificultad {difficulty} en una escala de 1 (muy fácil) a 50 (muy difícil), con exactamente 4 opciones y correctOptionIndex entre 0 y 3.{history}";
         }
 
         private string BuildRequestPayload(string prompt)
         {
-            string escapedPrompt = prompt.Replace("\\", "\\\\").Replace("\"", "\\\"");
+            string escapedPrompt = prompt
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"")
+                .Replace("\n", "\\n")
+                .Replace("\r", "");
+
             return $@"{{
-            ""contents"": [{{
-                ""parts"": [{{ ""text"": ""{escapedPrompt}"" }}]
-            }}],
-            ""generationConfig"": {{
-                ""responseMimeType"": ""application/json""
-            }}
-        }}";
+                ""contents"": [{{
+                    ""parts"": [{{ ""text"": ""{escapedPrompt}"" }}]
+                }}],
+                ""generationConfig"": {{
+                    ""temperature"": 0.9,
+                    ""responseMimeType"": ""application/json"",
+                    ""responseSchema"": {{
+                        ""type"": ""OBJECT"",
+                        ""properties"": {{
+                            ""statement"": {{ ""type"": ""STRING"" }},
+                            ""options"": {{
+                                ""type"": ""ARRAY"",
+                                ""minItems"": 4,
+                                ""maxItems"": 4,
+                                ""items"": {{ ""type"": ""STRING"" }}
+                            }},
+                            ""correctOptionIndex"": {{ ""type"": ""INTEGER"" }}
+                        }},
+                        ""required"": [""statement"", ""options"", ""correctOptionIndex""]
+                    }}
+                }}
+            }}";
+        }
+
+        private void RegisterRecentQuestion(string statement)
+        {
+            recentQuestions.Add(statement);
+            if (recentQuestions.Count > 15) // Mantiene memoria de las últimas 15 preguntas
+                recentQuestions.RemoveAt(0);
         }
 
         private TriviaQuestion ParseGeminiResponse(string rawJson)
@@ -78,11 +123,7 @@ namespace Trivia.Model
             if (envelope?.candidates == null || envelope.candidates.Length == 0)
                 throw new Exception("Respuesta vacía de Gemini.");
 
-            string questionJson = envelope.candidates[0].content.parts[0].text
-                .Replace("```json", "")
-                .Replace("```", "")
-                .Trim();
-
+            string questionJson = envelope.candidates[0].content.parts[0].text.Trim();
             TriviaQuestionDTO dto = JsonUtility.FromJson<TriviaQuestionDTO>(questionJson);
 
             if (dto == null
@@ -98,17 +139,10 @@ namespace Trivia.Model
             return new TriviaQuestion(dto.statement, dto.options, dto.correctOptionIndex);
         }
 
-        [Serializable]
-        private class GeminiResponse { public Candidate[] candidates; }
-
-        [Serializable]
-        private class Candidate { public Content content; }
-
-        [Serializable]
-        private class Content { public Part[] parts; }
-
-        [Serializable]
-        private class Part { public string text; }
+        [Serializable] private class GeminiResponse { public Candidate[] candidates; }
+        [Serializable] private class Candidate { public Content content; }
+        [Serializable] private class Content { public Part[] parts; }
+        [Serializable] private class Part { public string text; }
 
         [Serializable]
         private class TriviaQuestionDTO

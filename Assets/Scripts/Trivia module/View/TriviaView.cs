@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Shared.View;
 using TMPro;
@@ -37,15 +38,13 @@ namespace Trivia.View
         {
             sceneSwitcher = GetComponent<SceneSwitcher>();
 
-            IQuestionProvider primaryProvider = new LLMProvider(geminiApiKey, requestTimeoutSeconds);
+            IQuestionProvider primaryProvider = new LLMProvider(ResolveGeminiApiKey(), requestTimeoutSeconds);
             IQuestionProvider fallbackProvider = new LocalTriviaProvider(localQuestionsResourcePath);
             TriviaSession session = new TriviaSession(primaryProvider, fallbackProvider);
 
             presenter = new TriviaPresenter(this, session);
             presenter.StartTrivia();
         }
-
-        // --- Public methods for Inspector Button.onClick () ---
 
         public void OnAcceptButtonClicked()
         {
@@ -66,8 +65,6 @@ namespace Trivia.View
         {
             presenter.OnContinueAfterResult();
         }
-
-        // --- Public methods called by TriviaPresenter ---
 
         public void ShowProposal(int collectedCoins)
         {
@@ -147,6 +144,14 @@ namespace Trivia.View
         {
             Time.timeScale = 1f;
             sceneSwitcher.SwitchToNext();
+        }
+
+        private string ResolveGeminiApiKey()
+        {
+            if (!string.IsNullOrWhiteSpace(geminiApiKey))
+                return geminiApiKey.Trim();
+
+            return Environment.GetEnvironmentVariable("GEMINI_API_KEY")?.Trim() ?? string.Empty;
         }
 
         private void SetButtonState(Button button, bool active, bool interactable)
