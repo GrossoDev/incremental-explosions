@@ -21,20 +21,15 @@ namespace Battle.View
             int width = presenter.GetWidth();
             int height = presenter.GetHeight();
 
-            CreateTileFloor(width, height);
+            CreateFloor(width, height);
             FitCameraToArena(width, height);
         }
 
-        private void CreateTileFloor(int width, int height)
+        private void CreateFloor(int width, int height)
         {
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    Vector3 position = new Vector3(x, 0, y);
-                    Instantiate(tilePrefab, position, Quaternion.identity, tilesParent);
-                }
-            }
+            Vector3 center = new Vector3((width - 1) / 2f, 0f, (height - 1) / 2f);
+            GameObject floor = Instantiate(tilePrefab, center, Quaternion.identity, tilesParent);
+            floor.transform.localScale = new Vector3(width * 0.1f, 1f, height * 0.1f);
         }
 
         private void FitCameraToArena(int width, int height)
