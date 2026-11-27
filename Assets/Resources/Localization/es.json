@@ -11,7 +11,7 @@
     { "key": "Tax/CannotPay/Amount", "value": "No tienes suficientes monedas para pagar ${0}" },
     { "key": "Tax/CannotPay/ContinueButton", "value": "Acepta tu destino" },
     { "key": "MainMenu/Title", "value": "Juego increíble" },
-    { "key": "MainMenu/NewGameButton", "value": "Empezar una partida nueva" },
+    { "key": "MainMenu/NewGameButton", "value": "Nueva partida" },
     { "key": "MainMenu/LoadGameButton", "value": "Continuar partida" },
     { "key": "MainMenu/SettingsButton", "value": "Ajustes" },
     { "key": "MainMenu/Settings/ApiKeyLabel", "value": "Introduce tu clave de API" },

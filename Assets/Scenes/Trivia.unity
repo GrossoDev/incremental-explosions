@@ -1885,6 +1885,8 @@ MonoBehaviour:
   - {fileID: 659404592}
   coinsText:
     key: Trivia/StakeAmount
+  finalCoinsText:
+    key: Trivia/FinalAmount
   rightAnswerText:
     key: Trivia/Result/RightAnswer
   wrongAnswerText:
