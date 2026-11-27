@@ -38,7 +38,7 @@ namespace Trivia.View
         {
             sceneSwitcher = GetComponent<SceneSwitcher>();
 
-            IQuestionProvider primaryProvider = new LLMProvider(geminiApiKey, requestTimeoutSeconds);
+            IQuestionProvider primaryProvider = new Trivia.Model.LLMProvider(geminiApiKey, requestTimeoutSeconds);
             IQuestionProvider fallbackProvider = new LocalTriviaProvider(localQuestionsResourcePath);
             TriviaSession session = new TriviaSession(primaryProvider, fallbackProvider);
 

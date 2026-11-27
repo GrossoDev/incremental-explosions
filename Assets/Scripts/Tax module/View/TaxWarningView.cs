@@ -9,8 +9,13 @@ namespace Tax.View
     public class TaxWarningView : MonoBehaviour
     {
         [Header("UI elements")]
-        [SerializeField] private TextMeshProUGUI levelText;
-        [SerializeField] private TextMeshProUGUI amountText;
+        [SerializeField] private TextMeshProUGUI levelTextComponent;
+        [SerializeField] private TextMeshProUGUI amountTextComponent;
+
+        [Header("Strings")]
+        [SerializeField] private LocalizedText levelGreaterThanOneText;
+        [SerializeField] private LocalizedText levelEqualToOneText;
+        [SerializeField] private LocalizedText amountText;
 
         [Header("Config")]
         [SerializeField] private TaxView taxView;
@@ -37,11 +42,11 @@ namespace Tax.View
             int amount = nextTax.tax;
 
             if (levels > 1)
-                levelText.text = $"{levels} more levels until the next tax";
+                levelTextComponent.text = levelGreaterThanOneText.GetFormatted(levels);
             else
-                levelText.text = "Next level you'll have to pay taxes";
+                levelTextComponent.text = levelEqualToOneText.Get();
 
-            amountText.text = $"You'll need to pay ${amount}";
+            amountTextComponent.text = amountText.GetFormatted(amount);
         }
     }
 }
