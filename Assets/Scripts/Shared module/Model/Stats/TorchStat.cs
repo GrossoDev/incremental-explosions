@@ -1,3 +1,5 @@
+using System;
+
 namespace Shared.Model
 {
     public class TorchStat : Stat
@@ -6,17 +8,19 @@ namespace Shared.Model
 
         public float GetLightRange()
         {
-            return 5.5f + (level - 1) * 1.5f;
+            int effectiveLevel = Math.Max(1, level);
+            return Math.Min(22f, 4.5f + 17.5f * (1f - (float)Math.Exp(-0.12 * (effectiveLevel - 1))));
         }
 
         public float GetLightIntensity()
         {
-            return 4.5f + (level - 1) * 0.35f;
+            int effectiveLevel = Math.Max(1, level);
+            return Math.Min(8f, 4f + 4f * (1f - (float)Math.Exp(-0.10 * (effectiveLevel - 1))));
         }
 
         public override int GetUpgradeCost()
         {
-            return level * 50;
+            return CalculateExponentialCost(90, 1.44);
         }
 
         public override string ToString()
@@ -25,4 +29,3 @@ namespace Shared.Model
         }
     }
 }
-

@@ -2,13 +2,13 @@ namespace Battle.Model
 {
     public class AlienUndercover : Enemy
     {
-        private int ticksBetweenMoves = 20;
+        private int ticksBetweenMoves = 22;
 
         public AlienUndercover(Cell cell, GridDirection direction) : base(cell, direction, new AlienUndercoverCollisionHandler())
         {
-            this.maxHealth = 10;
+            this.maxHealth = 25;
             this.remainingHealth = maxHealth;
-            this.valueOnDeath = 100;
+            this.valueOnDeath = 40;
 
             RegisterRecurringAction(ticksBetweenMoves, MoveTowardsCoin);
         }

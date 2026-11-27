@@ -32,5 +32,11 @@ namespace Shared.Model
         }
 
         public abstract int GetUpgradeCost();
+
+        protected int CalculateExponentialCost(int baseCost, double growthRate)
+        {
+            double rawCost = baseCost * Math.Pow(growthRate, Math.Max(0, level - 1));
+            return Math.Max(5, (int)(Math.Round(rawCost / 5.0) * 5));
+        }
     }
 }

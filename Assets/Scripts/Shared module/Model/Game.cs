@@ -7,7 +7,7 @@ namespace Shared.Model
 {
     public class Game
     {
-        private const int DefaultInitialTax = 100;
+        private const int DefaultInitialTax = 150;
         private static readonly Regex JsonIntFieldRegex = new Regex(
             "\"(?<key>[A-Za-z0-9_]+)\"\\s*:\\s*(?<value>-?\\d+)",
             RegexOptions.Compiled

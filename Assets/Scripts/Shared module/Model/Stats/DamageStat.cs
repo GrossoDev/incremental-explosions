@@ -1,3 +1,5 @@
+using System;
+
 namespace Shared.Model
 {
     public class DamageStat : Stat
@@ -6,12 +8,14 @@ namespace Shared.Model
 
         public int GetDamage()
         {
-            return 10 + level;
+            int effectiveLevel = Math.Max(1, level);
+            int offset = effectiveLevel - 1;
+            return 6 + offset * 4 + (int)(offset * offset * 0.4);
         }
 
         public override int GetUpgradeCost()
         {
-            return level * 100;
+            return CalculateExponentialCost(80, 1.42);
         }
 
         public override string ToString()

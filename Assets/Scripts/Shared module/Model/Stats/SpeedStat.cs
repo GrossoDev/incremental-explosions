@@ -8,12 +8,13 @@ namespace Shared.Model
 
         public int GetTicksBetweenAttacks()
         {
-            return Math.Max(100 - level * 10, 1);
+            int effectiveLevel = Math.Max(1, level);
+            return Math.Max(15, (int)Math.Round(15.0 + 85.0 * Math.Pow(0.86, effectiveLevel - 1)));
         }
 
         public override int GetUpgradeCost()
         {
-            return level * 75;
+            return CalculateExponentialCost(110, 1.46);
         }
 
         public override string ToString()
