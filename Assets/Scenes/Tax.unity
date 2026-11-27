@@ -1486,7 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927d8b4bd3c832145ac2de3234d84add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fakeLevel: 1
+  fakeLevel: 5
   fakeRoundCoins: 0
   fakeTotalCoins: 500
 --- !u!4 &1043755262
