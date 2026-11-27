@@ -1,49 +1,225 @@
 {
     "locale": "en",
     "entries": [
-        { "key": "Tax/Title", "value": "Taxes" },
-        { "key": "Tax/Warning/LevelGreaterThanOne", "value": "{0} more levels until the next tax" },
-        { "key": "Tax/Warning/LevelEqualToOne", "value": "Next level you'll have to pay taxes" },
-        { "key": "Tax/Warning/Amount", "value": "You'll need to pay ${0}" },
-        { "key": "Tax/Warning/ContinueButton", "value": "Understood" },
-        { "key": "Tax/CanPay/Amount", "value": "You payed ${0}" },
-        { "key": "Tax/CanPay/ContinueButton", "value": "Glad to contribute" },
-        { "key": "Tax/CannotPay/Amount", "value": "You don't have enough coins to pay ${0}" },
-        { "key": "Tax/CannotPay/ContinueButton", "value": "Accept your fate" },
-        { "key": "MainMenu/Title", "value": "Awesome Game" },
-        { "key": "MainMenu/NewGameButton", "value": "Start new game" },
-        { "key": "MainMenu/LoadGameButton", "value": "Continue game" },
-        { "key": "MainMenu/SettingsButton", "value": "Settings" },
-        { "key": "MainMenu/Settings/ApiKeyLabel", "value": "Enter your API Key" },
-        { "key": "MainMenu/Settings/LanguageLabel", "value": "Game language" },
-        { "key": "MainMenu/Settings/AcceptButton", "value": "Ok" },
-        { "key": "Battle/Coins", "value": "Coins: {0}" },
-        { "key": "Battle/Time", "value": "{0}/{1}" },
-        { "key": "Battle/Level", "value": "Level: {0}" },
-        { "key": "Trivia/Title", "value": "Trivia" },
-        { "key": "Trivia/StakeAmount", "value": "Round earnings: {0}" },
-        { "key": "Trivia/ChallengeTitle", "value": "Do you want to answer a trivia question for a chance to double your earnings?" },
-        { "key": "Trivia/ChallengeSubtitle", "value": "If you fail, your earnings will be halved." },
-        { "key": "Trivia/AcceptChallengeButton", "value": "Accept" },
-        { "key": "Trivia/RefrainChallengeButton", "value": "Refrain" },
-        { "key": "Trivia/RightAnswer", "value": "Correct! Your earnings where doubled!" },
-        { "key": "Trivia/WrongAnswer", "value": "Sorry, that's incorrect! Your earnings where halved." },
-        { "key": "Trivia/Refrained", "value": "Wow, you are a coward!" },
-        { "key": "Trivia/FinalAmount", "value": "Final earnings: ${0}" },
-        { "key": "Shop/Title", "value": "Shoppe" },
-        { "key": "Shop/AmountPlural", "value": "You have {0} coins" },
-        { "key": "Shop/AmountSingular", "value": "You have 1 coin" },
-        { "key": "Shop/AmountZero", "value": "You are broke" },
-        { "key": "Shop/Stats/Radius", "value": "Radius" },
-        { "key": "Shop/Stats/Damage", "value": "Damage" },
-        { "key": "Shop/Stats/Speed", "value": "Speed" },
-        { "key": "Shop/Stats/RoundTime", "value": "Round time" },
-        { "key": "Shop/Stats/Luck", "value": "Luck" },
-        { "key": "Shop/Stats/Torch", "value": "Torch" },
-        { "key": "Shop/StatLevel", "value": "Level {0}" },
-        { "key": "Shop/SaveProgress", "value": "Save progress" },
-        { "key": "Shop/Continue", "value": "Next level" },
-        { "key": "GameOver/Message", "value": "In Arstotzka, we don't tolerate tax evaders." },
-        { "key": "GameOver/ContinueButton", "value": "Back to main menu" }
+        {
+            "key": "Tax/Title",
+            "value": "Taxes",
+            "context": "Just says Taxes"
+        },
+        {
+            "key": "Tax/Warning/LevelGreaterThanOne",
+            "value": "{0} more levels until the next tax",
+            "context": "Warn the player that in N levels the'll have to pay taxes"
+        },
+        {
+            "key": "Tax/Warning/LevelEqualToOne",
+            "value": "Next level you'll have to pay taxes",
+            "context": "Warn the player that in the next level the'll have to pay taxes"
+        },
+        {
+            "key": "Tax/Warning/Amount",
+            "value": "You'll need to pay ${0}",
+            "context": "Tell the player how much they'll have to pay in taxes"
+        },
+        {
+            "key": "Tax/Warning/ContinueButton",
+            "value": "Understood",
+            "context": "Button to acknowledge the tax warning"
+        },
+        {
+            "key": "Tax/CanPay/Amount",
+            "value": "You payed ${0}",
+            "context": "Amount of coins that the player payed."
+        },
+        {
+            "key": "Tax/CanPay/ContinueButton",
+            "value": "Glad to contribute",
+            "context": "Button shown after the player can pay the tax"
+        },
+        {
+            "key": "Tax/CannotPay/Amount",
+            "value": "You don't have enough coins to pay ${0}",
+            "context": "Amount of coins that the player couldnt pay."
+        },
+        {
+            "key": "Tax/CannotPay/ContinueButton",
+            "value": "Accept your fate",
+            "context": "Button shown after the player cannot pay the tax"
+        },
+        {
+            "key": "MainMenu/Title",
+            "value": "Awesome Game",
+            "context": "Title displayed on the main menu"
+        },
+        {
+            "key": "MainMenu/NewGameButton",
+            "value": "Start new game",
+            "context": "Button to start a new game"
+        },
+        {
+            "key": "MainMenu/LoadGameButton",
+            "value": "Continue game",
+            "context": "Button to continue a saved game"
+        },
+        {
+            "key": "MainMenu/SettingsButton",
+            "value": "Settings",
+            "context": "Button to open settings"
+        },
+        {
+            "key": "MainMenu/Settings/ApiKeyLabel",
+            "value": "Enter your API Key",
+            "context": "Field for entering the API key"
+        },
+        {
+            "key": "MainMenu/Settings/LanguageLabel",
+            "value": "Game language",
+            "context": "Selector for choosing the game language"
+        },
+        {
+            "key": "MainMenu/Settings/AcceptButton",
+            "value": "Ok",
+            "context": "Button to accept settings changes"
+        },
+        {
+            "key": "Battle/Coins",
+            "value": "Coins: {0}",
+            "context": "Displays the player's coin count; {0} is the number of coins"
+        },
+        {
+            "key": "Battle/Time",
+            "value": "{0}/{1}",
+            "context": "Displays elapsed and total time; {0} is elapsed time and {1} is total time"
+        },
+        {
+            "key": "Battle/Level",
+            "value": "Level: {0}",
+            "context": "Displays the current level; {0} is the level number"
+        },
+        {
+            "key": "Trivia/Title",
+            "value": "Trivia",
+            "context": "Title of the trivia screen"
+        },
+        {
+            "key": "Trivia/StakeAmount",
+            "value": "Round earnings: {0}",
+            "context": "Displays earnings for the current round; {0} is the amount"
+        },
+        {
+            "key": "Trivia/ChallengeTitle",
+            "value": "Do you want to answer a trivia question for a chance to double your earnings?",
+            "context": "Prompt asking whether the player wants to answer a trivia question for a chance to double earnings"
+        },
+        {
+            "key": "Trivia/ChallengeSubtitle",
+            "value": "If you fail, your earnings will be halved.",
+            "context": "Explains that failing the trivia challenge halves the player's earnings"
+        },
+        {
+            "key": "Trivia/AcceptChallengeButton",
+            "value": "Accept",
+            "context": "Button to accept the trivia challenge"
+        },
+        {
+            "key": "Trivia/RefrainChallengeButton",
+            "value": "Refrain",
+            "context": "Button to decline the trivia challenge"
+        },
+        {
+            "key": "Trivia/RightAnswer",
+            "value": "Correct! Your earnings where doubled!",
+            "context": "Message shown when the player answers correctly"
+        },
+        {
+            "key": "Trivia/WrongAnswer",
+            "value": "Sorry, that's incorrect! Your earnings where halved.",
+            "context": "Message shown when the player answers incorrectly"
+        },
+        {
+            "key": "Trivia/Refrained",
+            "value": "Wow, you are a coward!",
+            "context": "Teasing message shown when the player declines the challenge"
+        },
+        {
+            "key": "Trivia/FinalAmount",
+            "value": "Final earnings: ${0}",
+            "context": "Displays final earnings; {0} is the amount"
+        },
+        {
+            "key": "Shop/Title",
+            "value": "Shoppe",
+            "context": "Title of the shop screen"
+        },
+        {
+            "key": "Shop/AmountPlural",
+            "value": "You have {0} coins",
+            "context": "Displays coin count when the player has multiple coins; {0} is the number"
+        },
+        {
+            "key": "Shop/AmountSingular",
+            "value": "You have 1 coin",
+            "context": "Displays coin count when the player has exactly one coin"
+        },
+        {
+            "key": "Shop/AmountZero",
+            "value": "You are broke",
+            "context": "Message shown when the player has no coins"
+        },
+        {
+            "key": "Shop/Stats/Radius",
+            "value": "Radius",
+            "context": "Label for the radius stat"
+        },
+        {
+            "key": "Shop/Stats/Damage",
+            "value": "Damage",
+            "context": "Label for the damage stat"
+        },
+        {
+            "key": "Shop/Stats/Speed",
+            "value": "Speed",
+            "context": "Label for the speed stat"
+        },
+        {
+            "key": "Shop/Stats/RoundTime",
+            "value": "Round time",
+            "context": "Label for the round time stat"
+        },
+        {
+            "key": "Shop/Stats/Luck",
+            "value": "Luck",
+            "context": "Label for the luck stat"
+        },
+        {
+            "key": "Shop/Stats/Torch",
+            "value": "Torch",
+            "context": "Label for the torch stat"
+        },
+        {
+            "key": "Shop/StatLevel",
+            "value": "Level {0}",
+            "context": "Displays a stat's level; {0} is the level number"
+        },
+        {
+            "key": "Shop/SaveProgress",
+            "value": "Save progress",
+            "context": "Button to save game progress"
+        },
+        {
+            "key": "Shop/Continue",
+            "value": "Next level",
+            "context": "Button to proceed to the next level"
+        },
+        {
+            "key": "GameOver/Message",
+            "value": "In Arstotzka, we don't tolerate tax evaders.",
+            "context": "Message shown when the game ends because the player couldn't pay taxes"
+        },
+        {
+            "key": "GameOver/ContinueButton",
+            "value": "Back to main menu",
+            "context": "Button to return to the main menu after game over"
+        }
     ]
 }

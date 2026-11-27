@@ -33,16 +33,24 @@ namespace Shared.View
         [SerializeField] private string defaultLocale = "en";
         [SerializeField] private TextAsset defaultTableJson;
 
-        [Header("Keys")]
-        [SerializeField] private List<LocalizationKey> keys = new();
-
+        private readonly List<LocalizationKey> keys = new();
         private readonly List<LocalizationTable> _parsedTables = new();
         private LocalizationTable _defaultTable;
         private LLMTranslator translator;
         private bool _isInitialized;
+        private bool _defaultTableLoadAttempted;
+        private string _loadedDefaultTableJson;
+        private string _loadedDefaultLocale;
 
         public string CurrentLocale { get; private set; }
-        public IReadOnlyList<LocalizationKey> Keys => keys;
+        public IReadOnlyList<LocalizationKey> Keys
+        {
+            get
+            {
+                LoadDefaultTable();
+                return keys;
+            }
+        }
 
         public Localization()
         {
@@ -55,34 +63,88 @@ namespace Shared.View
             _isInitialized = false;
             _parsedTables.Clear();
             _defaultTable = null;
+            keys.Clear();
+            _defaultTableLoadAttempted = false;
+            _loadedDefaultTableJson = null;
+            _loadedDefaultLocale = null;
         }
 
         public void Initialize()
         {
-            if (_isInitialized) return;
-            _isInitialized = true;
-
             LoadDefaultTable();
+            if (_isInitialized) return;
             CurrentLocale = defaultLocale;
+            _isInitialized = true;
         }
 
         private void LoadDefaultTable()
         {
+#if UNITY_EDITOR
+            string tableJson = defaultTableJson == null ? null : defaultTableJson.text;
+            if (_defaultTableLoadAttempted
+                && string.Equals(tableJson, _loadedDefaultTableJson, StringComparison.Ordinal)
+                && string.Equals(defaultLocale, _loadedDefaultLocale, StringComparison.Ordinal))
+            {
+                return;
+            }
+#else
+            if (_defaultTableLoadAttempted) return;
+            string tableJson = defaultTableJson == null ? null : defaultTableJson.text;
+#endif
+
+            bool isReload = _defaultTableLoadAttempted;
+            string previousDefaultLocale = _loadedDefaultLocale;
+            _defaultTableLoadAttempted = true;
+            _loadedDefaultTableJson = tableJson;
+            _loadedDefaultLocale = defaultLocale;
+
+            keys.Clear();
+            _defaultTable = null;
+
+            if (isReload)
+            {
+                for (int i = _parsedTables.Count - 1; i >= 0; i--)
+                {
+                    if (string.Equals(_parsedTables[i].Locale, previousDefaultLocale, StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(_parsedTables[i].Locale, defaultLocale, StringComparison.OrdinalIgnoreCase))
+                    {
+                        _parsedTables.RemoveAt(i);
+                    }
+                }
+            }
+
             if (defaultTableJson == null)
             {
                 Debug.LogError("[Localization] Default table JSON is not assigned in Localization settings.");
                 return;
             }
 
-            var data = JsonUtility.FromJson<LocalizationTableData>(defaultTableJson.text);
-            _defaultTable = new LocalizationTable(defaultLocale, data);
+            var data = JsonUtility.FromJson<LocalizationTableData>(tableJson);
+            if (data?.entries == null)
+            {
+                Debug.LogError("[Localization] Default table JSON does not contain an entries list.");
+                return;
+            }
 
-            if (!HasParsedTable(defaultLocale))
+            _defaultTable = new LocalizationTable(defaultLocale, data);
+            foreach (var entry in data.entries)
+            {
+                if (entry == null || string.IsNullOrEmpty(entry.key)) continue;
+                keys.Add(new LocalizationKey { key = entry.key, context = entry.context });
+            }
+
+            int defaultTableIndex = _parsedTables.FindIndex(
+                table => string.Equals(table.Locale, defaultLocale, StringComparison.OrdinalIgnoreCase));
+            if (defaultTableIndex >= 0)
+                _parsedTables[defaultTableIndex] = _defaultTable;
+            else
                 _parsedTables.Add(_defaultTable);
         }
 
         public async Task SetLanguageAsync(string locale)
         {
+            LoadDefaultTable();
+
             if (!_isInitialized && Application.isPlaying)
                 Initialize();
 
@@ -133,6 +195,8 @@ namespace Shared.View
         {
             if (!_isInitialized && Application.isPlaying)
                 Initialize();
+            else
+                LoadDefaultTable();
 
             if (string.IsNullOrEmpty(key))
             {

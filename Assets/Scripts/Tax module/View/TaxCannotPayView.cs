@@ -9,7 +9,7 @@ namespace Tax.View
     public class TaxCannotPayView : MonoBehaviour
     {
         [Header("UI elements")]
-        [SerializeField] private TextMeshProUGUI amountTextComponent;
+        [SerializeField] private TMP_Text amountTextComponent;
 
         [Header("Strings")]
         [SerializeField] private LocalizedText amountText;

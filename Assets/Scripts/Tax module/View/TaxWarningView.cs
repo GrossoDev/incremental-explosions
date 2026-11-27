@@ -9,8 +9,8 @@ namespace Tax.View
     public class TaxWarningView : MonoBehaviour
     {
         [Header("UI elements")]
-        [SerializeField] private TextMeshProUGUI levelTextComponent;
-        [SerializeField] private TextMeshProUGUI amountTextComponent;
+        [SerializeField] private TMP_Text levelTextComponent;
+        [SerializeField] private TMP_Text amountTextComponent;
 
         [Header("Strings")]
         [SerializeField] private LocalizedText levelGreaterThanOneText;

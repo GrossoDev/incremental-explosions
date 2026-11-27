@@ -5,8 +5,6 @@ namespace Shared.View
 {
     public class GameView : MonoBehaviour
     {
-        [SerializeField] protected Localization localization;
-
         private const string PlayerPrefsSaveKey = "savefile";
         protected GamePresenter gamePresenter;
 

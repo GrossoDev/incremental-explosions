@@ -20,6 +20,7 @@ namespace Shared.View
     {
         public string key;
         public string value;
+        public string context;
     }
 
     [Serializable]

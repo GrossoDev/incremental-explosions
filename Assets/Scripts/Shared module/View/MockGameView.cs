@@ -21,10 +21,9 @@ namespace Shared.View
 
         private Task SetLang()
         {
-            Task setLanguageTask = localization.SetLanguageAsync(language);
-            Task timeout = Task.Delay(3000);
+            Task setLanguageTask = Localization.Instance.SetLanguageAsync(language);
 
-            return Task.WhenAny(setLanguageTask, timeout);
+            return setLanguageTask;
         }
     }
 }
