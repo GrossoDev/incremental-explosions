@@ -1,3 +1,5 @@
+using System;
+
 namespace Shared.Model
 {
     public class RadiusStat : Stat
@@ -6,12 +8,13 @@ namespace Shared.Model
 
         public int GetRadius()
         {
-            return 2 + level;
+            int effectiveLevel = Math.Max(1, level);
+            return Math.Min(12, 1 + effectiveLevel);
         }
 
         public override int GetUpgradeCost()
         {
-            return level * 50;
+            return CalculateExponentialCost(140, 1.58);
         }
 
         public override string ToString()

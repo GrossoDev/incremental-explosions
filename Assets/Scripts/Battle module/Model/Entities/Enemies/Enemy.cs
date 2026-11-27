@@ -9,7 +9,7 @@ namespace Battle.Model
     {
         protected int maxHealth;
         protected int remainingHealth;
-        protected int valueOnDeath = 50;
+        protected int valueOnDeath = 20;
 
         protected Enemy(Cell cell, GridDirection direction, CollisionHandlerBase collisionHandler) : base(cell, direction, collisionHandler)
         {

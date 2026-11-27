@@ -2,13 +2,13 @@ namespace Battle.Model
 {
     public class AlienLeader : Enemy
     {
-        private int ticksBetweenMoves = 25;
+        private int ticksBetweenMoves = 24;
 
         public AlienLeader(Cell cell, GridDirection direction) : base(cell, direction, new EnemyCollisionHandler())
         {
-            this.maxHealth = 60;
+            this.maxHealth = 200;
             this.remainingHealth = maxHealth;
-            this.valueOnDeath = 450;
+            this.valueOnDeath = 180;
 
             RegisterRecurringAction(ticksBetweenMoves, MoveRandomly);
         }

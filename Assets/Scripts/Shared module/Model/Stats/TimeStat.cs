@@ -1,3 +1,5 @@
+using System;
+
 namespace Shared.Model
 {
     public class TimeStat : Stat
@@ -6,12 +8,13 @@ namespace Shared.Model
 
         public int GetRoundTime()
         {
-            return 30 + level * 5;
+            int effectiveLevel = Math.Max(1, level);
+            return Math.Min(45, 15 + (int)Math.Round(30.0 * (1.0 - Math.Exp(-0.12 * (effectiveLevel - 1)))));
         }
 
         public override int GetUpgradeCost()
         {
-            return level * 100;
+            return CalculateExponentialCost(120, 1.48);
         }
 
         public override string ToString()

@@ -8,8 +8,8 @@ namespace Battle.Model
     {
         private int width = 40;
         private int height = 40;
-        private int roundTime = 40;
-        private int remainingTime = 40;
+        private int roundTime = 15;
+        private int remainingTime = 15;
         private Arena arena;
         private Player player;
         private BattleConfig battleConfig;

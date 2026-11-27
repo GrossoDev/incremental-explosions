@@ -14,18 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taxConfigurations:
   - level: 5
-    tax: 100
+    tax: 150
   - level: 10
-    tax: 300
+    tax: 350
   - level: 15
-    tax: 700
+    tax: 650
   - level: 20
     tax: 1000
   - level: 25
-    tax: 1200
-  - level: 25
     tax: 1500
   - level: 30
-    tax: 1800
+    tax: 2200
   - level: 35
-    tax: 2000
+    tax: 3200
+  - level: 40
+    tax: 4500
+  - level: 45
+    tax: 6500
+  - level: 50
+    tax: 9000

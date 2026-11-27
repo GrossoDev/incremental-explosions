@@ -18,17 +18,19 @@ namespace Shared.Model
 
         public float GetCritChance()
         {
-            return level * 0.05f;
+            int effectiveLevel = Math.Max(1, level);
+            return Math.Min(0.50f, 0.05f + 0.45f * (1f - (float)Math.Exp(-0.08 * (effectiveLevel - 1))));
         }
 
         public float GetCoinDropMultiplier()
         {
-            return 1.0f + level * 0.5f;
+            int effectiveLevel = Math.Max(1, level);
+            return Math.Min(3.50f, 1.0f + (effectiveLevel - 1) * 0.15f);
         }
 
         public override int GetUpgradeCost()
         {
-            return level * 150;
+            return CalculateExponentialCost(150, 1.50);
         }
 
         public override string ToString()

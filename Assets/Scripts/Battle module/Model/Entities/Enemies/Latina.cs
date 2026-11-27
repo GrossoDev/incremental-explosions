@@ -2,11 +2,11 @@ namespace Battle.Model
 {
     public class Latina : Enemy
     {
-        private int ticksBetweenMoves = 100;
+        private int ticksBetweenMoves = 60;
 
         public Latina(Cell cell, GridDirection direction) : base(cell, direction, new EnemyCollisionHandler())
         {
-            this.maxHealth = 300;
+            this.maxHealth = 1200;
             this.remainingHealth = maxHealth;
             this.valueOnDeath = 0;
 

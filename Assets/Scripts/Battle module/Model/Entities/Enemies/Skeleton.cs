@@ -5,12 +5,13 @@ namespace Battle.Model
 {
     public class Skeleton : Enemy
     {
-        private int ticksBetweenMoves = 20;
+        private int ticksBetweenMoves = 22;
         
         public Skeleton(Cell cell, GridDirection direction) : base(cell, direction, new EnemyCollisionHandler())
         {
-            this.maxHealth = 5;
-            this.valueOnDeath = 80;
+            this.maxHealth = 15;
+            this.remainingHealth = maxHealth;
+            this.valueOnDeath = 30;
 
             RegisterRecurringAction(ticksBetweenMoves, MoveAwayFromPlayer);
         }
