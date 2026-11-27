@@ -873,8 +873,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b08c612c0fd89468e84b79eeea0a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelText: {fileID: 935691322}
-  amountText: {fileID: 133111060}
+  levelTextComponent: {fileID: 935691322}
+  amountTextComponent: {fileID: 133111060}
+  levelGreaterThanOneText:
+    key: Tax/Warning/LevelGreaterThanOne
+  levelEqualToOneText:
+    key: Tax/Warning/LevelEqualToOne
+  amountText:
+    key: Tax/Warning/Amount
   taxView: {fileID: 923349123}
 --- !u!114 &825547940
 MonoBehaviour:
@@ -1486,9 +1492,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927d8b4bd3c832145ac2de3234d84add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fakeLevel: 1
+  localization: {fileID: 11400000, guid: e248f34abad71c7498b7f8a319cb93a7, type: 2}
+  fakeLevel: 4
   fakeRoundCoins: 0
   fakeTotalCoins: 500
+  language: es
 --- !u!4 &1043755262
 Transform:
   m_ObjectHideFlags: 0

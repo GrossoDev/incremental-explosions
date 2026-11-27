@@ -32,12 +32,12 @@ namespace Tax.View
 
         public void ShowCanPay()
         {
-            canPayPanel.gameObject.SetActive(true);
+            cannotPayPanel.gameObject.SetActive(true);
         }
 
         public void ShowCannotPay()
         {
-            cannotPayPanel.gameObject.SetActive(true);
+            canPayPanel.gameObject.SetActive(true);
         }
 
         public void ShowWarning()

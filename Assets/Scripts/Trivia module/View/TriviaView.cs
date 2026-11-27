@@ -38,7 +38,7 @@ namespace Trivia.View
         {
             sceneSwitcher = GetComponent<SceneSwitcher>();
 
-            IQuestionProvider primaryProvider = new LLMProvider(ResolveGeminiApiKey(), requestTimeoutSeconds);
+            IQuestionProvider primaryProvider = new Trivia.Model.LLMProvider(geminiApiKey, requestTimeoutSeconds);
             IQuestionProvider fallbackProvider = new LocalTriviaProvider(localQuestionsResourcePath);
             TriviaSession session = new TriviaSession(primaryProvider, fallbackProvider);
 
@@ -144,14 +144,6 @@ namespace Trivia.View
         {
             Time.timeScale = 1f;
             sceneSwitcher.SwitchToNext();
-        }
-
-        private string ResolveGeminiApiKey()
-        {
-            if (!string.IsNullOrWhiteSpace(geminiApiKey))
-                return geminiApiKey.Trim();
-
-            return Environment.GetEnvironmentVariable("GEMINI_API_KEY")?.Trim() ?? string.Empty;
         }
 
         private void SetButtonState(Button button, bool active, bool interactable)

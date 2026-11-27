@@ -25,17 +25,12 @@ namespace Tax.Presentation
         {
             if (DoesCurrentLevelHaveTax())
             {
-                bool hasEnoughCoinsToPay = GetCurrentCoins() >= GetTax().tax;
+                bool hasEnoughCoinsToPay = GetTax().tax > GetCurrentCoins();
 
                 if (hasEnoughCoinsToPay)
-                {
-                    PayTax();
                     view.ShowCanPay();
-                }
                 else
-                {
                     view.ShowCannotPay();
-                }
             }
             else
             {

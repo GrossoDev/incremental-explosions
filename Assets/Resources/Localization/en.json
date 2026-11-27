@@ -1,0 +1,8 @@
+{
+    "locale": "en",
+    "entries": [
+        { "key": "Tax/Warning/LevelGreaterThanOne", "value": "{0} more levels until the next tax" },
+        { "key": "Tax/Warning/LevelEqualToOne", "value": "Next level you'll have to pay taxes" },
+        { "key": "Tax/Warning/Amount", "value": "You'll need to pay ${0}" }
+    ]
+}

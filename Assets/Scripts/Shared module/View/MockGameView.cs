@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Shared.View
@@ -7,6 +8,7 @@ namespace Shared.View
         [SerializeField] [Range(1,50)] private int fakeLevel = 1;
         [SerializeField] [Min(0)] private int fakeRoundCoins = 0;
         [SerializeField] [Min(0)] private int fakeTotalCoins = 0;
+        [SerializeField] private string language = "en";
 
         private void OnEnable()
         {
@@ -14,6 +16,15 @@ namespace Shared.View
             gamePresenter.SetBattleCoins(fakeRoundCoins);
             gamePresenter.SetTotalCoins(fakeTotalCoins);
             gamePresenter.SetCurrentLevel(fakeLevel);
+            SetLang().Wait();
+        }
+
+        private Task SetLang()
+        {
+            Task setLanguageTask = localization.SetLanguageAsync(language);
+            Task timeout = Task.Delay(3000);
+
+            return Task.WhenAny(setLanguageTask, timeout);
         }
     }
 }
