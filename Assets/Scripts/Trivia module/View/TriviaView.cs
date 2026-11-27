@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Shared.Model;
 using Shared.View;
 using TMPro;
 using Trivia.Model;
@@ -38,7 +39,11 @@ namespace Trivia.View
         {
             sceneSwitcher = GetComponent<SceneSwitcher>();
 
-            IQuestionProvider primaryProvider = new Trivia.Model.LLMProvider(geminiApiKey, requestTimeoutSeconds);
+            LLMProvider llmProvider = string.IsNullOrWhiteSpace(geminiApiKey)
+                ? LLMProvider.Instance
+                : new LLMProvider(geminiApiKey.Trim(), requestTimeoutSeconds);
+
+            IQuestionProvider primaryProvider = new LLMTriviaProvider(llmProvider, requestTimeoutSeconds);
             IQuestionProvider fallbackProvider = new LocalTriviaProvider(localQuestionsResourcePath);
             TriviaSession session = new TriviaSession(primaryProvider, fallbackProvider);
 

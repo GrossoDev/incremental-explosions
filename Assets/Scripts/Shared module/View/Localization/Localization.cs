@@ -38,7 +38,7 @@ namespace Shared.View
 
         private readonly List<LocalizationTable> _parsedTables = new();
         private LocalizationTable _defaultTable;
-        private LLMProvider translator;
+        private LLMTranslator translator;
         private bool _isInitialized;
 
         public string CurrentLocale { get; private set; }
@@ -47,7 +47,7 @@ namespace Shared.View
         public Localization()
         {
             _instance = this;
-            translator = LLMProvider.Instance;
+            translator = new LLMTranslator();
         }
 
         private void OnEnable()

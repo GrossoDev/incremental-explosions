@@ -1496,7 +1496,7 @@ MonoBehaviour:
   fakeLevel: 4
   fakeRoundCoins: 0
   fakeTotalCoins: 500
-  language: es
+  language: aleman
 --- !u!4 &1043755262
 Transform:
   m_ObjectHideFlags: 0
