@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b013399aef434f8448460d33c14d811d, type: 3}
+  m_Name: Localization
+  m_EditorClassIdentifier:
+  defaultLocale: en
+  defaultTableJson: {fileID: 4900000, guid: 1f6beb7f3b1aca74795cffec1d4324fc, type: 3}
+  keys:
+  - key: Tax/Title
+    context: Just says Taxes
+  - key: Tax/Warning/LevelGreaterThanOne
+    context: Warn the player that in N levels the'll have to pay taxes
+  - key: Tax/Warning/LevelEqualToOne
+    context: Warn the player that in the next level the'll have to pay taxes
+  - key: Tax/Warning/Amount
+    context: Tell the player how much they'll have to pay in taxes
+  - key: Tax/Warning/ContinueButton
+    context: Button to acknowledge the tax warning
+  - key: Tax/CanPay/ContinueButton
+    context: Button shown after the player can pay the tax
+  - key: Tax/CanPay/Amount
+    context: Amount of coins that the player payed.
+  - key: Tax/CannotPay/ContinueButton
+    context: Button shown after the player cannot pay the tax
+  - key: Tax/CannotPay/Amount
+    context: Amount of coins that the player couldnt pay.
+  - key: MainMenu/Title
+    context: Title displayed on the main menu
+  - key: MainMenu/NewGame
+    context: Button to start a new game
+  - key: MainMenu/LoadGame
+    context: Button to continue a saved game
+  - key: MainMenu/Settings
+    context: Button to open settings
+  - key: Battle/Coins
+    context: Displays the player's coin count; {0} is the number of coins
+  - key: Battle/Time
+    context: Displays elapsed and total time; {0} is elapsed time and {1} is total time
+  - key: Battle/Level
+    context: Displays the current level; {0} is the level number
+  - key: Trivia/Title
+    context: Title of the trivia screen
+  - key: Trivia/StakeAmount
+    context: Displays earnings for the current round; {0} is the amount
+  - key: Trivia/ChallengeTitle
+    context: Prompt asking whether the player wants to answer a trivia question for a chance to double earnings
+  - key: Trivia/ChallengeSubtitle
+    context: Explains that failing the trivia challenge halves the player's earnings
+  - key: Trivia/AcceptChallengeButton
+    context: Button to accept the trivia challenge
+  - key: Trivia/RefrainChallengeButton
+    context: Button to decline the trivia challenge
+  - key: Trivia/RightAnswer
+    context: Message shown when the player answers correctly
+  - key: Trivia/WrongAnswer
+    context: Message shown when the player answers incorrectly
+  - key: Trivia/Refrained
+    context: Teasing message shown when the player declines the challenge
+  - key: Trivia/FinalAmount
+    context: Displays final earnings; {0} is the amount
+  - key: Shop/Title
+    context: Title of the shop screen
+  - key: Shop/AmountPlural
+    context: Displays coin count when the player has multiple coins; {0} is the number
+  - key: Shop/AmountSingular
+    context: Displays coin count when the player has exactly one coin
+  - key: Shop/AmountZero
+    context: Message shown when the player has no coins
+  - key: Shop/Stats/Radius
+    context: Label for the radius stat
+  - key: Shop/Stats/Damage
+    context: Label for the damage stat
+  - key: Shop/Stats/Speed
+    context: Label for the speed stat
+  - key: Shop/Stats/RoundTime
+    context: Label for the round time stat
+  - key: Shop/Stats/Luck
+    context: Label for the luck stat
+  - key: Shop/Stats/Torch
+    context: Label for the torch stat
+  - key: Shop/StatLevel
+    context: Displays a stat's level; {0} is the level number
+  - key: Shop/SaveProgress
+    context: Button to save game progress
+  - key: Shop/Continue
+    context: Button to proceed to the next level
+  - key: GameOver/Message
+    context: Message shown when the game ends because the player evaded taxes
+  - key: GameOver/ContinueButton
+    context: Button to return to the main menu after game over

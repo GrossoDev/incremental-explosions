@@ -9,7 +9,10 @@ namespace Tax.View
     public class TaxCanPayView : MonoBehaviour
     {
         [Header("UI elements")]
-        [SerializeField] private TextMeshProUGUI amountText;
+        [SerializeField] private TextMeshProUGUI amountTextComponent;
+
+        [Header("Strings")]
+        [SerializeField] private LocalizedText amountText;
 
         [Header("Config")]
         [SerializeField] private TaxView taxView;
@@ -32,7 +35,7 @@ namespace Tax.View
             TaxConfig tax = taxView.GetPresenter().GetTax();
             int amount = tax.tax;
 
-            amountText.text = $"You payed ${amount} in taxes";
+            amountTextComponent.text = amountText.GetFormatted(amount);
         }
     }
 }

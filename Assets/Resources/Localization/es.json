@@ -1,8 +1,0 @@
-{
-    "locale": "en",
-    "entries": [
-        { "key": "Tax/Warning/LevelGreaterThanOne", "value": "En {0} niveles tenés que tributar" },
-        { "key": "Tax/Warning/LevelEqualToOne", "value": "En el siguiente nivel tenés que tributar" },
-        { "key": "Tax/Warning/Amount", "value": "Vas a tener que garpar ${0}" }
-    ]
-}

@@ -286,7 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2157a15f77480a945b6ea3c03b1e95c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountText: {fileID: 862958251}
+  amountTextComponent: {fileID: 862958251}
+  amountText:
+    key: Tax/CanPay/Amount
   taxView: {fileID: 923349123}
 --- !u!114 &226139662
 MonoBehaviour:
@@ -334,6 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 244531372}
   - component: {fileID: 244531374}
+  - component: {fileID: 244531375}
   - component: {fileID: 244531373}
   m_Layer: 0
   m_Name: Text
@@ -403,6 +406,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244531371}
   m_CullTransparentMesh: 1
+--- !u!114 &244531375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244531371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Tax/CanPay/ContinueButton
 --- !u!1 &427046359
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,6 +791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 557258872}
   - component: {fileID: 557258874}
+  - component: {fileID: 557258875}
   - component: {fileID: 557258873}
   m_Layer: 0
   m_Name: Text
@@ -843,6 +861,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557258871}
   m_CullTransparentMesh: 1
+--- !u!114 &557258875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557258871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Tax/Warning/ContinueButton
 --- !u!1 &825547938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,10 +1525,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localization: {fileID: 11400000, guid: e248f34abad71c7498b7f8a319cb93a7, type: 2}
-  fakeLevel: 4
+  fakeLevel: 40
   fakeRoundCoins: 0
-  fakeTotalCoins: 500
-  language: aleman
+  fakeTotalCoins: 1000
+  language: en
 --- !u!4 &1043755262
 Transform:
   m_ObjectHideFlags: 0
@@ -1522,6 +1554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1107272097}
   - component: {fileID: 1107272099}
+  - component: {fileID: 1107272100}
   - component: {fileID: 1107272098}
   m_Layer: 0
   m_Name: Text
@@ -1591,6 +1624,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1107272096}
   m_CullTransparentMesh: 1
+--- !u!114 &1107272100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107272096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Tax/CannotPay/ContinueButton
 --- !u!1 &1463828145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,7 +1689,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cde9f8a8268184aaa4f23b5346dace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountText: {fileID: 427046360}
+  amountTextComponent: {fileID: 427046360}
+  amountText:
+    key: Tax/CannotPay/Amount
   taxView: {fileID: 923349123}
 --- !u!114 &1463828148
 MonoBehaviour:
@@ -1761,6 +1810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675009824}
   - component: {fileID: 1675009826}
+  - component: {fileID: 1675009827}
   - component: {fileID: 1675009825}
   m_Layer: 0
   m_Name: Title text
@@ -1885,6 +1935,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675009823}
   m_CullTransparentMesh: 1
+--- !u!114 &1675009827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675009823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Tax/Title
 --- !u!1 &1709596752
 GameObject:
   m_ObjectHideFlags: 0

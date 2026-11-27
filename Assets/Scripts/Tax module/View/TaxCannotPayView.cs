@@ -9,7 +9,10 @@ namespace Tax.View
     public class TaxCannotPayView : MonoBehaviour
     {
         [Header("UI elements")]
-        [SerializeField] private TextMeshProUGUI amountText;
+        [SerializeField] private TextMeshProUGUI amountTextComponent;
+
+        [Header("Strings")]
+        [SerializeField] private LocalizedText amountText;
 
         [Header("Config")]
         [SerializeField] private TaxView taxView;
@@ -32,7 +35,7 @@ namespace Tax.View
             TaxConfig tax = taxView.GetPresenter().GetTax();
             int amount = tax.tax;
 
-            amountText.text = $"You don't have enough coins to pay ${amount}";
+            amountTextComponent.text = amountText.GetFormatted(amount);
         }
     }
 }
