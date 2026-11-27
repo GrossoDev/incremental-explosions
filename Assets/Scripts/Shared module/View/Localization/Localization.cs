@@ -33,8 +33,8 @@ namespace Shared.View
         [SerializeField] private string defaultLocale = "en";
         [SerializeField] private TextAsset defaultTableJson;
 
-        private readonly List<LocalizationKey> keys = new();
-        private readonly List<LocalizationTable> _parsedTables = new();
+        private readonly Dictionary<string, LocalizationTable> _parsedTables =
+            new Dictionary<string, LocalizationTable>(StringComparer.OrdinalIgnoreCase);
         private LocalizationTable _defaultTable;
         private LLMTranslator translator;
         private bool _isInitialized;
@@ -43,12 +43,12 @@ namespace Shared.View
         private string _loadedDefaultLocale;
 
         public string CurrentLocale { get; private set; }
-        public IReadOnlyList<LocalizationKey> Keys
+        public IReadOnlyList<LocalizationEntry> Keys
         {
             get
             {
                 LoadDefaultTable();
-                return keys;
+                return _defaultTable == null ? Array.Empty<LocalizationEntry>() : _defaultTable.entries;
             }
         }
 
@@ -63,7 +63,6 @@ namespace Shared.View
             _isInitialized = false;
             _parsedTables.Clear();
             _defaultTable = null;
-            keys.Clear();
             _defaultTableLoadAttempted = false;
             _loadedDefaultTableJson = null;
             _loadedDefaultLocale = null;
@@ -98,19 +97,14 @@ namespace Shared.View
             _loadedDefaultTableJson = tableJson;
             _loadedDefaultLocale = defaultLocale;
 
-            keys.Clear();
             _defaultTable = null;
 
             if (isReload)
             {
-                for (int i = _parsedTables.Count - 1; i >= 0; i--)
-                {
-                    if (string.Equals(_parsedTables[i].Locale, previousDefaultLocale, StringComparison.OrdinalIgnoreCase)
-                        || string.Equals(_parsedTables[i].Locale, defaultLocale, StringComparison.OrdinalIgnoreCase))
-                    {
-                        _parsedTables.RemoveAt(i);
-                    }
-                }
+                if (!string.IsNullOrEmpty(previousDefaultLocale))
+                    _parsedTables.Remove(previousDefaultLocale);
+                if (!string.IsNullOrEmpty(defaultLocale))
+                    _parsedTables.Remove(defaultLocale);
             }
 
             if (defaultTableJson == null)
@@ -119,26 +113,22 @@ namespace Shared.View
                 return;
             }
 
-            var data = JsonUtility.FromJson<LocalizationTableData>(tableJson);
-            if (data?.entries == null)
+            if (string.IsNullOrWhiteSpace(defaultLocale))
+            {
+                Debug.LogError("[Localization] Default locale is empty in Localization settings.");
+                return;
+            }
+
+            var table = JsonUtility.FromJson<LocalizationTable>(tableJson);
+            if (table?.entries == null)
             {
                 Debug.LogError("[Localization] Default table JSON does not contain an entries list.");
                 return;
             }
 
-            _defaultTable = new LocalizationTable(defaultLocale, data);
-            foreach (var entry in data.entries)
-            {
-                if (entry == null || string.IsNullOrEmpty(entry.key)) continue;
-                keys.Add(new LocalizationKey { key = entry.key, context = entry.context });
-            }
-
-            int defaultTableIndex = _parsedTables.FindIndex(
-                table => string.Equals(table.Locale, defaultLocale, StringComparison.OrdinalIgnoreCase));
-            if (defaultTableIndex >= 0)
-                _parsedTables[defaultTableIndex] = _defaultTable;
-            else
-                _parsedTables.Add(_defaultTable);
+            table.locale = defaultLocale;
+            _defaultTable = table;
+            _parsedTables[defaultLocale] = _defaultTable;
         }
 
         public async Task SetLanguageAsync(string locale)
@@ -157,15 +147,22 @@ namespace Shared.View
             CurrentLocale = locale;
 
             // 1. Already parsed in memory
-            if (HasParsedTable(locale))
+            if (_parsedTables.ContainsKey(locale))
                 return;
 
             // 2. Try loading from Resources/Localization/{locale}
             TextAsset jsonAsset = Resources.Load<TextAsset>($"{TablesFolder}/{locale}");
             if (jsonAsset != null)
             {
-                var data = JsonUtility.FromJson<LocalizationTableData>(jsonAsset.text);
-                _parsedTables.Add(new LocalizationTable(locale, data));
+                var table = JsonUtility.FromJson<LocalizationTable>(jsonAsset.text);
+                if (table?.entries == null)
+                {
+                    Debug.LogError($"[Localization] Table JSON for '{locale}' does not contain an entries list.");
+                    return;
+                }
+
+                table.locale = locale;
+                _parsedTables[locale] = table;
                 return;
             }
 
@@ -183,12 +180,10 @@ namespace Shared.View
             }
 
             Debug.Log($"[Localization] Translating default table to '{locale}' via Gemini...");
-            LocalizationTable translatedTable = await translator.TranslateAsync(_defaultTable, keys, locale);
+            LocalizationTable translatedTable = await translator.TranslateAsync(_defaultTable, locale);
 
-            if (translatedTable != null && !HasParsedTable(locale))
-            {
-                _parsedTables.Add(translatedTable);
-            }
+            if (translatedTable != null && !_parsedTables.ContainsKey(locale))
+                _parsedTables[locale] = translatedTable;
         }
 
         public string GetString(string key)
@@ -222,16 +217,10 @@ namespace Shared.View
             return UnlocalizedFallback;
         }
 
-        private bool HasParsedTable(string locale) => GetParsedTable(locale) != null;
-
         private LocalizationTable GetParsedTable(string locale)
         {
-            for (int i = 0; i < _parsedTables.Count; i++)
-            {
-                if (string.Equals(_parsedTables[i].Locale, locale, StringComparison.OrdinalIgnoreCase))
-                    return _parsedTables[i];
-            }
-            return null;
+            if (string.IsNullOrEmpty(locale)) return null;
+            return _parsedTables.TryGetValue(locale, out LocalizationTable table) ? table : null;
         }
     }
 }

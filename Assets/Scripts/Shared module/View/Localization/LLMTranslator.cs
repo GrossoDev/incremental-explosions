@@ -8,68 +8,53 @@ namespace Shared.View
 {
     public class LLMTranslator
     {
-        private readonly LLMProvider llmProvider;
+        private const string TranslationPrompt = "You are a game localization translator. Translate every item's 'text' into locale '{0}'. Use each item's 'context' to pick accurate tone, grammar, and terminology. Preserve keys exactly as given and keep placeholders like {{0}} or formatting tags intact.";
 
-        public LLMTranslator() : this(LLMProvider.Instance)
+        public async Task<LocalizationTable> TranslateAsync(LocalizationTable defaultTable, string targetLocale)
         {
-        }
-
-        public LLMTranslator(LLMProvider llmProvider)
-        {
-            this.llmProvider = llmProvider ?? throw new ArgumentNullException(nameof(llmProvider));
-        }
-
-        public async Task<LocalizationTable> TranslateAsync(
-            LocalizationTable defaultTable,
-            IReadOnlyList<LocalizationKey> keyDefinitions,
-            string targetLocale)
-        {
-            var contextMap = new Dictionary<string, string>();
-            foreach (var def in keyDefinitions)
-            {
-                if (!string.IsNullOrEmpty(def.key))
-                    contextMap[def.key] = def.context;
-            }
-
-            var promptPayload = new PromptPayload { targetLocale = targetLocale };
-            foreach (var kvp in defaultTable.Entries)
-            {
-                contextMap.TryGetValue(kvp.Key, out string ctx);
-                promptPayload.items.Add(new PromptItem
-                {
-                    key = kvp.Key,
-                    text = kvp.Value,
-                    context = ctx ?? string.Empty
-                });
-            }
-
-            var request = new LLMRequest
-            {
-                SystemInstruction = $"You are a game localization translator. Translate every item's 'text' into locale '{targetLocale}'. " +
-                                    "Use each item's 'context' to pick accurate tone, grammar, and terminology. " +
-                                    "Preserve keys exactly as given and keep placeholders like {0} or formatting tags intact.",
-                UserPrompt = JsonUtility.ToJson(promptPayload),
-                ResponseMimeType = "application/json",
-                ResponseSchemaJson = JsonUtility.ToJson(new RootSchema())
-            };
+            LLMRequest request = CreateTranslationRequest(defaultTable, targetLocale);
 
             try
             {
-                var tableData = await llmProvider.GenerateJsonAsync<LocalizationTableData>(request);
-                if (tableData == null || tableData.entries == null)
+                var table = await LLMProvider.Instance.GenerateJsonAsync<LocalizationTable>(request);
+                if (table == null || table.entries == null)
                 {
                     Debug.LogError("[LLMTranslator] Failed to deserialize structured output.");
                     return null;
                 }
 
-                tableData.locale = targetLocale;
-                return new LocalizationTable(targetLocale, tableData);
+                table.locale = targetLocale;
+                return table;
             }
             catch (Exception ex)
             {
                 Debug.LogError($"[LLMTranslator] {ex.Message}");
                 return null;
             }
+        }
+
+        private LLMRequest CreateTranslationRequest(LocalizationTable baseTable, string targetLocale)
+        {
+            var promptPayload = new PromptPayload { targetLocale = targetLocale };
+            foreach (var entry in baseTable.entries)
+            {
+                if (entry == null || string.IsNullOrEmpty(entry.key)) continue;
+
+                promptPayload.items.Add(new PromptItem
+                {
+                    key = entry.key,
+                    text = entry.value,
+                    context = entry.context ?? string.Empty
+                });
+            }
+
+            return new LLMRequest
+            {
+                SystemInstruction = string.Format(TranslationPrompt, targetLocale),
+                UserPrompt = JsonUtility.ToJson(promptPayload),
+                ResponseMimeType = "application/json",
+                ResponseSchemaJson = JsonUtility.ToJson(new RootSchema())
+            };
         }
 
         [Serializable]

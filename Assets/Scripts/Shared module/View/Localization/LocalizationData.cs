@@ -5,17 +5,6 @@ using UnityEngine;
 namespace Shared.View
 {
     [Serializable]
-    public class LocalizationKey
-    {
-        [Tooltip("Use '/' for categories in the inspector dropdown, e.g. 'UI/Menu/Play'")]
-        public string key;
-
-        [TextArea(2, 4)]
-        [Tooltip("Context provided to Gemini to improve translation accuracy.")]
-        public string context;
-    }
-
-    [Serializable]
     public class LocalizationEntry
     {
         public string key;
@@ -24,32 +13,30 @@ namespace Shared.View
     }
 
     [Serializable]
-    public class LocalizationTableData
+    public class LocalizationTable
     {
         public string locale;
         public List<LocalizationEntry> entries = new();
-    }
 
-    public class LocalizationTable
-    {
-        public string Locale { get; }
-        private readonly Dictionary<string, string> _lookup = new();
+        [NonSerialized] private Dictionary<string, string> _lookup;
 
-        public LocalizationTable(string locale, LocalizationTableData data)
+        public bool TryGetValue(string key, out string value)
         {
-            Locale = locale;
-            if (data?.entries == null) return;
-
-            foreach (var entry in data.entries)
+            if (_lookup == null)
             {
-                if (!string.IsNullOrEmpty(entry.key))
-                    _lookup[entry.key] = entry.value;
+                _lookup = new Dictionary<string, string>();
+                if (entries != null)
+                {
+                    foreach (var entry in entries)
+                    {
+                        if (entry != null && !string.IsNullOrEmpty(entry.key))
+                            _lookup[entry.key] = entry.value;
+                    }
+                }
             }
+
+            return _lookup.TryGetValue(key, out value);
         }
-
-        public bool TryGetValue(string key, out string value) => _lookup.TryGetValue(key, out value);
-
-        public IReadOnlyDictionary<string, string> Entries => _lookup;
     }
 
     [Serializable]
@@ -75,7 +62,5 @@ namespace Shared.View
 
             return string.Format(template, values);
         }
-
-        public override string ToString() => Get();
     }
 }

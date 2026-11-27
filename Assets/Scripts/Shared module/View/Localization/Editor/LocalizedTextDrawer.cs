@@ -95,12 +95,12 @@ namespace Shared.View
             }
         }
 
-        private readonly IReadOnlyList<LocalizationKey> _keys;
+        private readonly IReadOnlyList<LocalizationEntry> _keys;
         private readonly Action<string> _onSelected;
 
         public LocalizationKeyDropdown(
             AdvancedDropdownState state,
-            IReadOnlyList<LocalizationKey> keys,
+            IReadOnlyList<LocalizationEntry> keys,
             Action<string> onSelected) : base(state)
         {
             _keys = keys;
