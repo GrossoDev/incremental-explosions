@@ -97,54 +97,79 @@
             "context": "Displays the current level; {0} is the level number"
         },
         {
+            "key": "Battle/Pause/Title",
+            "value": "Paused",
+            "context": "Title of the pause menu"
+        },
+        {
+            "key": "Battle/Pause/ResumeGameButton",
+            "value": "Resume game",
+            "context": "Button to resume game"
+        },
+        {
+            "key": "Battle/Pause/QuitButton",
+            "value": "Quit to main menu",
+            "context": "Button to exit to main menu"
+        },
+        {
             "key": "Trivia/Title",
             "value": "Trivia",
             "context": "Title of the trivia screen"
         },
         {
             "key": "Trivia/StakeAmount",
-            "value": "Round earnings: {0}",
+            "value": "You collected {0} coins last round",
             "context": "Displays earnings for the current round; {0} is the amount"
-        },
-        {
-            "key": "Trivia/ChallengeTitle",
-            "value": "Do you want to answer a trivia question for a chance to double your earnings?",
-            "context": "Prompt asking whether the player wants to answer a trivia question for a chance to double earnings"
-        },
-        {
-            "key": "Trivia/ChallengeSubtitle",
-            "value": "If you fail, your earnings will be halved.",
-            "context": "Explains that failing the trivia challenge halves the player's earnings"
-        },
-        {
-            "key": "Trivia/AcceptChallengeButton",
-            "value": "Accept",
-            "context": "Button to accept the trivia challenge"
-        },
-        {
-            "key": "Trivia/RefrainChallengeButton",
-            "value": "Refrain",
-            "context": "Button to decline the trivia challenge"
-        },
-        {
-            "key": "Trivia/RightAnswer",
-            "value": "Correct! Your earnings where doubled!",
-            "context": "Message shown when the player answers correctly"
-        },
-        {
-            "key": "Trivia/WrongAnswer",
-            "value": "Sorry, that's incorrect! Your earnings where halved.",
-            "context": "Message shown when the player answers incorrectly"
-        },
-        {
-            "key": "Trivia/Refrained",
-            "value": "Wow, you are a coward!",
-            "context": "Teasing message shown when the player declines the challenge"
         },
         {
             "key": "Trivia/FinalAmount",
             "value": "Final earnings: ${0}",
             "context": "Displays final earnings; {0} is the amount"
+        },
+        {
+            "key": "Trivia/Proposal/Title",
+            "value": "Do you want to answer a trivia question for a chance to double your earnings?",
+            "context": "Prompt asking whether the player wants to answer a trivia question for a chance to double earnings"
+        },
+        {
+            "key": "Trivia/Proposal/Subtitle",
+            "value": "If you fail, your earnings will be halved.",
+            "context": "Explains that failing the trivia challenge halves the player's earnings"
+        },
+        {
+            "key": "Trivia/Proposal/AcceptButton",
+            "value": "Accept",
+            "context": "Button to accept the trivia challenge"
+        },
+        {
+            "key": "Trivia/Proposal/RefrainButton",
+            "value": "Refrain",
+            "context": "Button to decline the trivia challenge"
+        },
+        {
+            "key": "Trivia/Loading",
+            "value": "Refrain",
+            "context": "Button to decline the trivia challenge"
+        },
+        {
+            "key": "Trivia/Result/RightAnswer",
+            "value": "Correct! Your earnings where doubled!",
+            "context": "Message shown when the player answers correctly"
+        },
+        {
+            "key": "Trivia/Result/WrongAnswer",
+            "value": "Sorry, that's incorrect! Your earnings where halved.",
+            "context": "Message shown when the player answers incorrectly"
+        },
+        {
+            "key": "Trivia/Result/ContinueButton",
+            "value": "Ok",
+            "context": "Button to end the trivia phase and continue"
+        },
+        {
+            "key": "Trivia/Result/Refrained",
+            "value": "Ok, coward.",
+            "context": "Tell the player that they're a coward for not gambling"
         },
         {
             "key": "Shop/Title",

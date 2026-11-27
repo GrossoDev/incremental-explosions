@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 8
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1524,7 +1524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927d8b4bd3c832145ac2de3234d84add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fakeLevel: 50
+  fakeLevel: 4
   fakeRoundCoins: 0
   fakeTotalCoins: 1000
   language: en

@@ -59,7 +59,7 @@ namespace Battle.View
 
         public void SaveAndExitToMenu()
         {
-            battleView.SaveAndExitToMenu();
+            battleView.ExitToMenu();
         }
     }
 }

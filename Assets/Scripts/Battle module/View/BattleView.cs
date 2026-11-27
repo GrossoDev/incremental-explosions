@@ -10,9 +10,14 @@ namespace Battle.View
     public class BattleView : MonoBehaviour
     {
         [Header("UI elements")]
-        [SerializeField] private TextMeshProUGUI coinsText;
-        [SerializeField] private TextMeshProUGUI levelCounterText;
-        [SerializeField] private TextMeshProUGUI timeRemainingText;
+        [SerializeField] private TMP_Text coinsTextComponent;
+        [SerializeField] private TMP_Text levelTextComponent;
+        [SerializeField] private TMP_Text timeTextComponent;
+
+        [Header("Strings")]
+        [SerializeField] private LocalizedText coinsText;
+        [SerializeField] private LocalizedText levelText;
+        [SerializeField] private LocalizedText timeText;
 
         [Header("Battle configuration")]
         [SerializeField] private BattleProgression battleProgression;
@@ -39,7 +44,7 @@ namespace Battle.View
         public void FixedUpdate()
         {
             int coinsCollected = battlePresenter.GetCollectedCoins();
-            coinsText.text = $"Coins: {coinsCollected}";
+            coinsTextComponent.text = coinsText.GetFormatted(coinsCollected);
         }
 
         public IEnumerator CountdownSeconds()
@@ -66,19 +71,18 @@ namespace Battle.View
         private void UpdateLevelText()
         {
             int currentLevel = battlePresenter.GetCurrentLevel();
-            levelCounterText.text = $"Level {currentLevel}";
+            levelTextComponent.text = levelText.GetFormatted(currentLevel);
         }
 
         private void UpdateTimeCounter()
         {
-            string timeleftString = $"{battlePresenter.GetRemainingTime()} / {battlePresenter.GetRoundTime()}";
-            timeRemainingText.text = timeleftString;
+            string timeleftString = timeText.GetFormatted(battlePresenter.GetRemainingTime(), battlePresenter.GetRoundTime());
+            timeTextComponent.text = timeleftString;
         }
 
-        public void SaveAndExitToMenu()
+        public void ExitToMenu()
         {
             Time.timeScale = 1f;
-            gameView.SaveGame();
             sceneSwitcher.SwitchTo(mainMenuScene);
         }
     }

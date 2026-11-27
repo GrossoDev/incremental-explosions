@@ -1,3 +1,4 @@
+using Shared.View;
 using Shop.Presentation;
 using TMPro;
 using UnityEngine;
@@ -7,9 +8,12 @@ namespace Shop.View
 {
     public abstract class ShopStatView : MonoBehaviour
     {
-        [SerializeField] private Text priceText;
-        [SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField] private Text priceTextComponent;
+        [SerializeField] private TMP_Text levelTextComponent;
         [SerializeField] private Button purchaseButton;
+
+        [Header("Strings")]
+        [SerializeField] private LocalizedText levelText;
 
         public abstract ShopStatPresenter GetPresenter();
 
@@ -35,8 +39,8 @@ namespace Shop.View
             int price = GetPresenter().GetPrice();
             int level = GetPresenter().GetLevel();
             
-            priceText.text = $"$ {price}";
-            levelText.text = $"Level: {level}";
+            priceTextComponent.text = $"$ {price}";
+            levelTextComponent.text = levelText.GetFormatted(level);
         }
 
         private void DisableButtonIfNotEnoughCoins()

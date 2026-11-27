@@ -316,7 +316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.78, y: 0.1}
   m_AnchorMax: {x: 1, y: 0.9}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.0000019073486}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &105274136
@@ -423,6 +423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 176640670}
   - component: {fileID: 176640672}
+  - component: {fileID: 176640673}
   - component: {fileID: 176640671}
   m_Layer: 0
   m_Name: Suerte
@@ -547,6 +548,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176640669}
   m_CullTransparentMesh: 1
+--- !u!114 &176640673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176640669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/Stats/Luck
 --- !u!1 &235261508
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,9 +613,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2ed170488adb0449dae835e5fbe64f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priceText: {fileID: 1418103194}
-  levelText: {fileID: 1139635391}
+  priceTextComponent: {fileID: 1418103194}
+  levelTextComponent: {fileID: 1139635391}
   purchaseButton: {fileID: 1299008461}
+  levelText:
+    key: Shop/StatLevel
 --- !u!1 &372102305
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +667,7 @@ GameObject:
   - component: {fileID: 407832477}
   - component: {fileID: 407832476}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Amount text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1050,9 +1067,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852b9ed8e8316b249bd6df6e271d7cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priceText: {fileID: 1075823318}
-  levelText: {fileID: 749567778}
+  priceTextComponent: {fileID: 1075823318}
+  levelTextComponent: {fileID: 749567778}
   purchaseButton: {fileID: 1132199745}
+  levelText:
+    key: Shop/StatLevel
 --- !u!1 &745056898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,6 +1295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 836116703}
   - component: {fileID: 836116705}
+  - component: {fileID: 836116706}
   - component: {fileID: 836116704}
   m_Layer: 0
   m_Name: Text
@@ -1345,6 +1365,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836116702}
   m_CullTransparentMesh: 1
+--- !u!114 &836116706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836116702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/SaveProgress
 --- !u!1 &912651001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,6 +1389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 912651002}
   - component: {fileID: 912651004}
+  - component: {fileID: 912651005}
   - component: {fileID: 912651003}
   m_Layer: 0
   m_Name: T. de Ronda
@@ -1479,6 +1514,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912651001}
   m_CullTransparentMesh: 1
+--- !u!114 &912651005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912651001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/Stats/RoundTime
 --- !u!1 &923349120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,7 +1538,6 @@ GameObject:
   m_Component:
   - component: {fileID: 923349122}
   - component: {fileID: 923349121}
-  - component: {fileID: 923349123}
   - component: {fileID: 923349124}
   m_Layer: 0
   m_Name: Shop manager
@@ -1528,18 +1576,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &923349123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 923349120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c39d0563deea88f4994cb65bfb525dcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &923349124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1552,7 +1588,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164319ccc77ad074e860b8a3472aa775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsText: {fileID: 407832476}
+  coinsTextComponent: {fileID: 407832476}
+  pluralAmountText:
+    key: Shop/AmountPlural
+  singularAmountText:
+    key: Shop/AmountSingular
+  zeroAmountText:
+    key: Shop/AmountZero
 --- !u!1 &935739960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,6 +1729,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935739960}
   m_CullTransparentMesh: 1
+--- !u!114 &1004050177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001000012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/Stats/Torch
 --- !u!1 &1005625178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,6 +1895,7 @@ MonoBehaviour:
   fakeLevel: 14
   fakeRoundCoins: 0
   fakeTotalCoins: 500
+  language: en
 --- !u!4 &1043755262
 Transform:
   m_ObjectHideFlags: 0
@@ -2476,9 +2533,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1300333128}
   - component: {fileID: 1300333130}
+  - component: {fileID: 1300333131}
   - component: {fileID: 1300333129}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2545,6 +2603,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300333127}
   m_CullTransparentMesh: 1
+--- !u!114 &1300333131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300333127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/Title
 --- !u!1 &1324862544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2628,7 +2700,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 923349123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Shared.View.SaveGameView, Assembly-CSharp
         m_MethodName: OnSaveGame
         m_Mode: 1
@@ -2729,9 +2801,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae82e824d761174c80aeb864937a71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priceText: {fileID: 34556661}
-  levelText: {fileID: 1695389257}
+  priceTextComponent: {fileID: 34556661}
+  levelTextComponent: {fileID: 1695389257}
   purchaseButton: {fileID: 622553708}
+  levelText:
+    key: Shop/StatLevel
 --- !u!1 &1418103192
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,6 +2987,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1613557857}
   - component: {fileID: 1613557859}
+  - component: {fileID: 1613557860}
   - component: {fileID: 1613557858}
   m_Layer: 0
   m_Name: Velocidad
@@ -3037,6 +3112,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613557856}
   m_CullTransparentMesh: 1
+--- !u!114 &1613557860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613557856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/Stats/Speed
 --- !u!1 &1617920438
 GameObject:
   m_ObjectHideFlags: 0
@@ -3047,6 +3136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1617920439}
   - component: {fileID: 1617920441}
+  - component: {fileID: 1617920442}
   - component: {fileID: 1617920440}
   m_Layer: 0
   m_Name: Radio
@@ -3171,6 +3261,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617920438}
   m_CullTransparentMesh: 1
+--- !u!114 &1617920442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617920438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/Stats/Radius
 --- !u!1 &1655031158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3181,6 +3285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1655031159}
   - component: {fileID: 1655031161}
+  - component: {fileID: 1655031162}
   - component: {fileID: 1655031160}
   m_Layer: 0
   m_Name: "Da\xF1o"
@@ -3305,6 +3410,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655031158}
   m_CullTransparentMesh: 1
+--- !u!114 &1655031162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655031158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/Stats/Damage
 --- !u!1 &1666373109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3741,8 +3860,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 912651002}
   - {fileID: 105274135}
+  - {fileID: 912651002}
   - {fileID: 1666373110}
   m_Father: {fileID: 1005625179}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3763,9 +3882,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ea18a3da8bd424e851aa695fb378d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priceText: {fileID: 51650256}
-  levelText: {fileID: 1666373111}
+  priceTextComponent: {fileID: 51650256}
+  levelTextComponent: {fileID: 1666373111}
   purchaseButton: {fileID: 105274136}
+  levelText:
+    key: Shop/StatLevel
 --- !u!1 &1835839804
 GameObject:
   m_ObjectHideFlags: 0
@@ -3776,6 +3897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1835839805}
   - component: {fileID: 1835839807}
+  - component: {fileID: 1835839808}
   - component: {fileID: 1835839806}
   m_Layer: 0
   m_Name: Text
@@ -3845,6 +3967,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835839804}
   m_CullTransparentMesh: 1
+--- !u!114 &1835839808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835839804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Shop/Continue
 --- !u!1 &1944699559
 GameObject:
   m_ObjectHideFlags: 0
@@ -4007,9 +4143,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1068233121}
   - {fileID: 176640670}
   - {fileID: 935739961}
-  - {fileID: 1068233121}
   m_Father: {fileID: 1005625179}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.166667}
@@ -4029,18 +4165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a83546ef510a0842a7c5be56eccb03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priceText: {fileID: 745056900}
-  levelText: {fileID: 935739962}
+  priceTextComponent: {fileID: 745056900}
+  levelTextComponent: {fileID: 935739962}
   purchaseButton: {fileID: 1068233122}
---- !u!1660057539 &9223372036854775807
-SceneRoots:
-  m_ObjectHideFlags: 0
-  m_Roots:
-  - {fileID: 1043755262}
-  - {fileID: 923349122}
-  - {fileID: 1527968614}
-  - {fileID: 440457688}
-  - {fileID: 1709596758}
+  levelText:
+    key: Shop/StatLevel
 --- !u!1 &2001000001
 GameObject:
   m_ObjectHideFlags: 0
@@ -4302,6 +4431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2001000013}
   - component: {fileID: 2001000014}
+  - component: {fileID: 1004050177}
   - component: {fileID: 2001000015}
   m_Layer: 0
   m_Name: Torch Label
@@ -4572,6 +4702,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bcd13247e0445985d376bc29fdeee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priceText: {fileID: 2001000008}
-  levelText: {fileID: 2001000019}
+  priceTextComponent: {fileID: 2001000008}
+  levelTextComponent: {fileID: 2001000019}
   purchaseButton: {fileID: 2001000011}
+  levelText:
+    key: Shop/StatLevel
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1043755262}
+  - {fileID: 923349122}
+  - {fileID: 1527968614}
+  - {fileID: 440457688}
+  - {fileID: 1709596758}

@@ -8,7 +8,12 @@ namespace Shop.View
     [RequireComponent(typeof(SceneSwitcher))]
     public class ShopView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI coinsText;
+        [SerializeField] private TMP_Text coinsTextComponent;
+
+        [Header("Strings")]
+        [SerializeField] private LocalizedText pluralAmountText;
+        [SerializeField] private LocalizedText singularAmountText;
+        [SerializeField] private LocalizedText zeroAmountText;
 
         private SceneSwitcher sceneSwitcher;
         private ShopPresenter presenter;
@@ -43,11 +48,11 @@ namespace Shop.View
             int coins = presenter.GetCoins();
 
             if (coins > 1)
-                coinsText.text = $"You have {coins} coins";
+                coinsTextComponent.text = pluralAmountText.GetFormatted(coins);
             else if (coins == 1)
-                coinsText.text = "You have 1 coin";
+                coinsTextComponent.text = singularAmountText.Get();
             else
-                coinsText.text = "You are broke";
+                coinsTextComponent.text = zeroAmountText.Get();
         }
 
         public void OnSave()

@@ -978,7 +978,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00001812, y: -94}
-  m_SizeDelta: {x: 174.0655, y: 30}
+  m_SizeDelta: {x: 180, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &475234401
 MonoBehaviour:
@@ -1024,7 +1024,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 528339604}
         m_TargetAssemblyTypeName: Battle.View.PauseView, Assembly-CSharp
         m_MethodName: OnSaveAndExit
         m_Mode: 1
@@ -2005,6 +2005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 703990850}
   - component: {fileID: 703990852}
+  - component: {fileID: 703990853}
   - component: {fileID: 703990851}
   m_Layer: 5
   m_Name: Text (TMP)
@@ -2030,7 +2031,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -16, y: -16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &703990851
 MonoBehaviour:
@@ -2129,6 +2130,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703990849}
   m_CullTransparentMesh: 1
+--- !u!114 &703990853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703990849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Battle/Pause/ResumeGameButton
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,6 +2469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 853827600}
   - component: {fileID: 853827602}
+  - component: {fileID: 853827603}
   - component: {fileID: 853827601}
   m_Layer: 5
   m_Name: Text (TMP)
@@ -2479,7 +2495,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -16, y: -16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &853827601
 MonoBehaviour:
@@ -2528,10 +2544,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21
+  m_fontSize: 18
   m_fontSizeBase: 21
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 32
@@ -2578,6 +2594,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853827599}
   m_CullTransparentMesh: 1
+--- !u!114 &853827603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853827599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Battle/Pause/QuitButton
 --- !u!1 &904881035
 GameObject:
   m_ObjectHideFlags: 0
@@ -3570,7 +3600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '15 / 20
+  m_text: '15/20
 
 '
   m_isRightToLeft: 0
@@ -3900,6 +3930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1450379654}
   - component: {fileID: 1450379656}
+  - component: {fileID: 1450379657}
   - component: {fileID: 1450379655}
   m_Layer: 5
   m_Name: TextoPausa
@@ -3922,10 +3953,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 690995217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 186.6}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 186}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1450379655
 MonoBehaviour:
@@ -4024,6 +4055,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450379653}
   m_CullTransparentMesh: 1
+--- !u!114 &1450379657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450379653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad451f8949107ba4683a2d77024c8a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    key: Battle/Pause/Title
 --- !u!1 &1460620010
 GameObject:
   m_ObjectHideFlags: 0
@@ -4990,9 +5035,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeaf3f5ee9bf0145a2c117b616796e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsText: {fileID: 19432134}
-  levelCounterText: {fileID: 1168292320}
-  timeRemainingText: {fileID: 1192889975}
+  coinsTextComponent: {fileID: 19432134}
+  levelTextComponent: {fileID: 1168292320}
+  timeTextComponent: {fileID: 1192889975}
+  coinsText:
+    key: Battle/Coins
+  levelText:
+    key: Battle/Level
+  timeText:
+    key: Battle/Time
   battleProgression: {fileID: 11400000, guid: 5a75dcad7fdc5f240a9aea2243e9d73a, type: 2}
   mainMenuScene:
     m_SceneAsset: {fileID: 102900000, guid: 6c06dd88be6a42d4793fd61229838501, type: 3}
@@ -5231,6 +5282,7 @@ MonoBehaviour:
   fakeLevel: 37
   fakeRoundCoins: 0
   fakeTotalCoins: 0
+  language: es
 --- !u!4 &1793826424
 Transform:
   m_ObjectHideFlags: 0
@@ -5906,7 +5958,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 4.9228, y: 0}
-  m_SizeDelta: {x: 174.0655, y: 30}
+  m_SizeDelta: {x: 180, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2038648928
 MonoBehaviour:
@@ -5952,7 +6004,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 528339604}
         m_TargetAssemblyTypeName: Battle.View.PauseView, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1

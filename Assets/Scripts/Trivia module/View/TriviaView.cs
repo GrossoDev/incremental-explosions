@@ -14,18 +14,25 @@ namespace Trivia.View
     public class TriviaView : MonoBehaviour
     {
         [Header("Main Texts")]
-        [SerializeField] private TextMeshProUGUI mainText;
-        [SerializeField] private Text coinsText;
+        [SerializeField] private TMP_Text coinsTextComponent;
+        [SerializeField] private TMP_Text resultTextComponent;
 
-        [Header("Answer Options")]
-        [SerializeField] private GameObject optionsContainer;
+        [Header("Panels")]
+        [SerializeField] private GameObject proposalContainer;
+        [SerializeField] private GameObject loadingContainer;
+        [SerializeField] private GameObject questionContainer;
+        [SerializeField] private GameObject resultContainer;
+
+        [Header("Question elements")]
+        [SerializeField] private TMP_Text questionTextComponent;
         [SerializeField] private List<Button> optionButtons;
-        [SerializeField] private List<TextMeshProUGUI> optionTexts;
+        [SerializeField] private List<TMP_Text> optionTextComponents;
 
-        [Header("Footer Buttons")]
-        [SerializeField] private Button answerButton;
-        [SerializeField] private Button refrainButton;
-        [SerializeField] private Button continueButton;
+        [Header("Strings")]
+        [SerializeField] private LocalizedText coinsText;
+        [SerializeField] private LocalizedText finalCoinsText;
+        [SerializeField] private LocalizedText rightAnswerText;
+        [SerializeField] private LocalizedText wrongAnswerText;
 
         [Header("Trivia Providers")]
         [SerializeField] private string geminiApiKey = "";
@@ -73,91 +80,52 @@ namespace Trivia.View
 
         public void ShowProposal(int collectedCoins)
         {
-            if (coinsText != null)
-                coinsText.text = $"Round earnings: ${collectedCoins}";
-
-            if (mainText != null)
-                mainText.text = "Do you want to risk your round earnings on a trivia question?\n(Correct: x2 | Incorrect: /2)";
-
-            if (optionsContainer != null)
-                optionsContainer.SetActive(false);
-
-            SetButtonState(answerButton, true, true);
-            SetButtonState(refrainButton, true, true);
-            SetButtonState(continueButton, false, false);
+            coinsTextComponent.text = coinsText.GetFormatted(collectedCoins);
+            proposalContainer.SetActive(true);
         }
 
         public void ShowLoading()
         {
-            if (mainText != null)
-                mainText.text = "Loading question...";
-
-            if (optionsContainer != null)
-                optionsContainer.SetActive(false);
-
-            SetButtonState(answerButton, true, false);
-            SetButtonState(refrainButton, true, false);
-            SetButtonState(continueButton, false, false);
+            proposalContainer.SetActive(false);
+            loadingContainer.SetActive(true);
         }
 
         public void ShowQuestion(string question, IReadOnlyList<string> options)
         {
-            if (mainText != null)
-                mainText.text = question;
-
-            if (optionsContainer != null)
-                optionsContainer.SetActive(true);
+            questionTextComponent.text = question;
+            loadingContainer.SetActive(false);
+            questionContainer.SetActive(true);
 
             if (optionButtons != null)
             {
                 for (int i = 0; i < optionButtons.Count; i++)
                 {
                     bool hasOption = options != null && i < options.Count;
-                    SetButtonState(optionButtons[i], hasOption, hasOption);
 
-                    if (hasOption && optionTexts != null && i < optionTexts.Count && optionTexts[i] != null)
+                    if (hasOption && optionTextComponents != null && i < optionTextComponents.Count && optionTextComponents[i] != null)
                     {
-                        optionTexts[i].text = options[i];
+                        optionTextComponents[i].text = options[i];
                     }
                 }
             }
-
-            SetButtonState(answerButton, false, false);
-            SetButtonState(refrainButton, false, false);
-            SetButtonState(continueButton, false, false);
         }
 
         public void ShowResult(bool correctAnswer, int finalCoins)
         {
-            if (optionsContainer != null)
-                optionsContainer.SetActive(false);
+            questionContainer.SetActive(false);
+            resultContainer.SetActive(true);
 
-            if (mainText != null)
-                mainText.text = correctAnswer
-                    ? "Correct answer! Your round earnings doubled!"
-                    : "Wrong answer! Your round earnings were halved.";
+            resultTextComponent.text = correctAnswer
+                ? rightAnswerText.Get()
+                : wrongAnswerText.Get();
 
-            if (coinsText != null)
-                coinsText.text = $"Final round earnings: ${finalCoins}";
-
-            SetButtonState(answerButton, false, false);
-            SetButtonState(refrainButton, false, false);
-            SetButtonState(continueButton, true, true);
+            coinsTextComponent.text = finalCoinsText.GetFormatted(finalCoins);
         }
 
         public void NavigateToNextScene()
         {
             Time.timeScale = 1f;
             sceneSwitcher.SwitchToNext();
-        }
-
-        private void SetButtonState(Button button, bool active, bool interactable)
-        {
-            if (button == null)
-                return;
-
-            button.gameObject.SetActive(active);
-            button.interactable = interactable;
         }
     }
 }
