@@ -27,6 +27,7 @@ namespace Tax.View
 
         public void OnContinue()
         {
+            taxView.GetPresenter().PayTax();
             sceneSwitcher.SwitchToNext();
         }
 

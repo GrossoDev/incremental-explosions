@@ -2081,7 +2081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332ae198e54a9314cb183b572d5443db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localization: {fileID: 0}
+  localization: {fileID: 11400000, guid: e248f34abad71c7498b7f8a319cb93a7, type: 2}
 --- !u!4 &1304423179
 Transform:
   m_ObjectHideFlags: 0

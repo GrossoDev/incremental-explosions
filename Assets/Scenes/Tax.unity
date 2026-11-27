@@ -1525,7 +1525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localization: {fileID: 11400000, guid: e248f34abad71c7498b7f8a319cb93a7, type: 2}
-  fakeLevel: 40
+  fakeLevel: 20
   fakeRoundCoins: 0
   fakeTotalCoins: 1000
   language: en
